@@ -454,11 +454,27 @@ a {
     padding: 30px 20px;
     text-align: center;
     transition: transform var(--transition), box-shadow var(--transition);
+    cursor: pointer;
+    position: relative;
 }
 
 .team-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow);
+}
+
+.team-click-hint {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: var(--gold);
+    opacity: 0.5;
+    font-size: 1.2rem;
+    transition: opacity var(--transition);
+}
+
+.team-card:hover .team-click-hint {
+    opacity: 1;
 }
 
 .team-avatar {

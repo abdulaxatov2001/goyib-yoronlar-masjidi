@@ -29,12 +29,15 @@ const translations = {
         about_title: "Biz haqimizda",
         about_text: "G'oyib Yoronlar jome masjidi Namangan viloyati Pop tumani To'da qishlog'ida joylashgan maskandir. Masjid mahalliy aholi uchun nafaqat ibodatxona, balki ma'naviy tarbiya o'chog'i ham hisoblanadi.",
         team_title: "Masjid Jamoasi",
-        team_imam_name: "Imom Xatib Ismi",
+        team_imam_name: "Rasuljon domla",
         team_imam_role: "Bosh Imom Xatib",
-        team_naib_name: "Noib Ismi",
+        team_imam_desc: "Rasuljon domla masjiddagi barcha diniy va ma'rifiy ishlarga rahbarlik qiladilar. Juma ma'ruzalari, nikoh o'qish, va jamoatga Islom arkonlarini tushuntirishda katta tajribaga ega.",
+        team_naib_name: "Bahromjon qori",
         team_naib_role: "Imom Noibi",
-        team_muazzin_name: "Muazzin Ismi",
+        team_naib_desc: "Bahromjon qori Qur'oni Karimni tajvid qoidalari bilan go'zal qiroat qiladilar. Besh vaqt namozlarda jamoatga imomlik qilish va yoshlarga ta'lim berish vazifalarini bajaradilar.",
+        team_muazzin_name: "Baxtiyorjon",
         team_muazzin_role: "Muazzin",
+        team_muazzin_desc: "Baxtiyorjon jamoatni namozga chorlovchi go'zal azon aytish hamda masjidning ozodaligi va tartib-intizomiga mas'ul shaxs hisoblanadi.",
         events_title: "Kelgusi Tadbirlar",
         events_text: "Hozircha rejalashtirilgan tadbirlar yo'q. Yangiliklarni kuzatib boring.",
         gallery_title: "Foto Galereya",
@@ -71,12 +74,15 @@ const translations = {
         about_title: "Биз ҳақимизда",
         about_text: "Ғойиб Ёронлар жоме масжиди Наманган вилояти Поп тумани Тўда қишлоғида жойлашган. Масжид маҳаллий аҳоли учун нафақат ибодатхона, балки маънавий тарбия ўчоғи ҳам ҳисобланади.",
         team_title: "Масжид Жамоаси",
-        team_imam_name: "Имом Хатиб Исми",
+        team_imam_name: "Расулжон домла",
         team_imam_role: "Бош Имом Хатиб",
-        team_naib_name: "Ноиб Исми",
+        team_imam_desc: "Расулжон домла масжиддаги барча диний ва маърифий ишларга раҳбарлик қиладилар. Жума маърузалари, никоҳ ўқиш ва жамоатга Ислом арконларини тушунтиришда катта тажрибага эга.",
+        team_naib_name: "Баҳромжон қори",
         team_naib_role: "Имом Ноиби",
-        team_muazzin_name: "Муаззин Исми",
+        team_naib_desc: "Баҳромжон қори Қуръони Каримни тажвид қоидалари билан гўзал қироат қиладилар. Беш вақт намозларда жамоатга имомлик қилиш ва ёшларга таълим бериш вазифаларини бажарадилар.",
+        team_muazzin_name: "Бахтиёржон",
         team_muazzin_role: "Муаззин",
+        team_muazzin_desc: "Бахтиёржон жамоатни намозга чорловчи гўзал азон айтиш ҳамда масжиднинг озодалиги ва тартиб-интизомига масъул шахс ҳисобланади.",
         events_title: "Келгуси Тадбирлар",
         events_text: "Ҳозирча режалаштирилган тадбирлар йўқ. Янгиликларни кузатиб боринг.",
         gallery_title: "Фото Галерея",
@@ -113,12 +119,15 @@ const translations = {
         about_title: "О нас",
         about_text: "Соборная мечеть «Гойиб Ёронлар» расположена в селе Туда Папского района Наманганской области. Мечеть является не только местом поклонения, но и центром духовного просвещения.",
         team_title: "Команда мечети",
-        team_imam_name: "Имя Имам-хатыба",
+        team_imam_name: "Расулжон домла",
         team_imam_role: "Главный Имам-хатыб",
-        team_naib_name: "Имя Наиба",
+        team_imam_desc: "Расулжон домла руководит всеми религиозными и просветительскими делами мечети. Обладает большим опытом в проведении пятничных проповедей, обрядов никах и разъяснении основ Ислама.",
+        team_naib_name: "Бахромжон кори",
         team_naib_role: "Наиб Имама",
-        team_muazzin_name: "Имя Муэдзина",
+        team_naib_desc: "Бахромжон кори прекрасно читает Коран по правилам таджвида. Он исполняет обязанности имама на пятикратных молитвах и обучает молодежь.",
+        team_muazzin_name: "Бахтиёржон",
         team_muazzin_role: "Муэдзин",
+        team_muazzin_desc: "Бахтиёржон призывает прихожан на молитву красивым азаном, а также следит за чистотой и порядком в мечети.",
         events_title: "Предстоящие мероприятия",
         events_text: "На данный момент запланированных мероприятий нет. Следите за новостями.",
         gallery_title: "Фотогалерея",
@@ -155,12 +164,15 @@ const translations = {
         about_title: "About Us",
         about_text: "G'oyib Yoronlar Jome Mosque is located in Tuda village, Pop district, Namangan region. The mosque is not only a place of worship but also a center of spiritual education.",
         team_title: "Mosque Team",
-        team_imam_name: "Imam Khatib Name",
+        team_imam_name: "Rasuljon domla",
         team_imam_role: "Chief Imam Khatib",
-        team_naib_name: "Naib Name",
+        team_imam_desc: "Rasuljon domla leads all religious and educational activities in the mosque. He has extensive experience in giving Friday sermons, performing Nikah, and explaining the pillars of Islam to the congregation.",
+        team_naib_name: "Bahromjon qori",
         team_naib_role: "Deputy Imam",
-        team_muazzin_name: "Muazzin Name",
+        team_naib_desc: "Bahromjon qori recites the Holy Quran beautifully with Tajweed rules. He serves as the imam for the five daily prayers and teaches the youth.",
+        team_muazzin_name: "Baxtiyorjon",
         team_muazzin_role: "Muazzin",
+        team_muazzin_desc: "Baxtiyorjon calls the congregation to prayer with a beautiful Adhan and is responsible for the cleanliness and discipline of the mosque.",
         events_title: "Upcoming Events",
         events_text: "There are no scheduled events at the moment. Please stay tuned.",
         gallery_title: "Photo Gallery",
@@ -174,7 +186,7 @@ let currentPrayerTimes = null;
 document.addEventListener("DOMContentLoaded", () => {
     // --- Tillar mantiqi ---
     const langSelect = document.getElementById('lang-select');
-    
+
     function setLanguage(lang) {
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
@@ -182,9 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 el.innerHTML = translations[lang][key];
             }
         });
-        updateClock(); 
+        updateClock();
     }
-    
+
     langSelect.addEventListener('change', (e) => {
         setLanguage(e.target.value);
     });
@@ -198,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateClock() {
         const now = new Date();
         const timeString = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
-        
+
         let currentLang = langSelect.value;
         let dateString = '';
 
@@ -214,38 +226,38 @@ document.addEventListener("DOMContentLoaded", () => {
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             dateString = now.toLocaleDateString('en-US', options);
         }
-        
+
         document.getElementById('current-time').textContent = timeString;
         document.getElementById('current-date').textContent = dateString;
-        
+
         if (currentPrayerTimes) {
             updateCountdown(currentPrayerTimes);
         }
     }
-    
+
     // --- Taymer mantiqi (Countdown) ---
     function updateCountdown(times) {
         const now = new Date();
-        
+
         // Hozirgi vaqt millisoniyalarda (bugun)
         const currentMs = now.getHours() * 3600000 + now.getMinutes() * 60000 + now.getSeconds() * 1000;
-        
+
         const prayerKeys = ["bomdod", "quyosh", "peshin", "asr", "shom", "xufton"];
         let nextPrayerKey = "bomdod";
         let targetMs = 0;
         let isTomorrow = false;
-        
+
         for (let key of prayerKeys) {
             let [h, m] = times[key].split(':').map(Number);
             let timeMs = h * 3600000 + m * 60000;
-            
+
             if (timeMs > currentMs) {
                 nextPrayerKey = key;
                 targetMs = timeMs;
                 break;
             }
         }
-        
+
         // Agar hamma namoz o'tgan bo'lsa, ertangi bomdodni olamiz
         if (targetMs === 0) {
             let [h, m] = times["bomdod"].split(':').map(Number);
@@ -253,15 +265,15 @@ document.addEventListener("DOMContentLoaded", () => {
             isTomorrow = true;
             nextPrayerKey = "bomdod";
         }
-        
+
         // Barcha itemlardan active klassni olib tashlash
         document.querySelectorAll('.prayer-item').forEach(item => {
             item.classList.remove('active');
         });
-        
+
         // Keyingi namozga active klass qoshish
         const activeItem = document.querySelector(`.prayer-item[data-prayer="${nextPrayerKey}"]`);
-        if(activeItem) {
+        if (activeItem) {
             activeItem.classList.add('active');
         }
 
@@ -270,13 +282,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isTomorrow) {
             diffMs = (24 * 3600000 - currentMs) + targetMs;
         }
-        
+
         let diffSecs = Math.floor(diffMs / 1000);
         let h = Math.floor(diffSecs / 3600);
         let min = Math.floor((diffSecs % 3600) / 60);
         let s = diffSecs % 60;
-        
-        document.getElementById('countdown-timer').textContent = 
+
+        document.getElementById('countdown-timer').textContent =
             `-${h.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     }
 
@@ -289,10 +301,10 @@ document.addEventListener("DOMContentLoaded", () => {
             // Pop tumani koordinatalari: 40.8736, 71.1065
             const response = await fetch('https://api.aladhan.com/v1/timings?latitude=40.8736&longitude=71.1065&method=2');
             const data = await response.json();
-            
-            if(data && data.code === 200) {
+
+            if (data && data.code === 200) {
                 const timings = data.data.timings;
-                
+
                 currentPrayerTimes = {
                     bomdod: timings.Fajr,
                     quyosh: timings.Sunrise,
@@ -301,21 +313,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     shom: timings.Maghrib,
                     xufton: timings.Isha
                 };
-                
+
                 document.getElementById('time-bomdod').textContent = currentPrayerTimes.bomdod;
                 document.getElementById('time-quyosh').textContent = currentPrayerTimes.quyosh;
                 document.getElementById('time-peshin').textContent = currentPrayerTimes.peshin;
                 document.getElementById('time-asr').textContent = currentPrayerTimes.asr;
                 document.getElementById('time-shom').textContent = currentPrayerTimes.shom;
                 document.getElementById('time-xufton').textContent = currentPrayerTimes.xufton;
-                
+
                 updateCountdown(currentPrayerTimes);
             }
         } catch (error) {
             console.error("Namoz vaqtlarini olishda xatolik:", error);
         }
     }
-    
+
     // Boshlang'ich til va vaqtni yuklash
     setLanguage('uz_lt');
     fetchPrayerTimes();
@@ -323,13 +335,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Hamburger menyu mantiqi ---
     const hamburger = document.getElementById('hamburger-btn');
     const navMenu = document.getElementById('nav-menu');
-    
-    if(hamburger) {
+
+    if (hamburger) {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('open');
         });
-        
+
         // Havolaga bosganda menyuni yopish
         navMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
@@ -338,4 +350,47 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
+
+    // Modal tashqarisiga bosilganda yopish
+    document.getElementById('team-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'team-modal') {
+            closeTeamModal();
+        }
+    });
 });
+
+// Modal ochish
+window.openTeamModal = function(type) {
+    const modal = document.getElementById('team-modal');
+    const nameEl = document.getElementById('modal-name');
+    const roleEl = document.getElementById('modal-role');
+    const descEl = document.getElementById('modal-desc');
+    const iconEl = document.getElementById('modal-avatar').querySelector('i');
+    const currentLang = document.getElementById('lang-select').value;
+    const trans = translations[currentLang];
+
+    if (type === 'imam') {
+        nameEl.textContent = trans.team_imam_name;
+        roleEl.textContent = trans.team_imam_role;
+        descEl.textContent = trans.team_imam_desc;
+        iconEl.className = 'fas fa-user-tie';
+    } else if (type === 'naib') {
+        nameEl.textContent = trans.team_naib_name;
+        roleEl.textContent = trans.team_naib_role;
+        descEl.textContent = trans.team_naib_desc;
+        iconEl.className = 'fas fa-user';
+    } else if (type === 'muazzin') {
+        nameEl.textContent = trans.team_muazzin_name;
+        roleEl.textContent = trans.team_muazzin_role;
+        descEl.textContent = trans.team_muazzin_desc;
+        iconEl.className = 'fas fa-user';
+    }
+    
+    modal.classList.add('active');
+}
+
+// Modal yopish
+window.closeTeamModal = function() {
+    const modal = document.getElementById('team-modal');
+    modal.classList.remove('active');
+}
