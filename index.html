@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G'oyib Yoronlar Jome Masjidi</title>
+    <meta name="description" content="Namangan viloyati Pop tumani To'da qishlog'i G'oyib Yoronlar Jome Masjidi rasmiy veb-sayti. Nomoz vaqtlari, yangiliklar va tadbirlar.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <!-- Top utility bar -->
+        <div class="top-bar">
+            <div class="lang-switcher">
+                <select id="lang-select">
+                    <option value="uz_lt" selected>🇺🇿 O'zbekcha</option>
+                    <option value="uz_cy">🇺🇿 Ўзбекча</option>
+                    <option value="ru">🇷🇺 Русский</option>
+                    <option value="en">🇺🇸 English</option>
+                </select>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://t.me/goyibyoronlar" target="_blank" class="social-icon" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            </div>
+        </div>
+
+        <!-- Prayer Times Bar -->
+        <div class="prayer-bar">
+            <div class="prayer-bar-inner">
+                <div class="clock-block">
+                    <span class="clock-time" id="current-time">00:00</span>
+                    <span class="clock-date" id="current-date" data-i18n="loading">Yuklanmoqda...</span>
+                </div>
+                <div class="prayer-strip">
+                    <div class="prayer-item" data-prayer="bomdod">
+                        <span class="p-name" data-i18n="bomdod">BOMDOD</span>
+                        <span class="p-time" id="time-bomdod">--:--</span>
+                    </div>
+                    <div class="prayer-item" data-prayer="quyosh">
+                        <span class="p-name" data-i18n="quyosh">QUYOSH</span>
+                        <span class="p-time" id="time-quyosh">--:--</span>
+                    </div>
+                    <div class="prayer-item" data-prayer="peshin">
+                        <span class="p-name" data-i18n="peshin">PESHIN</span>
+                        <span class="p-time" id="time-peshin">--:--</span>
+                    </div>
+                    <div class="prayer-item" data-prayer="asr">
+                        <span class="p-name" data-i18n="asr">ASR</span>
+                        <span class="p-time" id="time-asr">--:--</span>
+                    </div>
+                    <div class="prayer-item" data-prayer="shom">
+                        <span class="p-name" data-i18n="shom">SHOM</span>
+                        <span class="p-time" id="time-shom">--:--</span>
+                    </div>
+                    <div class="prayer-item" data-prayer="xufton">
+                        <span class="p-name" data-i18n="xufton">XUFTON</span>
+                        <span class="p-time" id="time-xufton">--:--</span>
+                    </div>
+                </div>
+                <div class="countdown-block">
+                    <span class="cd-label" data-i18n="next_prayer_in">Keyingi namozga:</span>
+                    <span class="cd-timer" id="countdown-timer">--:--:--</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="navbar">
+            <a href="#" class="nav-logo" data-i18n="hero_title_inline">"G'OYIB YORONLAR" JOME MASJIDI</a>
+            <button class="hamburger" id="hamburger-btn" aria-label="Menyuni ochish">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#" data-i18n="nav_home">Bosh Sahifa</a></li>
+                <li><a href="#about" data-i18n="nav_about">Biz haqimizda</a></li>
+                <li><a href="#news" data-i18n="nav_news">Yangiliklar</a></li>
+                <li><a href="#events" data-i18n="nav_events">Tadbirlar</a></li>
+                <li><a href="#gallery" data-i18n="nav_gallery">Galereya</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">Aloqa</a></li>
+                <li class="nav-donate-li"><a href="#donate" class="nav-donate-btn" data-i18n="nav_donate">Xayriya</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" data-i18n="hero_title">G'OYIB YORONLAR<br>JOME MASJIDI</h1>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">Namangan viloyati Pop tumani To'da qishlog'i</p>
+            <p class="hero-desc" data-i18n="hero_desc">Ma'naviyat maskani va iymon-e'tiqod nuri</p>
+            <a href="#about" class="hero-btn" data-i18n="hero_btn">Masjid haqida batafsil</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="section-header">
+            <h2 data-i18n="about_title">Biz haqimizda</h2>
+        </div>
+        <div class="about-card glassmorphism">
+            <div class="about-icon"><i class="fas fa-mosque"></i></div>
+            <p data-i18n="about_text">G'oyib Yoronlar jome masjidi Namangan viloyati Pop tumani To'da qishlog'ida joylashgan maskandir. Masjid mahalliy aholi uchun nafaqat ibodatxona, balki ma'naviy tarbiya o'chog'i ham hisoblanadi.</p>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="section section-alt" id="news">
+        <div class="section-header">
+            <h2 data-i18n="news_title">Masjid Hayotidan Yangiliklar</h2>
+        </div>
+        <div class="news-grid" id="news-container">
+            <div class="news-card glassmorphism">
+                <div class="news-img"><i class="fas fa-newspaper"></i></div>
+                <div class="news-body">
+                    <span class="news-date">10.06.2026</span>
+                    <h3 data-i18n="news_demo_title1">"G'oyib Yoronlar" jome masjidi yangiliklari</h3>
+                    <p data-i18n="news_demo_desc">Bu yangiliklar kelajakda Telegram bot orqali avtomatik kiritiladigan bo'ladi.</p>
+                </div>
+            </div>
+            <div class="news-card glassmorphism">
+                <div class="news-img"><i class="fas fa-book-open"></i></div>
+                <div class="news-body">
+                    <span class="news-date">23.09.2026</span>
+                    <h3 data-i18n="news_demo_title2">Juma ma'ruzasi: Iymon halovati</h3>
+                    <p data-i18n="news_demo_desc">Bu yangiliklar kelajakda Telegram bot orqali avtomatik kiritiladigan bo'ladi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="section" id="events">
+        <div class="section-header">
+            <h2 data-i18n="events_title">Kelgusi Tadbirlar</h2>
+        </div>
+        <div class="events-card glassmorphism">
+            <div class="events-icon"><i class="fas fa-calendar-alt"></i></div>
+            <p data-i18n="events_text">Hozircha rejalashtirilgan tadbirlar yo'q. Yangiliklarni kuzatib boring.</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section section-alt" id="gallery">
+        <div class="section-header">
+            <h2 data-i18n="gallery_title">Foto Galereya</h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item glassmorphism"><i class="fas fa-image"></i></div>
+            <div class="gallery-item glassmorphism"><i class="fas fa-image"></i></div>
+            <div class="gallery-item glassmorphism"><i class="fas fa-image"></i></div>
+            <div class="gallery-item glassmorphism"><i class="fas fa-image"></i></div>
+            <div class="gallery-item glassmorphism"><i class="fas fa-image"></i></div>
+            <div class="gallery-item glassmorphism"><i class="fas fa-image"></i></div>
+        </div>
+    </section>
+
+    <!-- Contact & Map Section -->
+    <section class="section" id="contact">
+        <div class="section-header">
+            <h2 data-i18n="contact_title">Biz bilan aloqa</h2>
+        </div>
+        <div class="contact-wrapper">
+            <div class="contact-card glassmorphism">
+                <div class="contact-item">
+                    <i class="fas fa-mosque"></i>
+                    <span data-i18n="hero_title_inline">"G'OYIB YORONLAR" JOME MASJIDI</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span data-i18n="hero_subtitle">Namangan viloyati Pop tumani To'da qishlog'i</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+998 90 123 45 67</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-telegram-plane"></i>
+                    <a href="https://t.me/goyibyoronlar" target="_blank">@goyibyoronlar</a>
+                </div>
+                <div class="contact-map-links">
+                    <a href="https://www.google.com/maps?q=40.864223,71.227091" target="_blank" class="map-link-btn">
+                        <i class="fas fa-map-marked-alt"></i> Google Maps
+                    </a>
+                    <a href="https://yandex.uz/maps/?pt=71.227091,40.864223&z=16&l=map" target="_blank" class="map-link-btn yandex">
+                        <i class="fas fa-map-marked-alt"></i> Yandex Maps
+                    </a>
+                </div>
+            </div>
+            <div class="contact-map glassmorphism">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1500!2d71.227091!3d40.864223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDDCsDUxJzUxLjIiTiA3McKwMTMnMzcuNSJF!5e0!3m2!1suz!2s!4v1700000000000"
+                    width="100%" height="100%" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 <span data-i18n="hero_title_inline">"G'OYIB YORONLAR" JOME MASJIDI</span></p>
+        <p class="footer-source">
+            <span data-i18n="source_text">Namoz vaqtlari manbasi:</span>
+            <a href="https://aladhan.com" target="_blank">aladhan.com</a>
+        </p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
