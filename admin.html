@@ -11,7 +11,6 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
     <script src="firebase-config.js"></script>
     
     <style>
@@ -263,7 +262,7 @@
 <script>
 const ADMIN_PASS = 'masjid2024';
 let db = null;
-let storage = null;
+const IMGBB_API_KEY = 'SIZNING_IMGBB_API_KALITINGIZ'; // <-- ImgBB API kalitini shu yerga yozasiz
 let fbReady = false;
 
 window.addEventListener('load', () => {
@@ -274,7 +273,6 @@ window.addEventListener('load', () => {
         }
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         db = firebase.database();
-        storage = firebase.storage();
         fbReady = true;
     } catch(e) {
         document.getElementById('fb-status').innerHTML = e.message;
@@ -336,12 +334,24 @@ function savePrayers() {
     });
 }
 
-// ================= UPLOAD UTILS =================
-async function uploadImage(file, folder) {
+// ================= UPLOAD UTILS (ImgBB) =================
+async function uploadImage(file) {
     if(!file) return null;
-    const ref = storage.ref(`${folder}/${Date.now()}_${file.name}`);
-    await ref.put(file);
-    return await ref.getDownloadURL();
+    if(IMGBB_API_KEY === 'SIZNING_IMGBB_API_KALITINGIZ') {
+        throw new Error("ImgBB API kaliti kiritilmagan! Iltimos admin.html kodidagi 266-qatorga o'z API kalitingizni yozing.");
+    }
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: "POST",
+        body: formData
+    });
+    const data = await res.json();
+    if(data.success) {
+        return data.data.url;
+    } else {
+        throw new Error(data.error.message);
+    }
 }
 
 // ================= NEWS & TEAM (CRUD) =================
@@ -355,7 +365,7 @@ async function addNews() {
     btn.innerHTML = `<span class="spinner"></span> Yuklanmoqda...`;
     btn.disabled = true;
     try {
-        let imgUrl = await uploadImage(file, 'news');
+        let imgUrl = await uploadImage(file);
         await db.ref('news').push({
             title, desc, imgUrl: imgUrl || '', date: new Date().toLocaleDateString('ru-RU')
         });
@@ -378,7 +388,7 @@ async function addTeam() {
     btn.innerHTML = `<span class="spinner"></span> Yuklanmoqda...`;
     btn.disabled = true;
     try {
-        let imgUrl = await uploadImage(file, 'team');
+        let imgUrl = await uploadImage(file);
         await db.ref('team').push({ name, role, imgUrl: imgUrl || '' });
         document.getElementById('team-name').value = '';
         document.getElementById('team-role').value = '';
@@ -430,7 +440,7 @@ async function addGallery() {
     btn.disabled = true;
     try {
         for(let i=0; i<files.length; i++) {
-            let imgUrl = await uploadImage(files[i], 'gallery');
+            let imgUrl = await uploadImage(files[i]);
             if(imgUrl) await db.ref('gallery').push({ url: imgUrl, date: Date.now() });
         }
         document.getElementById('gallery-img').value = '';
