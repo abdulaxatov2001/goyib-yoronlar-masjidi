@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — Namoz Vaqtlari</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --emerald: #064e3b;
+            --gold: #d4a017;
+            --white: #f8fafc;
+            --bg: #0a1a10;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-box, .admin-box {
+            background: rgba(6,78,59,0.3);
+            border: 1px solid rgba(212,160,23,0.3);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 480px;
+            backdrop-filter: blur(10px);
+        }
+        .admin-box { max-width: 600px; }
+        h1 {
+            color: var(--gold);
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            text-align: center;
+            color: rgba(248,250,252,0.6);
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: rgba(248,250,252,0.7);
+            margin-bottom: 6px;
+            margin-top: 16px;
+        }
+        input[type="password"], input[type="time"], input[type="text"] {
+            width: 100%;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(212,160,23,0.3);
+            border-radius: 10px;
+            color: var(--white);
+            padding: 12px 16px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus { border-color: var(--gold); }
+        .btn {
+            width: 100%;
+            margin-top: 24px;
+            background: var(--gold);
+            color: #0a1a10;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.85; }
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            margin-top: 12px;
+        }
+        .prayer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 20px;
+        }
+        .prayer-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .prayer-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(212,160,23,0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        .prayer-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gold);
+            min-width: 80px;
+        }
+        .success-msg {
+            display: none;
+            background: rgba(34,197,94,0.15);
+            border: 1px solid #22c55e;
+            color: #86efac;
+            border-radius: 10px;
+            padding: 12px 16px;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.9rem;
+        }
+        .logout-btn {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            background: rgba(212,160,23,0.15);
+            border: 1px solid rgba(212,160,23,0.3);
+            color: var(--gold);
+            border-radius: 10px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .current-times {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .current-times h3 {
+            color: rgba(248,250,252,0.6);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .time-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(212,160,23,0.1);
+            border: 1px solid rgba(212,160,23,0.2);
+            border-radius: 8px;
+            padding: 4px 10px;
+            margin: 4px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-box" id="login-section">
+    <h1><i class="fas fa-mosque" style="margin-right:8px"></i>Admin Panel</h1>
+    <p class="subtitle">G'oyib Yoronlar Jome Masjidi<br>Namoz vaqtlarini boshqarish</p>
+
+    <label>Parol</label>
+    <input type="password" id="password-input" placeholder="Parolni kiriting..." onkeydown="if(event.key==='Enter')login()">
+
+    <button class="btn" onclick="login()">
+        <i class="fas fa-sign-in-alt" style="margin-right:8px"></i>Kirish
+    </button>
+    <div id="login-error" style="color:#f87171;text-align:center;margin-top:12px;font-size:0.85rem;display:none">
+        Noto'g'ri parol!
+    </div>
+</div>
+
+<!-- Admin Panel -->
+<div class="admin-box" id="admin-section" style="display:none">
+    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Chiqish</button>
+
+    <h1><i class="fas fa-clock" style="margin-right:8px"></i>Namoz Vaqtlari</h1>
+    <p class="subtitle">Masjidda o'qiladigan namoz vaqtlarini kiriting</p>
+
+    <!-- Hozirgi vaqtlar -->
+    <div class="current-times" id="current-times-box" style="display:none">
+        <h3>Hozirgi saqlangan vaqtlar</h3>
+        <div id="current-times-display"></div>
+    </div>
+
+    <div class="prayer-grid">
+        <div>
+            <label><i class="fas fa-sun" style="color:#f59e0b;margin-right:6px"></i>Bomdod</label>
+            <input type="time" id="t-bomdod">
+        </div>
+        <div>
+            <label><i class="fas fa-circle" style="color:#fbbf24;margin-right:6px"></i>Quyosh chiqishi</label>
+            <input type="time" id="t-quyosh">
+        </div>
+        <div>
+            <label><i class="fas fa-sun" style="color:#f97316;margin-right:6px"></i>Peshin</label>
+            <input type="time" id="t-peshin">
+        </div>
+        <div>
+            <label><i class="fas fa-cloud-sun" style="color:#fb923c;margin-right:6px"></i>Asr</label>
+            <input type="time" id="t-asr">
+        </div>
+        <div>
+            <label><i class="fas fa-moon" style="color:#818cf8;margin-right:6px"></i>Shom</label>
+            <input type="time" id="t-shom">
+        </div>
+        <div>
+            <label><i class="fas fa-star" style="color:#6366f1;margin-right:6px"></i>Xufton</label>
+            <input type="time" id="t-xufton">
+        </div>
+    </div>
+
+    <button class="btn" onclick="saveTimes()">
+        <i class="fas fa-save" style="margin-right:8px"></i>Saqlash va saytga yuborish
+    </button>
+
+    <div class="success-msg" id="success-msg">
+        <i class="fas fa-check-circle" style="margin-right:8px"></i>
+        Vaqtlar muvaffaqiyatli saqlandi! Sayt sahifasini yangilang.
+    </div>
+</div>
+
+<script>
+    const ADMIN_PASS = 'masjid2024'; // Parolni bu yerda o'zgartirishingiz mumkin
+
+    function login() {
+        const pass = document.getElementById('password-input').value;
+        if (pass === ADMIN_PASS) {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('admin-section').style.display = 'block';
+            loadCurrentTimes();
+        } else {
+            document.getElementById('login-error').style.display = 'block';
+        }
+    }
+
+    function logout() {
+        document.getElementById('login-section').style.display = 'flex';
+        document.getElementById('admin-section').style.display = 'none';
+        document.getElementById('password-input').value = '';
+    }
+
+    function loadCurrentTimes() {
+        const saved = localStorage.getItem('masjid_prayer_times');
+        if (saved) {
+            const times = JSON.parse(saved);
+            document.getElementById('t-bomdod').value = times.bomdod || '';
+            document.getElementById('t-quyosh').value = times.quyosh || '';
+            document.getElementById('t-peshin').value = times.peshin || '';
+            document.getElementById('t-asr').value = times.asr || '';
+            document.getElementById('t-shom').value = times.shom || '';
+            document.getElementById('t-xufton').value = times.xufton || '';
+
+            const box = document.getElementById('current-times-box');
+            const display = document.getElementById('current-times-display');
+            box.style.display = 'block';
+            display.innerHTML = `
+                <span class="time-badge">Bomdod: ${times.bomdod}</span>
+                <span class="time-badge">Quyosh: ${times.quyosh}</span>
+                <span class="time-badge">Peshin: ${times.peshin}</span>
+                <span class="time-badge">Asr: ${times.asr}</span>
+                <span class="time-badge">Shom: ${times.shom}</span>
+                <span class="time-badge">Xufton: ${times.xufton}</span>
+            `;
+        }
+    }
+
+    function saveTimes() {
+        const times = {
+            bomdod: document.getElementById('t-bomdod').value,
+            quyosh: document.getElementById('t-quyosh').value,
+            peshin: document.getElementById('t-peshin').value,
+            asr: document.getElementById('t-asr').value,
+            shom: document.getElementById('t-shom').value,
+            xufton: document.getElementById('t-xufton').value,
+        };
+
+        // Tekshirish
+        const missing = Object.entries(times).filter(([k,v]) => !v);
+        if (missing.length > 0) {
+            alert('Iltimos, barcha vaqtlarni kiriting!');
+            return;
+        }
+
+        localStorage.setItem('masjid_prayer_times', JSON.stringify(times));
+
+        const msg = document.getElementById('success-msg');
+        msg.style.display = 'block';
+        loadCurrentTimes();
+
+        setTimeout(() => { msg.style.display = 'none'; }, 4000);
+    }
+</script>
+</body>
+</html>

@@ -32,12 +32,15 @@ const translations = {
         team_imam_name: "Rasuljon domla",
         team_imam_role: "Bosh Imom Xatib",
         team_imam_desc: "Rasuljon domla masjiddagi barcha diniy va ma'rifiy ishlarga rahbarlik qiladilar. Juma ma'ruzalari, nikoh o'qish, va jamoatga Islom arkonlarini tushuntirishda katta tajribaga ega.",
-        team_naib_name: "Bahromjon qori",
-        team_naib_role: "Imom Noibi",
-        team_naib_desc: "Bahromjon qori Qur'oni Karimni tajvid qoidalari bilan go'zal qiroat qiladilar. Besh vaqt namozlarda jamoatga imomlik qilish va yoshlarga ta'lim berish vazifalarini bajaradilar.",
-        team_muazzin_name: "Baxtiyorjon",
+        team_naib_name: "O'tkirjon domla",
+        team_naib_role: "Noib Imom",
+        team_naib_desc: "Tojihaydarov O'tkirjon domla besh vaqt namozlarda imomlik qilishda Rasuljon domla o'rinbosari sifatida xizmat qiladilar. Masjid ta'lim-tarbiya ishlarida faol qatnashadilar.",
+        team_muazzin_name: "Bahromjon qori",
         team_muazzin_role: "Muazzin",
-        team_muazzin_desc: "Baxtiyorjon jamoatni namozga chorlovchi go'zal azon aytish hamda masjidning ozodaligi va tartib-intizomiga mas'ul shaxs hisoblanadi.",
+        team_muazzin_desc: "Bahromjon qori aka jamoatni namozga chorlovchi go'zal azon aytish hamda masjidning ozodaligi va tartib-intizomiga mas'ul shaxs hisoblanadi.",
+        team_taftish_name: "Bahtiyor hoji",
+        team_taftish_role: "Taftish Raisi",
+        team_taftish_desc: "Bahtiyor hoji aka masjidning moliyaviy va tashkiliy ishlarini nazorat qiladilar. Xayriya mablag'lari va masjid iqtisodiyotini boshqarishda muhim rol o'ynadilar.",
         events_title: "Kelgusi Tadbirlar",
         events_text: "Hozircha rejalashtirilgan tadbirlar yo'q. Yangiliklarni kuzatib boring.",
         gallery_title: "Foto Galereya",
@@ -77,12 +80,15 @@ const translations = {
         team_imam_name: "Расулжон домла",
         team_imam_role: "Бош Имом Хатиб",
         team_imam_desc: "Расулжон домла масжиддаги барча диний ва маърифий ишларга раҳбарлик қиладилар. Жума маърузалари, никоҳ ўқиш ва жамоатга Ислом арконларини тушунтиришда катта тажрибага эга.",
-        team_naib_name: "Баҳромжон қори",
-        team_naib_role: "Имом Ноиби",
-        team_naib_desc: "Баҳромжон қори Қуръони Каримни тажвид қоидалари билан гўзал қироат қиладилар. Беш вақт намозларда жамоатга имомлик қилиш ва ёшларга таълим бериш вазифаларини бажарадилар.",
-        team_muazzin_name: "Бахтиёржон",
+        team_naib_name: "Тожиҳайдаров О'ткиржон домла",
+        team_naib_role: "Ноиб Имом",
+        team_naib_desc: "Тожиҳайдаров Ўткиржон домла беш вақт намозларда Расулжон домла ўринбосари сифатида хизмат қиладилар. Масжид таълим-тарбия ишларида фаол қатнашадилар.",
+        team_muazzin_name: "Баҳромжон қори",
         team_muazzin_role: "Муаззин",
-        team_muazzin_desc: "Бахтиёржон жамоатни намозга чорловчи гўзал азон айтиш ҳамда масжиднинг озодалиги ва тартиб-интизомига масъул шахс ҳисобланади.",
+        team_muazzin_desc: "Баҳромжон қори ака жамоатни намозга чорловчи гўзал азон айтиш ҳамда масжиднинг озодалиги ва тартиб-интизомига масъул шахс ҳисобланади.",
+        team_taftish_name: "Бахтиёр ҳожи",
+        team_taftish_role: "Тафтиш Раиси",
+        team_taftish_desc: "Бахтиёр ҳожи ака масжиднинг молиявий ва ташкилий ишларини назорат қиладилар. Хайрия маблағлари ва масжид иқтисодиётини бошқаришда муҳим рол ўйнайдилар.",
         events_title: "Келгуси Тадбирлар",
         events_text: "Ҳозирча режалаштирилган тадбирлар йўқ. Янгиликларни кузатиб боринг.",
         gallery_title: "Фото Галерея",
@@ -122,12 +128,15 @@ const translations = {
         team_imam_name: "Расулжон домла",
         team_imam_role: "Главный Имам-хатыб",
         team_imam_desc: "Расулжон домла руководит всеми религиозными и просветительскими делами мечети. Обладает большим опытом в проведении пятничных проповедей, обрядов никах и разъяснении основ Ислама.",
-        team_naib_name: "Бахромжон кори",
+        team_naib_name: "Тожихайдаров Уткирджон домла",
         team_naib_role: "Наиб Имама",
-        team_naib_desc: "Бахромжон кори прекрасно читает Коран по правилам таджвида. Он исполняет обязанности имама на пятикратных молитвах и обучает молодежь.",
-        team_muazzin_name: "Бахтиёржон",
+        team_naib_desc: "Тожихайдаров Уткирджон домла исполняет обязанности заместителя Расулджон домла на пятикратных молитвах. Активно участвует в образовательной деятельности мечети.",
+        team_muazzin_name: "Бахромжон кори",
         team_muazzin_role: "Муэдзин",
-        team_muazzin_desc: "Бахтиёржон призывает прихожан на молитву красивым азаном, а также следит за чистотой и порядком в мечети.",
+        team_muazzin_desc: "Бахромжон кори призывает прихожан на молитву красивым азаном, а также следит за чистотой и порядком в мечети.",
+        team_taftish_name: "Бахтиёр хаджи",
+        team_taftish_role: "Председатель ревизии",
+        team_taftish_desc: "Бахтиёр хаджи контролирует финансовые и организационные дела мечети. Играет важную роль в управлении благотворительными средствами и экономикой мечети.",
         events_title: "Предстоящие мероприятия",
         events_text: "На данный момент запланированных мероприятий нет. Следите за новостями.",
         gallery_title: "Фотогалерея",
@@ -167,12 +176,15 @@ const translations = {
         team_imam_name: "Rasuljon domla",
         team_imam_role: "Chief Imam Khatib",
         team_imam_desc: "Rasuljon domla leads all religious and educational activities in the mosque. He has extensive experience in giving Friday sermons, performing Nikah, and explaining the pillars of Islam to the congregation.",
-        team_naib_name: "Bahromjon qori",
+        team_naib_name: "Tojihaydarov O'tkirjon domla",
         team_naib_role: "Deputy Imam",
-        team_naib_desc: "Bahromjon qori recites the Holy Quran beautifully with Tajweed rules. He serves as the imam for the five daily prayers and teaches the youth.",
-        team_muazzin_name: "Baxtiyorjon",
+        team_naib_desc: "Tojihaydarov O'tkirjon domla serves as the deputy of Rasuljon domla for the five daily prayers. He actively participates in the mosque's educational activities.",
+        team_muazzin_name: "Bahromjon qori",
         team_muazzin_role: "Muazzin",
-        team_muazzin_desc: "Baxtiyorjon calls the congregation to prayer with a beautiful Adhan and is responsible for the cleanliness and discipline of the mosque.",
+        team_muazzin_desc: "Bahromjon qori aka calls the congregation to prayer with a beautiful Adhan and is responsible for the cleanliness and order of the mosque.",
+        team_taftish_name: "Bahtiyor hoji",
+        team_taftish_role: "Audit Committee Chair",
+        team_taftish_desc: "Bahtiyor hoji aka oversees the financial and organizational affairs of the mosque. He plays an important role in managing charitable funds and the mosque's economy.",
         events_title: "Upcoming Events",
         events_text: "There are no scheduled events at the moment. Please stay tuned.",
         gallery_title: "Photo Gallery",
@@ -295,36 +307,23 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(updateClock, 1000);
     updateClock();
 
-    // --- Namoz vaqtlarini Aladhan API orqali olish (Pop tumani koordinatalari bilan) ---
-    async function fetchPrayerTimes() {
-        try {
-            // Pop tumani koordinatalari: 40.8736, 71.1065
-            const response = await fetch('https://api.aladhan.com/v1/timings?latitude=40.8736&longitude=71.1065&method=2');
-            const data = await response.json();
-
-            if (data && data.code === 200) {
-                const timings = data.data.timings;
-
-                currentPrayerTimes = {
-                    bomdod: timings.Fajr,
-                    quyosh: timings.Sunrise,
-                    peshin: timings.Dhuhr,
-                    asr: timings.Asr,
-                    shom: timings.Maghrib,
-                    xufton: timings.Isha
-                };
-
-                document.getElementById('time-bomdod').textContent = currentPrayerTimes.bomdod;
-                document.getElementById('time-quyosh').textContent = currentPrayerTimes.quyosh;
-                document.getElementById('time-peshin').textContent = currentPrayerTimes.peshin;
-                document.getElementById('time-asr').textContent = currentPrayerTimes.asr;
-                document.getElementById('time-shom').textContent = currentPrayerTimes.shom;
-                document.getElementById('time-xufton').textContent = currentPrayerTimes.xufton;
-
-                updateCountdown(currentPrayerTimes);
+    // --- Namoz vaqtlari: Admin paneldan kiritilgan vaqtlarni localStorage dan o'qish ---
+    function fetchPrayerTimes() {
+        const saved = localStorage.getItem('masjid_prayer_times');
+        if (saved) {
+            try {
+                const times = JSON.parse(saved);
+                currentPrayerTimes = times;
+                document.getElementById('time-bomdod').textContent = times.bomdod || '--:--';
+                document.getElementById('time-quyosh').textContent = times.quyosh || '--:--';
+                document.getElementById('time-peshin').textContent = times.peshin || '--:--';
+                document.getElementById('time-asr').textContent = times.asr || '--:--';
+                document.getElementById('time-shom').textContent = times.shom || '--:--';
+                document.getElementById('time-xufton').textContent = times.xufton || '--:--';
+                updateCountdown(times);
+            } catch(e) {
+                console.error("Namoz vaqtlarini o'qishda xatolik:", e);
             }
-        } catch (error) {
-            console.error("Namoz vaqtlarini olishda xatolik:", error);
         }
     }
 
@@ -384,6 +383,11 @@ window.openTeamModal = function(type) {
         roleEl.textContent = trans.team_muazzin_role;
         descEl.textContent = trans.team_muazzin_desc;
         iconEl.className = 'fas fa-user';
+    } else if (type === 'taftish') {
+        nameEl.textContent = trans.team_taftish_name;
+        roleEl.textContent = trans.team_taftish_role;
+        descEl.textContent = trans.team_taftish_desc;
+        iconEl.className = 'fas fa-user-shield';
     }
     
     modal.classList.add('active');
