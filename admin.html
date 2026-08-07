@@ -485,6 +485,8 @@
             <input type="text" id="team-name" placeholder="Masalan: Mardonbek domla...">
             <label>Vazifasi</label>
             <input type="text" id="team-role" placeholder="Masalan: Imom Xatib...">
+            <label>Ta'rifi</label>
+            <textarea id="team-desc" placeholder="Xodim haqida qisqacha ma'lumot..."></textarea>
             <label>Rasm yuklash</label>
             <input type="file" id="team-img" accept="image/*" style="padding:10px">
             <button class="btn" id="btn-save-team" onclick="addTeam()"><i class="fas fa-plus"
@@ -628,6 +630,7 @@
             const btn = document.getElementById('btn-save-team');
             const name = document.getElementById('team-name').value;
             const role = document.getElementById('team-role').value;
+            const desc = document.getElementById('team-desc').value;
             const file = document.getElementById('team-img').files[0];
             if (!name || !role) return alert("Ism va vazifani kiriting!");
 
@@ -635,9 +638,10 @@
             btn.disabled = true;
             try {
                 let imgUrl = await uploadImage(file);
-                await db.ref('team').push({ name, role, imgUrl: imgUrl || '' });
+                await db.ref('team').push({ name, role, desc, imgUrl: imgUrl || '' });
                 document.getElementById('team-name').value = '';
                 document.getElementById('team-role').value = '';
+                document.getElementById('team-desc').value = '';
                 document.getElementById('team-img').value = '';
                 loadList('team');
             } catch (e) { alert(e.message); }

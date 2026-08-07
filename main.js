@@ -512,7 +512,7 @@ window.openTeamModalDynamic = function(index) {
     const modal = document.getElementById('team-modal');
     document.getElementById('modal-name').textContent = v.name;
     document.getElementById('modal-role').textContent = v.role;
-    document.getElementById('modal-desc').textContent = v.role; 
+    document.getElementById('modal-desc').textContent = v.desc || ''; 
     
     const iconEl = document.getElementById('modal-avatar');
     if (v.imgUrl) {
