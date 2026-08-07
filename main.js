@@ -196,6 +196,34 @@ const translations = {
 let currentPrayerTimes = null;
 
 document.addEventListener("DOMContentLoaded", () => {
+    // --- Shrift o'lchamini kattalashtirish (Yoshi kattalar uchun) ---
+    const htmlEl = document.documentElement;
+    const btnNorm = document.getElementById('font-scale-norm');
+    const btnLg = document.getElementById('font-scale-lg');
+    const btnXl = document.getElementById('font-scale-xl');
+
+    function applyFontScale(scale) {
+        htmlEl.classList.remove('font-scale-lg', 'font-scale-xl');
+        [btnNorm, btnLg, btnXl].forEach(btn => btn && btn.classList.remove('active'));
+        if (scale === 'lg') {
+            htmlEl.classList.add('font-scale-lg');
+            if (btnLg) btnLg.classList.add('active');
+        } else if (scale === 'xl') {
+            htmlEl.classList.add('font-scale-xl');
+            if (btnXl) btnXl.classList.add('active');
+        } else {
+            if (btnNorm) btnNorm.classList.add('active');
+        }
+        localStorage.setItem('font_scale', scale);
+    }
+
+    if (btnNorm) btnNorm.addEventListener('click', () => applyFontScale('norm'));
+    if (btnLg) btnLg.addEventListener('click', () => applyFontScale('lg'));
+    if (btnXl) btnXl.addEventListener('click', () => applyFontScale('xl'));
+
+    const savedScale = localStorage.getItem('font_scale') || 'norm';
+    applyFontScale(savedScale);
+
     // --- Tillar mantiqi ---
     const langSelect = document.getElementById('lang-select');
 
@@ -350,7 +378,19 @@ document.addEventListener("DOMContentLoaded", () => {
         // Yangilanish vaqtini ko'rsatish
         if (times.updated_at) {
             const badge = document.getElementById('last-updated');
-            if (badge) badge.textContent = times.updated_at + ' da yangilangan';
+            if (badge) {
+                let updatedText = times.updated_at;
+                if (updatedText.includes('-')) {
+                    const parts = updatedText.split(' ');
+                    if (parts.length === 2) {
+                        const dateParts = parts[0].split('-');
+                        if (dateParts.length === 3) {
+                            updatedText = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]} ${parts[1]}`;
+                        }
+                    }
+                }
+                badge.textContent = updatedText + ' da yangilangan';
+            }
         }
         updateCountdown(times);
     }

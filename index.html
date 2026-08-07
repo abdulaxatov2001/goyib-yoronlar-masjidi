@@ -5,16 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G'oyib Yoronlar Jome Masjidi - Pop tumani, To'da qishlog'i</title>
-    <meta name="description" content="Namangan viloyati Pop tumani To'da qishlog'idagi 'G'oyib Yoronlar' jome masjidining rasmiy veb-sayti. Namoz vaqtlari, juma mavzulari, masjid yangiliklari va xayriya ma'lumotlari.">
-    <meta name="keywords" content="G'oyib yoronlar masjidi, Pop tumani masjidi, To'da qishlog'i, namoz vaqtlari, Namangan namoz vaqtlari, Pop namoz vaqtlari, jome masjid, islomiy sayt, ehson, xayriya">
+    <meta name="description"
+        content="Namangan viloyati Pop tumani To'da qishlog'idagi 'G'oyib Yoronlar' jome masjidining rasmiy veb-sayti. Namoz vaqtlari, juma mavzulari, masjid yangiliklari va xayriya ma'lumotlari.">
+    <meta name="keywords"
+        content="G'oyib yoronlar masjidi, Pop tumani masjidi, To'da qishlog'i, namoz vaqtlari, Namangan namoz vaqtlari, Pop namoz vaqtlari, jome masjid, islomiy sayt, ehson, xayriya">
     <meta name="author" content="G'oyib Yoronlar Jome Masjidi">
-    
+
     <!-- Open Graph (Telegram, Facebook, Instagram kabi tarmoqlar uchun) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://goyibyoronlar.uz/">
     <meta property="og:title" content="G'oyib Yoronlar Jome Masjidi - Rasmiy veb-sayt">
-    <meta property="og:description" content="Namangan viloyati Pop tumani To'da qishlog'idagi jome masjidi. Namoz vaqtlari va so'nggi yangiliklar.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=1200">
+    <meta property="og:description"
+        content="Namangan viloyati Pop tumani To'da qishlog'idagi jome masjidi. Namoz vaqtlari va so'nggi yangiliklar.">
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=1200">
     <meta property="og:site_name" content="G'oyib Yoronlar Masjidi">
 
     <!-- Canonical URL -->
@@ -22,7 +26,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
@@ -38,18 +44,27 @@
     <header class="main-header">
         <!-- Top utility bar -->
         <div class="top-bar">
-            <div class="lang-switcher">
-                <select id="lang-select">
-                    <option value="uz_lt">🇺🇿 O'zbekcha</option>
-                    <option value="uz_cy" selected>🇺🇿 Ўзбекча</option>
-                    <option value="ru">🇷🇺 Русский</option>
-                    <option value="en">🇺🇸 English</option>
-                </select>
+            <div class="top-bar-left">
+                <div class="lang-switcher">
+                    <select id="lang-select">
+                        <option value="uz_lt">🇺🇿 O'zbekcha</option>
+                        <option value="uz_cy" selected>🇺🇿 Ўзбекча</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="en">🇺🇸 English</option>
+                    </select>
+                </div>
+                <div class="font-scaler" title="Yoshi kattalar uchun shrift o'lchamini o'zgartirish">
+                    <span class="font-scaler-label"><i class="fas fa-text-height"></i> Matn:</span>
+                    <button type="button" class="font-btn active" id="font-scale-norm" aria-label="Normallashtirish">A</button>
+                    <button type="button" class="font-btn" id="font-scale-lg" aria-label="Kattalashtirish">A+</button>
+                    <button type="button" class="font-btn" id="font-scale-xl" aria-label="Juda katta">A++</button>
+                </div>
             </div>
             <div class="social-links">
                 <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="https://t.me/goyibyoronlar" target="_blank" class="social-icon" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                <a href="https://t.me/goyibyoronlar" target="_blank" class="social-icon" aria-label="Telegram"><i
+                        class="fab fa-telegram-plane"></i></a>
             </div>
         </div>
 
@@ -67,13 +82,14 @@
                 <div class="prayer-times-grid-container">
                     <div class="prayer-legends">
                         <div class="legend-item masjid-legend">
-                            <i class="fas fa-mosque"></i> <span data-i18n="masjid_time_label">Masjidda o'qish</span> <span class="update-badge" id="last-updated"></span>
+                            <i class="fas fa-mosque"></i> <span data-i18n="masjid_time_label">Masjidda o'qilish
+                                vaqti</span> <span class="update-badge" id="last-updated"></span>
                         </div>
                         <div class="legend-item api-legend">
                             <i class="fas fa-globe"></i> <span data-i18n="api_time_label">Astronomik vaqt</span>
                         </div>
                     </div>
-                    
+
                     <div class="prayer-grid">
                         <div class="prayer-item" data-prayer="bomdod">
                             <div class="p-name" data-i18n="bomdod">BOMDOD</div>
@@ -132,7 +148,8 @@
                 <li><a href="#events" data-i18n="nav_events">Tadbirlar</a></li>
                 <li><a href="#gallery" data-i18n="nav_gallery">Galereya</a></li>
                 <li><a href="#contact" data-i18n="nav_contact">Aloqa</a></li>
-                <li class="nav-donate-li"><a href="#donate" class="nav-donate-btn" data-i18n="nav_donate">Xayriya</a></li>
+                <li class="nav-donate-li"><a href="#donate" class="nav-donate-btn" data-i18n="nav_donate">Xayriya</a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -155,7 +172,9 @@
         </div>
         <div class="about-card glassmorphism">
             <div class="about-icon"><i class="fas fa-mosque"></i></div>
-            <p data-i18n="about_text">G'oyib Yoronlar jome masjidi Namangan viloyati Pop tumani To'da qishlog'ida joylashgan maskandir. Masjid mahalliy aholi uchun nafaqat ibodatxona, balki ma'naviy tarbiya o'chog'i ham hisoblanadi.</p>
+            <p data-i18n="about_text">G'oyib Yoronlar jome masjidi Namangan viloyati Pop tumani To'da qishlog'ida
+                joylashgan maskandir. Masjid mahalliy aholi uchun nafaqat ibodatxona, balki ma'naviy tarbiya o'chog'i
+                ham hisoblanadi.</p>
         </div>
     </section>
 
@@ -227,7 +246,8 @@
                     <a href="https://www.google.com/maps?q=40.864223,71.227091" target="_blank" class="map-link-btn">
                         <i class="fas fa-map-marked-alt"></i> Google Maps
                     </a>
-                    <a href="https://yandex.uz/maps/?pt=71.227091,40.864223&z=16&l=map" target="_blank" class="map-link-btn yandex">
+                    <a href="https://yandex.uz/maps/?pt=71.227091,40.864223&z=16&l=map" target="_blank"
+                        class="map-link-btn yandex">
                         <i class="fas fa-map-marked-alt"></i> Yandex Maps
                     </a>
                 </div>
@@ -249,7 +269,9 @@
             <span data-i18n="source_text">Namoz vaqtlari manbasi:</span>
             <a href="https://aladhan.com" target="_blank">aladhan.com</a>
         </p>
-        <a href="admin.html" style="color: rgba(255,255,255,0.25); font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; gap: 5px; margin-top: 15px; padding: 5px; transition: color 0.3s;" onmouseover="this.style.color='#c9a227'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">
+        <a href="admin.html"
+            style="color: rgba(255,255,255,0.4); font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; gap: 5px; margin-top: 15px; padding: 5px; transition: color 0.3s;"
+            onmouseover="this.style.color='#34d399'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
             <i class="fas fa-lock"></i> Admin Panel
         </a>
     </footer>
