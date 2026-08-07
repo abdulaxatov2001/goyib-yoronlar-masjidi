@@ -310,7 +310,10 @@
             padding: 5px;
         }
 
-        .list-item-actions button:hover {
+        .list-item-actions button.btn-edit:hover {
+            color: var(--gold);
+        }
+        .list-item-actions button.btn-del:hover {
             color: #fca5a5;
         }
 
@@ -512,6 +515,9 @@
         let db = null;
         const IMGBB_API_KEY = '0b33f824585f0a48f47c96d673cd0907'; // <-- ImgBB API kalitini shu yerga yozasiz
         let fbReady = false;
+        let editingNewsKey = null;
+        let editingTeamKey = null;
+        let oldImgUrl = null;
 
         window.addEventListener('load', () => {
             try {
@@ -613,16 +619,24 @@
             btn.innerHTML = `<span class="spinner"></span> Yuklanmoqda...`;
             btn.disabled = true;
             try {
-                let imgUrl = await uploadImage(file);
-                await db.ref('news').push({
-                    title, desc, imgUrl: imgUrl || '', date: new Date().toLocaleDateString('ru-RU')
-                });
+                let imgUrl = file ? await uploadImage(file) : oldImgUrl;
+                if (editingNewsKey) {
+                    await db.ref('news').child(editingNewsKey).update({
+                        title, desc, imgUrl: imgUrl || '', date: new Date().toLocaleDateString('ru-RU')
+                    });
+                    editingNewsKey = null;
+                } else {
+                    await db.ref('news').push({
+                        title, desc, imgUrl: imgUrl || '', date: new Date().toLocaleDateString('ru-RU')
+                    });
+                }
+                oldImgUrl = null;
                 document.getElementById('news-title').value = '';
                 document.getElementById('news-desc').value = '';
                 document.getElementById('news-img').value = '';
                 loadList('news');
             } catch (e) { alert(e.message); }
-            btn.innerHTML = `<i class="fas fa-plus"></i> Yangilik Qo'shish`;
+            btn.innerHTML = `<i class="fas fa-plus" style="margin-right:8px"></i>Yangilik Qo'shish`;
             btn.disabled = false;
         }
 
@@ -637,15 +651,23 @@
             btn.innerHTML = `<span class="spinner"></span> Yuklanmoqda...`;
             btn.disabled = true;
             try {
-                let imgUrl = await uploadImage(file);
-                await db.ref('team').push({ name, role, desc, imgUrl: imgUrl || '' });
+                let imgUrl = file ? await uploadImage(file) : oldImgUrl;
+                if (editingTeamKey) {
+                    await db.ref('team').child(editingTeamKey).update({
+                        name, role, desc, imgUrl: imgUrl || ''
+                    });
+                    editingTeamKey = null;
+                } else {
+                    await db.ref('team').push({ name, role, desc, imgUrl: imgUrl || '' });
+                }
+                oldImgUrl = null;
                 document.getElementById('team-name').value = '';
                 document.getElementById('team-role').value = '';
                 document.getElementById('team-desc').value = '';
                 document.getElementById('team-img').value = '';
                 loadList('team');
             } catch (e) { alert(e.message); }
-            btn.innerHTML = `<i class="fas fa-plus"></i> Xodim Qo'shish`;
+            btn.innerHTML = `<i class="fas fa-plus" style="margin-right:8px"></i>Xodim Qo'shish`;
             btn.disabled = false;
         }
 
@@ -659,6 +681,12 @@
                     const title = type === 'news' ? v.title : v.name;
                     const subtitle = type === 'news' ? v.date : v.role;
                     const img = v.imgUrl ? `<img src="${v.imgUrl}" class="list-item-img">` : `<div class="list-item-img" style="background:#333;display:flex;align-items:center;justify-content:center"><i class="fas fa-image"></i></div>`;
+                    
+                    let editBtnHtml = '';
+                    if (type === 'news' || type === 'team') {
+                        editBtnHtml = `<button class="btn-edit" onclick="editItem('${type}', '${child.key}')"><i class="fas fa-edit"></i></button>`;
+                    }
+
                     container.innerHTML += `
                 <div class="list-item">
                     <div style="display:flex;align-items:center">
@@ -666,7 +694,8 @@
                         <div class="list-item-info"><h4>${title}</h4><p>${subtitle}</p></div>
                     </div>
                     <div class="list-item-actions">
-                        <button onclick="deleteItem('${type}', '${child.key}')"><i class="fas fa-trash"></i></button>
+                        ${editBtnHtml}
+                        <button class="btn-del" onclick="deleteItem('${type}', '${child.key}')"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
             `;
@@ -678,6 +707,30 @@
             if (confirm("Haqiqatan ham o'chirmoqchimisiz?")) {
                 db.ref(type).child(key).remove();
             }
+        }
+
+        function editItem(type, key) {
+            db.ref(type).child(key).once('value').then(snap => {
+                const v = snap.val();
+                if (type === 'news') {
+                    editingNewsKey = key;
+                    oldImgUrl = v.imgUrl || null;
+                    document.getElementById('news-title').value = v.title;
+                    document.getElementById('news-desc').value = v.desc;
+                    document.getElementById('btn-save-news').innerHTML = `<i class="fas fa-save" style="margin-right:8px"></i>Yangilash`;
+                    switchTab('tab-news');
+                    window.scrollTo(0, 0);
+                } else if (type === 'team') {
+                    editingTeamKey = key;
+                    oldImgUrl = v.imgUrl || null;
+                    document.getElementById('team-name').value = v.name;
+                    document.getElementById('team-role').value = v.role;
+                    document.getElementById('team-desc').value = v.desc || '';
+                    document.getElementById('btn-save-team').innerHTML = `<i class="fas fa-save" style="margin-right:8px"></i>Yangilash`;
+                    switchTab('tab-team');
+                    window.scrollTo(0, 0);
+                }
+            });
         }
 
         // ================= GALLERY =================

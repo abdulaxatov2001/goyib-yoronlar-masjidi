@@ -242,13 +242,21 @@
     </footer>
 
     <!-- Team Modal -->
-    <div class="modal-overlay" id="team-modal">
-        <div class="modal-content glassmorphism">
+    <div class="modal-overlay" id="team-modal" onclick="closeTeamModal()">
+        <div class="modal-content glassmorphism" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeTeamModal()"><i class="fas fa-times"></i></span>
             <div class="modal-avatar" id="modal-avatar"><i class="fas fa-user"></i></div>
             <h3 id="modal-name">Ism</h3>
             <p class="modal-role" id="modal-role">Vazifasi</p>
             <div class="modal-desc" id="modal-desc">Batafsil ma'lumot...</div>
+        </div>
+    </div>
+
+    <!-- Gallery Lightbox Modal -->
+    <div class="lightbox-modal" id="lightbox-modal" onclick="closeLightbox()">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <img id="lightbox-img" class="lightbox-img" src="">
         </div>
     </div>
 

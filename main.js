@@ -495,8 +495,8 @@ function loadDynamicContent() {
         snap.forEach(child => {
             const v = child.val();
             container.innerHTML += `
-                <div class="gallery-item glassmorphism" style="overflow:hidden; padding:0;">
-                    <img src="${v.url}" style="width:100%;height:100%;object-fit:cover;">
+                <div class="gallery-item glassmorphism" style="overflow:hidden; padding:0; cursor:pointer;" onclick="openLightbox('${v.url}')">
+                    <img src="${v.url}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
             `;
         });
@@ -531,5 +531,19 @@ window.openTeamModalDynamic = function(index) {
 // Modal yopish
 window.closeTeamModal = function() {
     const modal = document.getElementById('team-modal');
-    modal.classList.remove('active');
-}
+    if (modal) modal.classList.remove('active');
+};
+
+// Lightbox ochish/yopish
+window.openLightbox = function(url) {
+    const modal = document.getElementById('lightbox-modal');
+    const img = document.getElementById('lightbox-img');
+    if (!modal || !img) return;
+    img.src = url;
+    modal.classList.add('active');
+};
+
+window.closeLightbox = function() {
+    const modal = document.getElementById('lightbox-modal');
+    if (modal) modal.classList.remove('active');
+};
