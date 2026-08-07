@@ -50,63 +50,47 @@
                 </div>
 
                 <!-- Namoz vaqtlari: 2 qator -->
-                <div class="prayer-dual-strip">
-                    <!-- 1-qator: Masjid vaqti (KATTA) -->
-                    <div class="prayer-row-label masjid-label">
-                        <i class="fas fa-mosque"></i>
-                        <span>Masjidda o'qish vaqti</span>
-                        <span class="update-badge" id="last-updated"></span>
+                <!-- Namoz vaqtlari: Grid Layout -->
+                <div class="prayer-times-grid-container">
+                    <div class="prayer-legends">
+                        <div class="legend-item masjid-legend">
+                            <i class="fas fa-mosque"></i> <span data-i18n="masjid_time_label">Masjidda o'qish</span> <span class="update-badge" id="last-updated"></span>
+                        </div>
+                        <div class="legend-item api-legend">
+                            <i class="fas fa-globe"></i> <span data-i18n="api_time_label">Astronomik vaqt</span>
+                        </div>
                     </div>
-                    <div class="prayer-strip masjid-strip">
+                    
+                    <div class="prayer-grid">
                         <div class="prayer-item" data-prayer="bomdod">
-                            <span class="p-name" data-i18n="bomdod">BOMDOD</span>
-                            <span class="p-time masjid-time" id="time-bomdod">--:--</span>
+                            <div class="p-name" data-i18n="bomdod">BOMDOD</div>
+                            <div class="p-time masjid-time" id="time-bomdod">--:--</div>
+                            <div class="p-time api-time" id="api-bomdod">--:--</div>
                         </div>
                         <div class="prayer-item" data-prayer="quyosh">
-                            <span class="p-name" data-i18n="quyosh">QUYOSH</span>
-                            <span class="p-time masjid-time" id="time-quyosh">--:--</span>
+                            <div class="p-name" data-i18n="quyosh">QUYOSH</div>
+                            <div class="p-time masjid-time" id="time-quyosh">--:--</div>
+                            <div class="p-time api-time" id="api-quyosh">--:--</div>
                         </div>
                         <div class="prayer-item" data-prayer="peshin">
-                            <span class="p-name" data-i18n="peshin">PESHIN</span>
-                            <span class="p-time masjid-time" id="time-peshin">--:--</span>
+                            <div class="p-name" data-i18n="peshin">PESHIN</div>
+                            <div class="p-time masjid-time" id="time-peshin">--:--</div>
+                            <div class="p-time api-time" id="api-peshin">--:--</div>
                         </div>
                         <div class="prayer-item" data-prayer="asr">
-                            <span class="p-name" data-i18n="asr">ASR</span>
-                            <span class="p-time masjid-time" id="time-asr">--:--</span>
+                            <div class="p-name" data-i18n="asr">ASR</div>
+                            <div class="p-time masjid-time" id="time-asr">--:--</div>
+                            <div class="p-time api-time" id="api-asr">--:--</div>
                         </div>
                         <div class="prayer-item" data-prayer="shom">
-                            <span class="p-name" data-i18n="shom">SHOM</span>
-                            <span class="p-time masjid-time" id="time-shom">--:--</span>
+                            <div class="p-name" data-i18n="shom">SHOM</div>
+                            <div class="p-time masjid-time" id="time-shom">--:--</div>
+                            <div class="p-time api-time" id="api-shom">--:--</div>
                         </div>
                         <div class="prayer-item" data-prayer="xufton">
-                            <span class="p-name" data-i18n="xufton">XUFTON</span>
-                            <span class="p-time masjid-time" id="time-xufton">--:--</span>
-                        </div>
-                    </div>
-
-                    <!-- 2-qator: Astronomik vaqt (KICHIK) -->
-                    <div class="prayer-row-label api-label">
-                        <i class="fas fa-globe"></i>
-                        <span>Astronomik vaqt</span>
-                    </div>
-                    <div class="prayer-strip api-strip">
-                        <div class="prayer-item">
-                            <span class="p-time api-time" id="api-bomdod">--:--</span>
-                        </div>
-                        <div class="prayer-item">
-                            <span class="p-time api-time" id="api-quyosh">--:--</span>
-                        </div>
-                        <div class="prayer-item">
-                            <span class="p-time api-time" id="api-peshin">--:--</span>
-                        </div>
-                        <div class="prayer-item">
-                            <span class="p-time api-time" id="api-asr">--:--</span>
-                        </div>
-                        <div class="prayer-item">
-                            <span class="p-time api-time" id="api-shom">--:--</span>
-                        </div>
-                        <div class="prayer-item">
-                            <span class="p-time api-time" id="api-xufton">--:--</span>
+                            <div class="p-name" data-i18n="xufton">XUFTON</div>
+                            <div class="p-time masjid-time" id="time-xufton">--:--</div>
+                            <div class="p-time api-time" id="api-xufton">--:--</div>
                         </div>
                     </div>
                 </div>

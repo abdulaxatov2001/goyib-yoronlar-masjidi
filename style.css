@@ -149,31 +149,29 @@ a {
     white-space: nowrap;
 }
 
-/* Dual strip container */
-.prayer-dual-strip {
+/* Grid Container */
+.prayer-times-grid-container {
     flex: 1;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-/* Row labels */
-.prayer-row-label {
+/* Legends */
+.prayer-legends {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 6px;
     font-size: 0.62rem;
     text-transform: uppercase;
     letter-spacing: 0.9px;
     font-weight: 600;
-    padding: 2px 0;
+    margin-bottom: 2px;
 }
-.prayer-row-label.masjid-label {
-    color: var(--gold);
-}
-.prayer-row-label.api-label {
-    color: var(--white-muted);
-    margin-top: 4px;
-}
-.prayer-row-label i { font-size: 0.7rem; }
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.masjid-legend { color: var(--gold); }
+.api-legend { color: var(--white-muted); }
+.legend-item i { font-size: 0.7rem; }
 
 .update-badge {
     font-size: 0.58rem;
@@ -184,63 +182,64 @@ a {
     margin-left: 4px;
 }
 
-/* Prayer strip — always horizontal, scrollable on mobile */
-.prayer-strip {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+/* Grid */
+.prayer-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    width: 100%;
 }
 
-.prayer-strip::-webkit-scrollbar { display: none; }
-
-/* Masjid strip — big times */
-.masjid-strip .prayer-item {
+.prayer-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4px 10px;
+    background: rgba(255,255,255,0.03);
+    padding: 8px 4px;
     border-radius: var(--radius-sm);
-    min-width: 64px;
-    transition: background var(--transition);
-    flex-shrink: 0;
+    transition: background var(--transition), transform 0.2s;
+    border: 1px solid transparent;
 }
-.masjid-strip .prayer-item.active {
+
+.prayer-item:hover {
+    background: rgba(255,255,255,0.06);
+}
+
+.prayer-item.active {
     background: var(--gold-glow);
+    border-color: rgba(201, 162, 39, 0.4);
+    transform: translateY(-2px);
 }
 
 .p-name {
     font-size: 0.6rem;
     color: var(--white-muted);
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     font-weight: 600;
+    margin-bottom: 4px;
 }
-.masjid-strip .prayer-item.active .p-name { color: var(--gold-light); }
+.prayer-item.active .p-name { color: var(--gold-light); }
 
 .masjid-time {
     font-size: 1.1rem;
     font-weight: 700;
+    color: var(--white);
     font-variant-numeric: tabular-nums;
+    line-height: 1.1;
 }
-.masjid-strip .prayer-item.active .masjid-time { color: var(--gold-light); }
+.prayer-item.active .masjid-time { color: var(--gold-light); }
 
-/* API strip — small times */
-.api-strip .prayer-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 10px;
-    min-width: 64px;
-    flex-shrink: 0;
-}
 .api-time {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 500;
     color: var(--white-muted);
     font-variant-numeric: tabular-nums;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed rgba(255,255,255,0.1);
+    width: 80%;
+    text-align: center;
 }
 
 /* Countdown */
@@ -1044,17 +1043,38 @@ a {
         flex-wrap: wrap;
         justify-content: center;
     }
+    .prayer-times-grid-container {
+        width: 100%;
+        order: 3;
+    }
     .hero-content {
         padding-top: 240px;
     }
 }
 @media (max-width: 900px) {
+    .prayer-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
     .hero-content {
         padding-top: 280px;
     }
 }
 @media (max-width: 500px) {
+    .prayer-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+    .prayer-item {
+        padding: 8px 2px;
+    }
+    .masjid-time {
+        font-size: 1rem;
+    }
+    .prayer-legends {
+        font-size: 0.55rem;
+    }
     .hero-content {
-        padding-top: 200px; /* mobileda bar kichikroq bo'ladi */
+        padding-top: 200px;
     }
 }
+
