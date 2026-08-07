@@ -307,29 +307,96 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(updateClock, 1000);
     updateClock();
 
-    // --- Namoz vaqtlari: Admin paneldan kiritilgan vaqtlarni localStorage dan o'qish ---
-    function fetchPrayerTimes() {
-        const saved = localStorage.getItem('masjid_prayer_times');
-        if (saved) {
-            try {
-                const times = JSON.parse(saved);
-                currentPrayerTimes = times;
-                document.getElementById('time-bomdod').textContent = times.bomdod || '--:--';
-                document.getElementById('time-quyosh').textContent = times.quyosh || '--:--';
-                document.getElementById('time-peshin').textContent = times.peshin || '--:--';
-                document.getElementById('time-asr').textContent = times.asr || '--:--';
-                document.getElementById('time-shom').textContent = times.shom || '--:--';
-                document.getElementById('time-xufton').textContent = times.xufton || '--:--';
-                updateCountdown(times);
-            } catch(e) {
-                console.error("Namoz vaqtlarini o'qishda xatolik:", e);
+    // ============================================================
+    //  NAMOZ VAQTLARI: 2 ta manba
+    //  1. Firebase → Masjid vaqti (KATTA, asosiy)
+    //  2. Aladhan API → Astronomik vaqt (kichik, qo'shimcha)
+    // ============================================================
+
+    // Firebase bilan ulanish
+    let db = null;
+    try {
+        if (typeof firebaseConfig !== 'undefined' &&
+            firebaseConfig.databaseURL &&
+            !firebaseConfig.databaseURL.includes('LOYIHA_ID')) {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
             }
+            db = firebase.database();
+        }
+    } catch(e) {
+        console.warn('Firebase ulanmadi:', e.message);
+    }
+
+    // Masjid vaqtlarini ko'rsatish (Firebase dan)
+    function showMasjidTimes(times) {
+        if (!times) return;
+        currentPrayerTimes = times;
+        document.getElementById('time-bomdod').textContent = times.bomdod || '--:--';
+        document.getElementById('time-quyosh').textContent = times.quyosh || '--:--';
+        document.getElementById('time-peshin').textContent = times.peshin || '--:--';
+        document.getElementById('time-asr').textContent   = times.asr   || '--:--';
+        document.getElementById('time-shom').textContent  = times.shom  || '--:--';
+        document.getElementById('time-xufton').textContent= times.xufton|| '--:--';
+
+        // Yangilanish vaqtini ko'rsatish
+        if (times.updated_at) {
+            const badge = document.getElementById('last-updated');
+            if (badge) badge.textContent = times.updated_at + ' da yangilangan';
+        }
+        updateCountdown(times);
+    }
+
+    // Firebase dan real-time o'qish
+    function loadFromFirebase() {
+        if (!db) return;
+        db.ref('prayer_times').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                showMasjidTimes(data);
+            }
+        }, (err) => {
+            console.warn('Firebase o\'qib bo\'lmadi:', err.message);
+        });
+    }
+
+    // Aladhan API — astronomik vaqtlar (faqat ko'rsatish uchun)
+    async function loadApiTimes() {
+        try {
+            const res = await fetch(
+                'https://api.aladhan.com/v1/timings?latitude=40.8642&longitude=71.2271&method=2'
+            );
+            const data = await res.json();
+            if (data && data.code === 200) {
+                const t = data.data.timings;
+                document.getElementById('api-bomdod').textContent = t.Fajr    || '--:--';
+                document.getElementById('api-quyosh').textContent = t.Sunrise || '--:--';
+                document.getElementById('api-peshin').textContent = t.Dhuhr   || '--:--';
+                document.getElementById('api-asr').textContent    = t.Asr     || '--:--';
+                document.getElementById('api-shom').textContent   = t.Maghrib || '--:--';
+                document.getElementById('api-xufton').textContent = t.Isha    || '--:--';
+
+                // Agar Firebase sozlanmagan bo'lsa, API vaqtlarini asosiy qilib ko'rsat
+                if (!db) {
+                    const apiTimes = {
+                        bomdod: t.Fajr, quyosh: t.Sunrise, peshin: t.Dhuhr,
+                        asr: t.Asr, shom: t.Maghrib, xufton: t.Isha
+                    };
+                    showMasjidTimes(apiTimes);
+                    const badge = document.getElementById('last-updated');
+                    if (badge) badge.textContent = '';
+                }
+            }
+        } catch(e) {
+            console.warn('API vaqtlarini olib bo\'lmadi:', e.message);
         }
     }
 
-    // Boshlang'ich til va vaqtni yuklash
+    // Boshlang'ich yuklash
     setLanguage('uz_lt');
-    fetchPrayerTimes();
+    loadFromFirebase();
+    loadApiTimes();
+
 
     // --- Hamburger menyu mantiqi ---
     const hamburger = document.getElementById('hamburger-btn');

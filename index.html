@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="firebase-config.js"></script>
 </head>
 
 <body>
@@ -39,36 +43,75 @@
         <!-- Prayer Times Bar -->
         <div class="prayer-bar">
             <div class="prayer-bar-inner">
+                <!-- Soat va sana -->
                 <div class="clock-block">
                     <span class="clock-time" id="current-time">00:00</span>
                     <span class="clock-date" id="current-date" data-i18n="loading">Yuklanmoqda...</span>
                 </div>
-                <div class="prayer-strip">
-                    <div class="prayer-item" data-prayer="bomdod">
-                        <span class="p-name" data-i18n="bomdod">BOMDOD</span>
-                        <span class="p-time" id="time-bomdod">--:--</span>
+
+                <!-- Namoz vaqtlari: 2 qator -->
+                <div class="prayer-dual-strip">
+                    <!-- 1-qator: Masjid vaqti (KATTA) -->
+                    <div class="prayer-row-label masjid-label">
+                        <i class="fas fa-mosque"></i>
+                        <span>Masjidda o'qish vaqti</span>
+                        <span class="update-badge" id="last-updated"></span>
                     </div>
-                    <div class="prayer-item" data-prayer="quyosh">
-                        <span class="p-name" data-i18n="quyosh">QUYOSH</span>
-                        <span class="p-time" id="time-quyosh">--:--</span>
+                    <div class="prayer-strip masjid-strip">
+                        <div class="prayer-item" data-prayer="bomdod">
+                            <span class="p-name" data-i18n="bomdod">BOMDOD</span>
+                            <span class="p-time masjid-time" id="time-bomdod">--:--</span>
+                        </div>
+                        <div class="prayer-item" data-prayer="quyosh">
+                            <span class="p-name" data-i18n="quyosh">QUYOSH</span>
+                            <span class="p-time masjid-time" id="time-quyosh">--:--</span>
+                        </div>
+                        <div class="prayer-item" data-prayer="peshin">
+                            <span class="p-name" data-i18n="peshin">PESHIN</span>
+                            <span class="p-time masjid-time" id="time-peshin">--:--</span>
+                        </div>
+                        <div class="prayer-item" data-prayer="asr">
+                            <span class="p-name" data-i18n="asr">ASR</span>
+                            <span class="p-time masjid-time" id="time-asr">--:--</span>
+                        </div>
+                        <div class="prayer-item" data-prayer="shom">
+                            <span class="p-name" data-i18n="shom">SHOM</span>
+                            <span class="p-time masjid-time" id="time-shom">--:--</span>
+                        </div>
+                        <div class="prayer-item" data-prayer="xufton">
+                            <span class="p-name" data-i18n="xufton">XUFTON</span>
+                            <span class="p-time masjid-time" id="time-xufton">--:--</span>
+                        </div>
                     </div>
-                    <div class="prayer-item" data-prayer="peshin">
-                        <span class="p-name" data-i18n="peshin">PESHIN</span>
-                        <span class="p-time" id="time-peshin">--:--</span>
+
+                    <!-- 2-qator: Astronomik vaqt (KICHIK) -->
+                    <div class="prayer-row-label api-label">
+                        <i class="fas fa-globe"></i>
+                        <span>Astronomik vaqt</span>
                     </div>
-                    <div class="prayer-item" data-prayer="asr">
-                        <span class="p-name" data-i18n="asr">ASR</span>
-                        <span class="p-time" id="time-asr">--:--</span>
-                    </div>
-                    <div class="prayer-item" data-prayer="shom">
-                        <span class="p-name" data-i18n="shom">SHOM</span>
-                        <span class="p-time" id="time-shom">--:--</span>
-                    </div>
-                    <div class="prayer-item" data-prayer="xufton">
-                        <span class="p-name" data-i18n="xufton">XUFTON</span>
-                        <span class="p-time" id="time-xufton">--:--</span>
+                    <div class="prayer-strip api-strip">
+                        <div class="prayer-item">
+                            <span class="p-time api-time" id="api-bomdod">--:--</span>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="p-time api-time" id="api-quyosh">--:--</span>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="p-time api-time" id="api-peshin">--:--</span>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="p-time api-time" id="api-asr">--:--</span>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="p-time api-time" id="api-shom">--:--</span>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="p-time api-time" id="api-xufton">--:--</span>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Keyingi namozga sanash -->
                 <div class="countdown-block">
                     <span class="cd-label" data-i18n="next_prayer_in">Keyingi namozga:</span>
                     <span class="cd-timer" id="countdown-timer">--:--:--</span>

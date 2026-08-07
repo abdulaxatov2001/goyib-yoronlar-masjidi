@@ -115,36 +115,72 @@ a {
 
 .prayer-bar-inner {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
-    padding: 12px 24px;
-    gap: 20px;
+    padding: 10px 20px;
+    gap: 12px;
 }
 
 .clock-block {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     min-width: 80px;
-    padding-right: 20px;
+    padding-right: 16px;
     border-right: 1px solid var(--glass-border);
 }
 
 .clock-time {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
 }
 
 .clock-date {
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     color: var(--white-muted);
     white-space: nowrap;
+}
+
+/* Dual strip container */
+.prayer-dual-strip {
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Row labels */
+.prayer-row-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    font-weight: 600;
+    padding: 2px 0;
+}
+.prayer-row-label.masjid-label {
+    color: var(--gold);
+}
+.prayer-row-label.api-label {
+    color: var(--white-muted);
+    margin-top: 4px;
+}
+.prayer-row-label i { font-size: 0.7rem; }
+
+.update-badge {
+    font-size: 0.58rem;
+    color: rgba(212,160,23,0.55);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-left: 4px;
 }
 
 /* Prayer strip — always horizontal, scrollable on mobile */
@@ -152,51 +188,58 @@ a {
     display: flex;
     align-items: center;
     gap: 2px;
-    flex: 1;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
 }
 
-.prayer-strip::-webkit-scrollbar {
-    display: none;
-}
+.prayer-strip::-webkit-scrollbar { display: none; }
 
-.prayer-item {
+/* Masjid strip — big times */
+.masjid-strip .prayer-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 6px 14px;
+    padding: 4px 10px;
     border-radius: var(--radius-sm);
-    min-width: 68px;
+    min-width: 64px;
     transition: background var(--transition);
     flex-shrink: 0;
 }
-
-.prayer-item.active {
+.masjid-strip .prayer-item.active {
     background: var(--gold-glow);
 }
 
 .p-name {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: var(--white-muted);
     text-transform: uppercase;
     letter-spacing: 1.2px;
     font-weight: 600;
 }
+.masjid-strip .prayer-item.active .p-name { color: var(--gold-light); }
 
-.prayer-item.active .p-name {
-    color: var(--gold-light);
-}
-
-.p-time {
-    font-size: 1.05rem;
+.masjid-time {
+    font-size: 1.1rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
 }
+.masjid-strip .prayer-item.active .masjid-time { color: var(--gold-light); }
 
-.prayer-item.active .p-time {
-    color: var(--gold-light);
+/* API strip — small times */
+.api-strip .prayer-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    min-width: 64px;
+    flex-shrink: 0;
+}
+.api-time {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--white-muted);
+    font-variant-numeric: tabular-nums;
 }
 
 /* Countdown */
@@ -204,24 +247,27 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 20px;
+    justify-content: center;
+    padding-left: 16px;
     border-left: 1px solid var(--glass-border);
-    min-width: 100px;
+    min-width: 94px;
 }
 
 .cd-label {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: var(--white-muted);
     white-space: nowrap;
+    text-align: center;
 }
 
 .cd-timer {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--gold-light);
     font-variant-numeric: tabular-nums;
     font-family: 'Inter', monospace;
 }
+
 
 /* =========== NAVBAR =========== */
 .navbar {
