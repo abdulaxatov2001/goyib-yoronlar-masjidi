@@ -3,24 +3,40 @@
    ============================================= */
 
 :root {
-    --emerald: #1c6b52;
-    --emerald-deep: #134e3a;
-    --emerald-dark: #0e3326;
-    --emerald-light: #2c8c6c;
-    --mint: #10b981;
+    /* Premium iliq yashil (Forest/Olive) ohanglari */
+    --emerald: #166534;
+    /* Green 800 - iliq va to'q yashil */
+    --emerald-deep: #14532d;
+    /* Green 900 */
+    --emerald-dark: #052e16;
+    /* Green 950 - juda to'q */
+    --emerald-light: #22c55e;
+    /* Green 500 */
+
+    /* Yashil urg'u ranglar */
+    --mint: #ffffff;
+    /* Emerald 500 - Yorqin yashil */
     --mint-deep: #059669;
-    --mint-glow: rgba(16, 185, 129, 0.22);
-    --page-bg: #f4f7f5;
+    /* Emerald 600 */
+    --mint-glow: rgba(16, 185, 129, 0.15);
+
+    --page-bg: #fdfbf7;
+    /* Juda och iliq fon (qor-oq emas) */
     --card-bg: #ffffff;
-    --card-border: rgba(28, 107, 82, 0.14);
-    --card-text: #111827;
-    --card-muted: #4b5563;
+    --card-border: rgba(20, 83, 45, 0.1);
+    --card-text: #1c1917;
+    /* Warm dark gray */
+    --card-muted: #57534e;
+    /* Warm medium gray */
     --white: #ffffff;
-    --white-muted: #e2e8f0;
-    --glass-bg: rgba(22, 68, 50, 0.45);
-    --glass-border: rgba(255, 255, 255, 0.15);
+    --white-muted: #f5f5f4;
+
+    /* Glassmorphism uchun qoramtir va iliqroq orqa fon */
+    --glass-bg: rgba(5, 46, 22, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.1);
+
     --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 14px 35px rgba(19, 78, 58, 0.18);
+    --shadow-hover: 0 14px 35px rgba(20, 83, 45, 0.15);
     --radius: 18px;
     --radius-sm: 12px;
     --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -193,7 +209,7 @@ a {
     display: flex;
     align-items: stretch;
     justify-content: space-between;
-    background: var(--glass-bg);
+    background: rgb(4 176 173 / 0%);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
@@ -298,8 +314,8 @@ a {
 }
 
 .prayer-item.active {
-    background: var(--mint-glow);
-    border-color: var(--mint);
+    background: rgb(11 149 103);
+    border-color: #17c68c;
     transform: translateY(-2px);
 }
 
@@ -485,13 +501,14 @@ a {
     display: flex;
     align-items: center;
     padding: 0 5%;
-    background: url('https://images.unsplash.com/photo-1704104501136-8f35402af395?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&w=2000') center/cover no-repeat;
+    /* Butun masjid ko'rinishi uchun center/cover qoldirildi, kerak bo'lsa contain qilinishi mumkin */
+    background: url('https://images.unsplash.com/photo-1579404243938-f8d202ff6f36?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&w=2000') center/cover no-repeat;
 }
 
 .hero-overlay {
     position: absolute;
     inset: 0;
-    /* background: linear-gradient(135deg, rgb(27 87 66 / 24%) 0%, rgba(28, 107, 82, 0.65) 100%); */
+    /* Gradient olib tashlandi */
     z-index: 1;
 }
 
