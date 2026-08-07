@@ -392,8 +392,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Boshlang'ich yuklash
-    setLanguage('uz_lt');
+    // Boshlang'ich til va vaqtni yuklash
+    setLanguage('uz_cy');
     loadFromFirebase();
     loadApiTimes();
 
