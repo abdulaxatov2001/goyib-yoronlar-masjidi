@@ -1286,6 +1286,21 @@ a {
     }
 
     .hero-content {
-        padding-top: 200px;
+        padding-top: 260px;
+    }
+    
+    html.font-scale-lg .hero-content {
+        padding-top: 350px;
+    }
+    
+    html.font-scale-xl .hero-content {
+        padding-top: 400px;
+    }
+    
+    .nav-logo {
+        font-size: 0.9rem;
+        white-space: normal;
+        max-width: 70%;
+        line-height: 1.2;
     }
 }
