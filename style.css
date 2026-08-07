@@ -302,6 +302,8 @@ a {
     padding: 12px 5%;
     border-bottom: 1px solid rgba(201, 162, 39, 0.15);
     position: relative;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .nav-logo {
@@ -316,7 +318,9 @@ a {
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .nav-menu a {
@@ -420,7 +424,7 @@ a {
     position: relative;
     z-index: 2;
     max-width: 650px;
-    padding-top: 180px;
+    padding-top: 240px;
     /* Header yopib qo'ymasligi uchun */
     padding-bottom: 40px;
 }
