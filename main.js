@@ -368,30 +368,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Yangi API'dan vaqtlarni olish (namoz-vaqti.uz) va 3 daqiqa qo'shish
+    // Aladhan API — astronomik vaqtlar (faqat ko'rsatish uchun)
     async function loadApiTimes() {
         try {
-            const res = await fetch(`https://namoz-vaqti.uz/index.php?format=json&region=namangan`);
+            // Pop tumani koordinatalari (lat=40.8732, lng=70.9575) va Hanafi mazhabi (school=1)
+            const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=40.8732&longitude=70.9575&method=3&school=1`);
             const data = await res.json();
-            
-            if (data && data.today && data.today.times) {
-                // 3 daqiqa qo'shish funksiyasi (Pop tumani uchun)
-                const add3Min = (timeStr) => {
-                    if(!timeStr) return '--:--';
-                    let [h, m] = timeStr.split(':').map(Number);
-                    m += 3;
-                    if (m >= 60) { h += 1; m -= 60; }
-                    if (h >= 24) h -= 24;
-                    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-                };
-
-                const t = data.today.times;
-                const bomdod = add3Min(t.bomdod);
-                const quyosh = add3Min(t.quyosh);
-                const peshin = add3Min(t.peshin);
-                const asr = add3Min(t.asr);
-                const shom = add3Min(t.shom);
-                const xufton = add3Min(t.xufton);
+            if (data && data.code === 200) {
+                const t = data.data.timings;
+                
+                const bomdod = t.Fajr || '--:--';
+                const quyosh = t.Sunrise || '--:--';
+                const peshin = t.Dhuhr || '--:--';
+                const asr = t.Asr || '--:--';
+                const shom = t.Maghrib || '--:--';
+                const xufton = t.Isha || '--:--';
 
                 document.getElementById('api-bomdod').textContent = '⌚ ' + bomdod;
                 document.getElementById('api-quyosh').textContent = quyosh;
