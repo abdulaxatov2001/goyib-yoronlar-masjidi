@@ -483,7 +483,34 @@ a {
     display: flex;
     align-items: center;
     padding: 0 5%;
-    background: url('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+    background-color: var(--emerald-dark, #022c22);
+}
+
+.hero-slider {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out, transform 6s linear;
+    transform: scale(1.05);
+}
+
+.hero-slide.active {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .hero-overlay {
