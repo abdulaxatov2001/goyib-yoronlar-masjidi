@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
         if (typeof firebaseConfig !== 'undefined' &&
             firebaseConfig.databaseURL &&
-            !firebaseConfig.databaseURL.includes('LOYIHA_ID')) {
+            firebaseConfig.apiKey !== 'SIZNING_API_KALITINGIZ') {
             if (!firebase.apps.length) {
                 firebase.initializeApp(firebaseConfig);
             }

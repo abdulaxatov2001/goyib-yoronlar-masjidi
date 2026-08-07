@@ -350,7 +350,7 @@ let fbReady = false;
 window.addEventListener('load', () => {
     try {
         if (typeof firebaseConfig === 'undefined') throw new Error('firebase-config.js yuklanmadi');
-        if (!firebaseConfig.databaseURL || firebaseConfig.databaseURL.includes('LOYIHA_ID')) {
+        if (!firebaseConfig.databaseURL || firebaseConfig.apiKey === 'SIZNING_API_KALITINGIZ') {
             throw new Error('Firebase sozlanmagan');
         }
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
