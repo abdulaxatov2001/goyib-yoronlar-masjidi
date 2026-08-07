@@ -363,9 +363,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Aladhan API — astronomik vaqtlar (faqat ko'rsatish uchun)
     async function loadApiTimes() {
         try {
-            const res = await fetch(
-                'https://api.aladhan.com/v1/timings?latitude=40.8642&longitude=71.2271&method=2'
-            );
+            // Pop tumani koordinatalari (lat=40.8732, lng=70.9575) va Hanafi mazhabi (school=1)
+            const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=40.8732&longitude=70.9575&method=3&school=1`);
             const data = await res.json();
             if (data && data.code === 200) {
                 const t = data.data.timings;
