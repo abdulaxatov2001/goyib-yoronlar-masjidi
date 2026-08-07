@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel — Namoz Vaqtlari | G'oyib Yoronlar Masjidi</title>
+    <title>Admin Panel | G'oyib Yoronlar Masjidi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
     <script src="firebase-config.js"></script>
+    
     <style>
         :root {
             --green:  #064e3b;
@@ -32,7 +35,7 @@
             color: var(--text);
             min-height: 100vh;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             padding: 20px;
         }
@@ -44,365 +47,223 @@
             border-radius: 24px;
             padding: 40px;
             width: 100%;
-            max-width: 560px;
+            max-width: 600px;
             backdrop-filter: blur(16px);
             box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+            margin-top: 40px;
+            margin-bottom: 40px;
         }
 
-        /* ─── Sarlavha ─── */
-        .logo {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-        .logo i {
-            font-size: 2.5rem;
-            color: var(--gold);
-            display: block;
-            margin-bottom: 10px;
-        }
-        .logo h1 {
-            font-size: 1.4rem;
-            color: var(--gold);
-            font-weight: 700;
-        }
-        .logo p {
-            font-size: 0.82rem;
-            color: var(--muted);
-            margin-top: 4px;
-        }
+        .logo { text-align: center; margin-bottom: 28px; }
+        .logo i { font-size: 2.5rem; color: var(--gold); display: block; margin-bottom: 10px; }
+        .logo h1 { font-size: 1.4rem; color: var(--gold); font-weight: 700; }
+        .logo p { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
 
-        /* ─── Formlar ─── */
         label {
-            display: block;
-            font-size: 0.78rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--muted);
-            margin-bottom: 6px;
-            margin-top: 20px;
+            display: block; font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.8px; color: var(--muted); margin-bottom: 6px; margin-top: 20px;
         }
-        input {
-            width: 100%;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: var(--text);
-            padding: 14px 18px;
-            font-size: 1.05rem;
-            font-family: 'Inter', sans-serif;
-            outline: none;
-            transition: border-color 0.2s, background 0.2s;
+        input, textarea {
+            width: 100%; background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+            border-radius: 12px; color: var(--text); padding: 14px 18px; font-size: 1.05rem;
+            font-family: 'Inter', sans-serif; outline: none; transition: 0.2s;
         }
-        input:focus {
-            border-color: var(--gold);
-            background: rgba(212, 160, 23, 0.06);
-        }
-        input[type="time"] {
-            font-size: 1.25rem;
-            font-weight: 600;
-            text-align: center;
-            border: none;
-            background: transparent;
-            color: var(--gold);
-            padding: 10px 5px;
-            width: 100%;
-            outline: none;
-        }
-        
-        .time-input-group {
-            display: flex;
-            align-items: center;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: border-color 0.2s, background 0.2s;
-        }
-        .time-input-group:focus-within {
-            border-color: var(--gold);
-            background: rgba(212, 160, 23, 0.06);
-        }
-        .time-btn {
-            background: rgba(255,255,255,0.05);
-            border: none;
-            color: var(--muted);
-            padding: 0 16px;
-            height: 100%;
-            min-height: 48px;
-            cursor: pointer;
-            transition: color 0.2s, background 0.2s;
-        }
-        .time-btn:hover {
-            color: var(--gold);
-            background: rgba(212, 160, 23, 0.15);
-        }
+        input:focus, textarea:focus { border-color: var(--gold); background: rgba(212, 160, 23, 0.06); }
+        textarea { resize: vertical; min-height: 100px; }
 
-        /* ─── Tugmalar ─── */
         .btn {
-            width: 100%;
-            margin-top: 24px;
-            background: var(--gold);
-            color: #071410;
-            border: none;
-            border-radius: 14px;
-            padding: 16px;
-            font-size: 1rem;
-            font-weight: 700;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            transition: opacity 0.2s, transform 0.1s;
-            letter-spacing: 0.3px;
+            width: 100%; margin-top: 24px; background: var(--gold); color: #071410;
+            border: none; border-radius: 14px; padding: 16px; font-size: 1rem; font-weight: 700;
+            font-family: 'Inter', sans-serif; cursor: pointer; transition: 0.2s;
         }
         .btn:hover  { opacity: 0.88; }
         .btn:active { transform: scale(0.98); }
         .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-
-        /* ─── Namoz seti ─── */
-        .prayer-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0 24px;
-        }
-        .prayer-field label {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-        .prayer-field label i {
-            font-size: 0.9rem;
-        }
+        
+        .btn-danger { background: #ef4444; color: white; }
 
         /* ─── Xabarlar ─── */
-        .msg {
-            border-radius: 12px;
-            padding: 14px 18px;
-            font-size: 0.9rem;
-            margin-top: 18px;
-            display: none;
-            align-items: center;
-            gap: 10px;
-        }
-        .msg.success {
-            background: rgba(34, 197, 94, 0.12);
-            border: 1px solid rgba(34, 197, 94, 0.35);
-            color: #86efac;
-        }
-        .msg.error {
-            background: rgba(248, 113, 113, 0.12);
-            border: 1px solid rgba(248, 113, 113, 0.35);
-            color: #fca5a5;
-        }
+        .msg { border-radius: 12px; padding: 14px 18px; font-size: 0.9rem; margin-top: 18px; display: none; align-items: center; gap: 10px; }
+        .msg.success { background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.35); color: #86efac; }
+        .msg.error { background: rgba(248, 113, 113, 0.12); border: 1px solid rgba(248, 113, 113, 0.35); color: #fca5a5; }
         .msg.show { display: flex; }
 
-        /* ─── Hozirgi vaqtlar ─── */
-        .saved-box {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 16px 20px;
-            margin-bottom: 24px;
+        /* ─── Tabs ─── */
+        .tabs { display: flex; gap: 10px; margin-bottom: 24px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab {
+            padding: 10px 16px; border-radius: 10px; background: rgba(255,255,255,0.05); color: var(--muted);
+            cursor: pointer; font-size: 0.85rem; font-weight: 600; white-space: nowrap; transition: 0.2s;
         }
-        .saved-box h3 {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--muted);
-            margin-bottom: 10px;
-        }
-        .time-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .chip {
-            background: rgba(212, 160, 23, 0.12);
-            border: 1px solid rgba(212, 160, 23, 0.25);
-            border-radius: 8px;
-            padding: 5px 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--gold);
-        }
+        .tab:hover { background: rgba(255,255,255,0.1); color: white; }
+        .tab.active { background: var(--gold); color: #071410; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-        /* ─── Chiqish tugmasi ─── */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        .top-bar a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.2s;
-        }
-        .top-bar a:hover { color: var(--gold); }
+        /* Namoz seti */
+        .prayer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+        .time-input-group { display: flex; align-items: center; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        input[type="time"] { font-size: 1.25rem; font-weight: 600; text-align: center; border: none; background: transparent; color: var(--gold); padding: 10px 5px; outline: none; }
+        .time-btn { background: rgba(255,255,255,0.05); border: none; color: var(--muted); padding: 0 16px; height: 100%; min-height: 48px; cursor: pointer; }
+        .time-btn:hover { color: var(--gold); background: rgba(212, 160, 23, 0.15); }
+        .prayer-field label { display: flex; align-items: center; gap: 7px; }
 
-        /* ─── Firebase ogohlantirish ─── */
-        .fb-warn {
-            background: rgba(251, 191, 36, 0.1);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            border-radius: 12px;
-            padding: 14px 18px;
-            font-size: 0.85rem;
-            color: #fde68a;
-            margin-bottom: 20px;
-            line-height: 1.5;
+        /* Ro'yxat (Yangiliklar, Jamoa) */
+        .list-item {
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px;
+            padding: 16px; margin-top: 12px; display: flex; justify-content: space-between; align-items: center;
         }
-        .fb-warn strong { display: block; margin-bottom: 4px; }
+        .list-item-info h4 { color: var(--gold); font-size: 1rem; margin-bottom: 4px; }
+        .list-item-info p { color: var(--muted); font-size: 0.8rem; }
+        .list-item-img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; margin-right: 15px; }
+        .list-item-actions button {
+            background: transparent; border: none; color: var(--muted); font-size: 1.1rem; cursor: pointer; padding: 5px;
+        }
+        .list-item-actions button:hover { color: #fca5a5; }
 
-        /* ─── Loader ─── */
-        .spinner {
-            display: inline-block;
-            width: 14px; height: 14px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            margin-right: 6px;
-        }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .top-bar a { color: var(--muted); text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+        
+        .fb-warn { background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 12px; padding: 14px 18px; font-size: 0.85rem; color: #fde68a; margin-bottom: 20px; line-height: 1.5; display: none; }
+        .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 6px; }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<!-- Login sahifasi -->
+<!-- Login -->
 <div class="card" id="login-card">
     <div class="logo">
         <i class="fas fa-mosque"></i>
         <h1>Admin Panel</h1>
         <p>G'oyib Yoronlar Jome Masjidi</p>
     </div>
-
-    <div class="fb-warn" id="fb-status" style="display:none"></div>
-
+    <div class="fb-warn" id="fb-status"></div>
     <label><i class="fas fa-lock" style="margin-right:5px"></i>Parol</label>
-    <input type="password" id="pwd" placeholder="Masjid admin paroli..." 
-           onkeydown="if(event.key==='Enter') doLogin()">
-
-    <button class="btn" id="login-btn" onclick="doLogin()">
-        <i class="fas fa-sign-in-alt" style="margin-right:8px"></i>Kirish
-    </button>
-
-    <div class="msg error" id="login-err">
-        <i class="fas fa-exclamation-circle"></i> Noto'g'ri parol!
-    </div>
-
-    <div style="text-align:center;margin-top:20px">
-        <a href="index.html" style="color:var(--muted);font-size:0.82rem;text-decoration:none">
-            ← Saytga qaytish
-        </a>
-    </div>
+    <input type="password" id="pwd" placeholder="Masjid admin paroli..." onkeydown="if(event.key==='Enter') doLogin()">
+    <button class="btn" id="login-btn" onclick="doLogin()"><i class="fas fa-sign-in-alt" style="margin-right:8px"></i>Kirish</button>
+    <div class="msg error" id="login-err"><i class="fas fa-exclamation-circle"></i> Noto'g'ri parol!</div>
+    <div style="text-align:center;margin-top:20px"><a href="index.html" style="color:var(--muted);font-size:0.82rem;text-decoration:none">← Saytga qaytish</a></div>
 </div>
 
-<!-- Admin panel -->
+<!-- Admin Panel -->
 <div class="card" id="admin-card" style="display:none">
     <div class="top-bar">
         <div class="logo" style="text-align:left;margin:0">
-            <h1 style="font-size:1.1rem"><i class="fas fa-clock" style="color:var(--gold);margin-right:8px"></i>Namoz Vaqtlari</h1>
+            <h1 style="font-size:1.1rem"><i class="fas fa-cogs" style="color:var(--gold);margin-right:8px"></i>Boshqaruv</h1>
         </div>
         <div style="display:flex;gap:12px">
             <a href="index.html"><i class="fas fa-home"></i> Sayt</a>
-            <a href="#" onclick="doLogout()" style="color:#fca5a5">
-                <i class="fas fa-sign-out-alt"></i> Chiqish
-            </a>
+            <a href="#" onclick="doLogout()" style="color:#fca5a5"><i class="fas fa-sign-out-alt"></i> Chiqish</a>
         </div>
     </div>
+    <div class="fb-warn" id="admin-fb-status"></div>
 
-    <!-- Saqlangan vaqtlar -->
-    <div class="saved-box" id="saved-box" style="display:none">
-        <h3>📌 Hozir saytda ko'rinayotgan vaqtlar</h3>
-        <div class="time-chips" id="saved-chips"></div>
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('tab-prayer')">Vaqtlar</div>
+        <div class="tab" onclick="switchTab('tab-news')">Yangiliklar</div>
+        <div class="tab" onclick="switchTab('tab-team')">Jamoa</div>
+        <div class="tab" onclick="switchTab('tab-gallery')">Galereya</div>
     </div>
 
-    <!-- Firebase xolati -->
-    <div class="fb-warn" id="admin-fb-status" style="display:none"></div>
-
-    <!-- Namoz vaqtlari kirish formasi -->
-    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:4px">
-        Masjidda amalda o'qiladigan vaqtlarni kiriting:
-    </p>
-
-    <div class="prayer-grid">
-        <div class="prayer-field">
-            <label><i class="fas fa-sun" style="color:#fbbf24"></i> Bomdod</label>
-            <div class="time-input-group">
-                <button type="button" class="time-btn" onclick="adjustTime('bomdod', -1)"><i class="fas fa-minus"></i></button>
-                <input type="time" id="t-bomdod">
-                <button type="button" class="time-btn" onclick="adjustTime('bomdod', 1)"><i class="fas fa-plus"></i></button>
+    <!-- NAMOZ VAQTLARI -->
+    <div id="tab-prayer" class="tab-content active">
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:15px">Masjidda amalda o'qiladigan vaqtlarni kiriting:</p>
+        <div class="prayer-grid">
+            <div class="prayer-field">
+                <label><i class="fas fa-sun" style="color:#fbbf24"></i> Bomdod</label>
+                <div class="time-input-group">
+                    <button class="time-btn" onclick="adjustTime('bomdod', -1)"><i class="fas fa-minus"></i></button>
+                    <input type="time" id="t-bomdod">
+                    <button class="time-btn" onclick="adjustTime('bomdod', 1)"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="prayer-field">
+                <label><i class="fas fa-circle" style="color:#fde68a"></i> Quyosh</label>
+                <div class="time-input-group">
+                    <button class="time-btn" onclick="adjustTime('quyosh', -1)"><i class="fas fa-minus"></i></button>
+                    <input type="time" id="t-quyosh">
+                    <button class="time-btn" onclick="adjustTime('quyosh', 1)"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="prayer-field">
+                <label><i class="fas fa-sun" style="color:#f97316"></i> Peshin</label>
+                <div class="time-input-group">
+                    <button class="time-btn" onclick="adjustTime('peshin', -1)"><i class="fas fa-minus"></i></button>
+                    <input type="time" id="t-peshin">
+                    <button class="time-btn" onclick="adjustTime('peshin', 1)"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="prayer-field">
+                <label><i class="fas fa-cloud-sun" style="color:#fb923c"></i> Asr</label>
+                <div class="time-input-group">
+                    <button class="time-btn" onclick="adjustTime('asr', -1)"><i class="fas fa-minus"></i></button>
+                    <input type="time" id="t-asr">
+                    <button class="time-btn" onclick="adjustTime('asr', 1)"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="prayer-field">
+                <label><i class="fas fa-moon" style="color:#a5b4fc"></i> Shom</label>
+                <div class="time-input-group">
+                    <button class="time-btn" onclick="adjustTime('shom', -1)"><i class="fas fa-minus"></i></button>
+                    <input type="time" id="t-shom">
+                    <button class="time-btn" onclick="adjustTime('shom', 1)"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="prayer-field">
+                <label><i class="fas fa-star" style="color:#818cf8"></i> Xufton</label>
+                <div class="time-input-group">
+                    <button class="time-btn" onclick="adjustTime('xufton', -1)"><i class="fas fa-minus"></i></button>
+                    <input type="time" id="t-xufton">
+                    <button class="time-btn" onclick="adjustTime('xufton', 1)"><i class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
-        <div class="prayer-field">
-            <label><i class="fas fa-circle" style="color:#fde68a"></i> Quyosh chiqishi</label>
-            <div class="time-input-group">
-                <button type="button" class="time-btn" onclick="adjustTime('quyosh', -1)"><i class="fas fa-minus"></i></button>
-                <input type="time" id="t-quyosh">
-                <button type="button" class="time-btn" onclick="adjustTime('quyosh', 1)"><i class="fas fa-plus"></i></button>
-            </div>
-        </div>
-        <div class="prayer-field">
-            <label><i class="fas fa-sun" style="color:#f97316"></i> Peshin</label>
-            <div class="time-input-group">
-                <button type="button" class="time-btn" onclick="adjustTime('peshin', -1)"><i class="fas fa-minus"></i></button>
-                <input type="time" id="t-peshin">
-                <button type="button" class="time-btn" onclick="adjustTime('peshin', 1)"><i class="fas fa-plus"></i></button>
-            </div>
-        </div>
-        <div class="prayer-field">
-            <label><i class="fas fa-cloud-sun" style="color:#fb923c"></i> Asr</label>
-            <div class="time-input-group">
-                <button type="button" class="time-btn" onclick="adjustTime('asr', -1)"><i class="fas fa-minus"></i></button>
-                <input type="time" id="t-asr">
-                <button type="button" class="time-btn" onclick="adjustTime('asr', 1)"><i class="fas fa-plus"></i></button>
-            </div>
-        </div>
-        <div class="prayer-field">
-            <label><i class="fas fa-moon" style="color:#a5b4fc"></i> Shom</label>
-            <div class="time-input-group">
-                <button type="button" class="time-btn" onclick="adjustTime('shom', -1)"><i class="fas fa-minus"></i></button>
-                <input type="time" id="t-shom">
-                <button type="button" class="time-btn" onclick="adjustTime('shom', 1)"><i class="fas fa-plus"></i></button>
-            </div>
-        </div>
-        <div class="prayer-field">
-            <label><i class="fas fa-star" style="color:#818cf8"></i> Xufton</label>
-            <div class="time-input-group">
-                <button type="button" class="time-btn" onclick="adjustTime('xufton', -1)"><i class="fas fa-minus"></i></button>
-                <input type="time" id="t-xufton">
-                <button type="button" class="time-btn" onclick="adjustTime('xufton', 1)"><i class="fas fa-plus"></i></button>
-            </div>
-        </div>
+        <button class="btn" onclick="savePrayers()"><i class="fas fa-save" style="margin-right:8px"></i>Vaqtlarni Saqlash</button>
+        <div class="msg success" id="prayer-ok"><i class="fas fa-check-circle"></i> Saqlandi!</div>
     </div>
 
-    <button class="btn" id="save-btn" onclick="doSave()">
-        <i class="fas fa-globe" style="margin-right:8px"></i>Barcha foydalanuvchilarga saqlash
-    </button>
+    <!-- YANGILIKLAR -->
+    <div id="tab-news" class="tab-content">
+        <label>Sarlavha</label>
+        <input type="text" id="news-title" placeholder="Yangilik sarlavhasi...">
+        <label>Matn</label>
+        <textarea id="news-desc" placeholder="Batafsil ma'lumot..."></textarea>
+        <label>Rasm yuklash</label>
+        <input type="file" id="news-img" accept="image/*" style="padding:10px">
+        <button class="btn" id="btn-save-news" onclick="addNews()"><i class="fas fa-plus" style="margin-right:8px"></i>Yangilik Qo'shish</button>
+        <div class="msg success" id="news-ok"></div>
+        <div id="news-list"></div>
+    </div>
 
-    <div class="msg success" id="save-ok">
-        <i class="fas fa-check-circle"></i>
-        Muvaffaqiyatli saqlandi! Hamma uchun yangilandi.
+    <!-- JAMOA -->
+    <div id="tab-team" class="tab-content">
+        <label>Ism-Sharif</label>
+        <input type="text" id="team-name" placeholder="Masalan: Mardonbek domla...">
+        <label>Vazifasi</label>
+        <input type="text" id="team-role" placeholder="Masalan: Imom Xatib...">
+        <label>Rasm yuklash</label>
+        <input type="file" id="team-img" accept="image/*" style="padding:10px">
+        <button class="btn" id="btn-save-team" onclick="addTeam()"><i class="fas fa-plus" style="margin-right:8px"></i>Xodim Qo'shish</button>
+        <div class="msg success" id="team-ok"></div>
+        <div id="team-list"></div>
     </div>
-    <div class="msg error" id="save-err">
-        <i class="fas fa-times-circle"></i>
-        <span id="save-err-text">Saqlashda xatolik yuz berdi.</span>
+
+    <!-- GALEREYA -->
+    <div id="tab-gallery" class="tab-content">
+        <label>Yangi rasm yuklash</label>
+        <input type="file" id="gallery-img" accept="image/*" style="padding:10px" multiple>
+        <button class="btn" id="btn-save-gallery" onclick="addGallery()"><i class="fas fa-upload" style="margin-right:8px"></i>Rasmlarni Yuklash</button>
+        <div class="msg success" id="gallery-ok"></div>
+        <div id="gallery-list" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;"></div>
     </div>
+
 </div>
 
 <script>
-// ──────────────────────────────────────────
-//  Parol (faqat UI uchun, Firebase himoyasi asosiy)
-// ──────────────────────────────────────────
 const ADMIN_PASS = 'masjid2024';
-
-// ──────────────────────────────────────────
-//  Firebase
-// ──────────────────────────────────────────
 let db = null;
+let storage = null;
 let fbReady = false;
 
 window.addEventListener('load', () => {
@@ -413,156 +274,187 @@ window.addEventListener('load', () => {
         }
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         db = firebase.database();
+        storage = firebase.storage();
         fbReady = true;
     } catch(e) {
-        showFbWarn('login', e.message);
-        showFbWarn('admin', e.message);
+        document.getElementById('fb-status').innerHTML = e.message;
+        document.getElementById('fb-status').style.display = 'block';
     }
 });
 
-function showFbWarn(where, msg) {
-    const el = where === 'login'
-        ? document.getElementById('fb-status')
-        : document.getElementById('admin-fb-status');
-    if (!el) return;
-    el.style.display = 'block';
-    el.innerHTML = `<strong>⚠️ Firebase hali sozlanmagan</strong>
-        firebase-config.js faylini to'ldiring. Vaqtlar faqat shu qurilmada saqlanadi.<br>
-        <span style="opacity:.7;font-size:.8rem">${msg}</span>`;
-}
-
-// ──────────────────────────────────────────
-//  Login / Logout
-// ──────────────────────────────────────────
 function doLogin() {
-    const pwd = document.getElementById('pwd').value;
-    if (pwd === ADMIN_PASS) {
+    if (document.getElementById('pwd').value === ADMIN_PASS) {
         document.getElementById('login-card').style.display = 'none';
         document.getElementById('admin-card').style.display = 'block';
-        loadCurrentTimes();
-        document.getElementById('login-err').classList.remove('show');
+        loadPrayers();
+        loadList('news');
+        loadList('team');
+        loadGallery();
     } else {
         document.getElementById('login-err').classList.add('show');
-        document.getElementById('pwd').value = '';
     }
 }
+function doLogout() { location.reload(); }
 
-function doLogout() {
-    document.getElementById('admin-card').style.display = 'none';
-    document.getElementById('login-card').style.display = 'block';
-    document.getElementById('pwd').value = '';
+function switchTab(id) {
+    document.querySelectorAll('.tab').forEach(e => e.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById(id).classList.add('active');
 }
 
-// ──────────────────────────────────────────
-//  Saqlangan vaqtlarni yuklash
-// ──────────────────────────────────────────
-function loadCurrentTimes() {
-    if (fbReady && db) {
-        db.ref('prayer_times').once('value').then(snap => {
-            const d = snap.val();
-            if (d) fillForm(d);
-        }).catch(e => console.warn(e));
-    }
-}
-
-function fillForm(times) {
-    ['bomdod','quyosh','peshin','asr','shom','xufton'].forEach(k => {
-        const el = document.getElementById('t-' + k);
-        if (el && times[k]) el.value = times[k];
-    });
-
-    // Chipslarni ko'rsatish
-    const box = document.getElementById('saved-box');
-    const chips = document.getElementById('saved-chips');
-    box.style.display = 'block';
-    const labels = { bomdod:'Bomdod', quyosh:'Quyosh', peshin:'Peshin', asr:'Asr', shom:'Shom', xufton:'Xufton' };
-    chips.innerHTML = Object.entries(labels).map(([k, label]) =>
-        `<span class="chip">${label}: ${times[k] || '--:--'}</span>`
-    ).join('');
-}
-
-// ──────────────────────────────────────────
-//  Vaqtni tugmalar orqali o'zgartirish (+/-)
-// ──────────────────────────────────────────
-function adjustTime(key, minutes) {
+// ================= PRAYER TIMES =================
+function adjustTime(key, min) {
     const el = document.getElementById('t-' + key);
-    let val = el.value;
-    if (!val) val = "00:00"; // Agar bo'sh bo'lsa default
-    
-    let [h, m] = val.split(':').map(Number);
-    let totalMinutes = h * 60 + m + minutes;
-    
-    // Soat chegarasi
-    if (totalMinutes < 0) totalMinutes = 24 * 60 + totalMinutes;
-    if (totalMinutes >= 24 * 60) totalMinutes = totalMinutes % (24 * 60);
-    
-    const newH = Math.floor(totalMinutes / 60);
-    const newM = totalMinutes % 60;
-    
-    el.value = newH.toString().padStart(2, '0') + ':' + newM.toString().padStart(2, '0');
+    let [h, m] = (el.value || "00:00").split(':').map(Number);
+    let tot = h * 60 + m + min;
+    if (tot < 0) tot += 24*60;
+    tot %= 24*60;
+    el.value = String(Math.floor(tot/60)).padStart(2,'0') + ':' + String(tot%60).padStart(2,'0');
 }
 
-// ──────────────────────────────────────────
-//  Saqlash
-// ──────────────────────────────────────────
-async function doSave() {
-    const keys = ['bomdod','quyosh','peshin','asr','shom','xufton'];
-    const times = {};
-    let missing = [];
-
-    keys.forEach(k => {
-        const v = document.getElementById('t-' + k).value;
-        if (!v) missing.push(k);
-        else times[k] = v;
+function loadPrayers() {
+    if(!fbReady) return;
+    db.ref('prayer_times').once('value').then(s => {
+        const d = s.val() || {};
+        ['bomdod','quyosh','peshin','asr','shom','xufton'].forEach(k => {
+            if(d[k]) document.getElementById('t-'+k).value = d[k];
+        });
     });
-
-    if (missing.length) {
-        alert('Iltimos barcha 6 ta vaqtni kiriting!');
-        return;
-    }
-
-    // Vaqt belgisi
-    const now = new Date();
-    times.updated_at = now.toLocaleDateString('uz-UZ') + ' ' + now.toLocaleTimeString('uz-UZ', { hour:'2-digit', minute:'2-digit' });
-
-    const btn = document.getElementById('save-btn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Saqlanmoqda...';
-
-    document.getElementById('save-ok').classList.remove('show');
-    document.getElementById('save-err').classList.remove('show');
-
-    if (fbReady && db) {
-        // Firebase — hamma uchun
-        try {
-            await db.ref('prayer_times').set(times);
-            showMsg('ok', 'Muvaffaqiyatli saqlandi! Barcha foydalanuvchilar uchun yangilandi. ✅');
-            fillForm(times);
-        } catch(e) {
-            showMsg('err', 'Firebase xatolik: ' + e.message);
-        }
-    } else {
-        // Firebase yo'q — localStorage fallback
-        localStorage.setItem('masjid_prayer_times', JSON.stringify(times));
-        showMsg('ok', 'Vaqtlar saqlandi (faqat bu qurilmada). Firebase sozlash tavsiya etiladi.');
-        fillForm(times);
-    }
-
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-globe" style="margin-right:8px"></i>Barcha foydalanuvchilarga saqlash';
+}
+function savePrayers() {
+    if(!fbReady) return;
+    const data = {};
+    ['bomdod','quyosh','peshin','asr','shom','xufton'].forEach(k => {
+        data[k] = document.getElementById('t-'+k).value;
+    });
+    data.last_update = new Date().toISOString();
+    db.ref('prayer_times').set(data).then(() => {
+        const msg = document.getElementById('prayer-ok');
+        msg.classList.add('show');
+        setTimeout(() => msg.classList.remove('show'), 3000);
+    });
 }
 
-function showMsg(type, text) {
-    if (type === 'ok') {
-        const el = document.getElementById('save-ok');
-        el.innerHTML = `<i class="fas fa-check-circle"></i> ${text}`;
-        el.classList.add('show');
-        setTimeout(() => el.classList.remove('show'), 5000);
-    } else {
-        const el = document.getElementById('save-err');
-        document.getElementById('save-err-text').textContent = text;
-        el.classList.add('show');
+// ================= UPLOAD UTILS =================
+async function uploadImage(file, folder) {
+    if(!file) return null;
+    const ref = storage.ref(`${folder}/${Date.now()}_${file.name}`);
+    await ref.put(file);
+    return await ref.getDownloadURL();
+}
+
+// ================= NEWS & TEAM (CRUD) =================
+async function addNews() {
+    const btn = document.getElementById('btn-save-news');
+    const title = document.getElementById('news-title').value;
+    const desc = document.getElementById('news-desc').value;
+    const file = document.getElementById('news-img').files[0];
+    if(!title || !desc) return alert("Sarlavha va matnni kiriting!");
+    
+    btn.innerHTML = `<span class="spinner"></span> Yuklanmoqda...`;
+    btn.disabled = true;
+    try {
+        let imgUrl = await uploadImage(file, 'news');
+        await db.ref('news').push({
+            title, desc, imgUrl: imgUrl || '', date: new Date().toLocaleDateString('ru-RU')
+        });
+        document.getElementById('news-title').value = '';
+        document.getElementById('news-desc').value = '';
+        document.getElementById('news-img').value = '';
+        loadList('news');
+    } catch(e) { alert(e.message); }
+    btn.innerHTML = `<i class="fas fa-plus"></i> Yangilik Qo'shish`;
+    btn.disabled = false;
+}
+
+async function addTeam() {
+    const btn = document.getElementById('btn-save-team');
+    const name = document.getElementById('team-name').value;
+    const role = document.getElementById('team-role').value;
+    const file = document.getElementById('team-img').files[0];
+    if(!name || !role) return alert("Ism va vazifani kiriting!");
+    
+    btn.innerHTML = `<span class="spinner"></span> Yuklanmoqda...`;
+    btn.disabled = true;
+    try {
+        let imgUrl = await uploadImage(file, 'team');
+        await db.ref('team').push({ name, role, imgUrl: imgUrl || '' });
+        document.getElementById('team-name').value = '';
+        document.getElementById('team-role').value = '';
+        document.getElementById('team-img').value = '';
+        loadList('team');
+    } catch(e) { alert(e.message); }
+    btn.innerHTML = `<i class="fas fa-plus"></i> Xodim Qo'shish`;
+    btn.disabled = false;
+}
+
+function loadList(type) {
+    if(!fbReady) return;
+    db.ref(type).on('value', snap => {
+        const container = document.getElementById(type+'-list');
+        container.innerHTML = '';
+        snap.forEach(child => {
+            const v = child.val();
+            const title = type === 'news' ? v.title : v.name;
+            const subtitle = type === 'news' ? v.date : v.role;
+            const img = v.imgUrl ? `<img src="${v.imgUrl}" class="list-item-img">` : `<div class="list-item-img" style="background:#333;display:flex;align-items:center;justify-content:center"><i class="fas fa-image"></i></div>`;
+            container.innerHTML += `
+                <div class="list-item">
+                    <div style="display:flex;align-items:center">
+                        ${img}
+                        <div class="list-item-info"><h4>${title}</h4><p>${subtitle}</p></div>
+                    </div>
+                    <div class="list-item-actions">
+                        <button onclick="deleteItem('${type}', '${child.key}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+        });
+    });
+}
+
+function deleteItem(type, key) {
+    if(confirm("Haqiqatan ham o'chirmoqchimisiz?")) {
+        db.ref(type).child(key).remove();
     }
+}
+
+// ================= GALLERY =================
+async function addGallery() {
+    const btn = document.getElementById('btn-save-gallery');
+    const files = document.getElementById('gallery-img').files;
+    if(files.length === 0) return alert("Rasm tanlang!");
+    
+    btn.innerHTML = `<span class="spinner"></span> Yuklanmoqda...`;
+    btn.disabled = true;
+    try {
+        for(let i=0; i<files.length; i++) {
+            let imgUrl = await uploadImage(files[i], 'gallery');
+            if(imgUrl) await db.ref('gallery').push({ url: imgUrl, date: Date.now() });
+        }
+        document.getElementById('gallery-img').value = '';
+        loadGallery();
+    } catch(e) { alert(e.message); }
+    btn.innerHTML = `<i class="fas fa-upload"></i> Rasmlarni Yuklash`;
+    btn.disabled = false;
+}
+
+function loadGallery() {
+    if(!fbReady) return;
+    db.ref('gallery').on('value', snap => {
+        const container = document.getElementById('gallery-list');
+        container.innerHTML = '';
+        snap.forEach(child => {
+            const v = child.val();
+            container.innerHTML += `
+                <div style="position:relative; border-radius:8px; overflow:hidden; aspect-ratio:1;">
+                    <img src="${v.url}" style="width:100%;height:100%;object-fit:cover;">
+                    <button onclick="deleteItem('gallery', '${child.key}')" style="position:absolute;top:5px;right:5px;background:rgba(0,0,0,0.5);border:none;color:white;padding:5px;border-radius:4px;cursor:pointer"><i class="fas fa-trash"></i></button>
+                </div>
+            `;
+        });
+    });
 }
 </script>
 </body>

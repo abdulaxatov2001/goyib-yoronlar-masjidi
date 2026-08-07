@@ -396,6 +396,8 @@ document.addEventListener("DOMContentLoaded", () => {
     loadFromFirebase();
     loadApiTimes();
 
+    // Dinamik kontentlarni Firebase'dan o'qish
+    loadDynamicContent();
 
     // --- Hamburger menyu mantiqi ---
     const hamburger = document.getElementById('hamburger-btn');
@@ -424,36 +426,103 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Modal ochish
-window.openTeamModal = function(type) {
-    const modal = document.getElementById('team-modal');
-    const nameEl = document.getElementById('modal-name');
-    const roleEl = document.getElementById('modal-role');
-    const descEl = document.getElementById('modal-desc');
-    const iconEl = document.getElementById('modal-avatar').querySelector('i');
-    const currentLang = document.getElementById('lang-select').value;
-    const trans = translations[currentLang];
+// Firebase orqali dinamik ma'lumotlarni o'qish
+function loadDynamicContent() {
+    if (typeof firebase === 'undefined' || !firebase.apps.length) return;
+    const db = firebase.database();
+    
+    // Yangiliklar
+    db.ref('news').on('value', snap => {
+        const container = document.getElementById('news-container');
+        if (!container) return;
+        container.innerHTML = '';
+        if (!snap.exists()) {
+            container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; margin-top:10px;">Hozircha yangiliklar yo'q...</p>`;
+            return;
+        }
+        snap.forEach(child => {
+            const v = child.val();
+            const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-newspaper"></i>`;
+            container.innerHTML += `
+                <div class="news-card glassmorphism">
+                    <div class="news-img" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
+                    <div class="news-body">
+                        <span class="news-date">${v.date || ''}</span>
+                        <h3>${v.title}</h3>
+                        <p>${v.desc}</p>
+                    </div>
+                </div>
+            `;
+        });
+    });
 
-    if (type === 'imam') {
-        nameEl.textContent = trans.team_imam_name;
-        roleEl.textContent = trans.team_imam_role;
-        descEl.textContent = trans.team_imam_desc;
-        iconEl.className = 'fas fa-user-tie';
-    } else if (type === 'naib') {
-        nameEl.textContent = trans.team_naib_name;
-        roleEl.textContent = trans.team_naib_role;
-        descEl.textContent = trans.team_naib_desc;
-        iconEl.className = 'fas fa-user';
-    } else if (type === 'muazzin') {
-        nameEl.textContent = trans.team_muazzin_name;
-        roleEl.textContent = trans.team_muazzin_role;
-        descEl.textContent = trans.team_muazzin_desc;
-        iconEl.className = 'fas fa-user';
-    } else if (type === 'taftish') {
-        nameEl.textContent = trans.team_taftish_name;
-        roleEl.textContent = trans.team_taftish_role;
-        descEl.textContent = trans.team_taftish_desc;
-        iconEl.className = 'fas fa-user-shield';
+    // Jamoa
+    db.ref('team').on('value', snap => {
+        const container = document.getElementById('team-container');
+        if (!container) return;
+        container.innerHTML = '';
+        const members = [];
+        if (!snap.exists()) {
+            container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha jamoa a'zolari kiritilmagan...</p>`;
+            return;
+        }
+        snap.forEach(child => { members.push({ key: child.key, ...child.val() }); });
+        
+        window.teamMembers = members;
+        
+        members.forEach((v, index) => {
+            const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">` : `<i class="fas fa-user"></i>`;
+            container.innerHTML += `
+                <div class="team-card glassmorphism" onclick="openTeamModalDynamic(${index})">
+                    <div class="team-avatar" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
+                    <h3>${v.name}</h3>
+                    <p class="team-role">${v.role}</p>
+                    <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
+                </div>
+            `;
+        });
+    });
+
+    // Galereya
+    db.ref('gallery').on('value', snap => {
+        const container = document.getElementById('gallery-container');
+        if (!container) return;
+        container.innerHTML = '';
+        if (!snap.exists()) {
+            container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha rasmlar kiritilmagan...</p>`;
+            return;
+        }
+        snap.forEach(child => {
+            const v = child.val();
+            container.innerHTML += `
+                <div class="gallery-item glassmorphism" style="overflow:hidden; padding:0;">
+                    <img src="${v.url}" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+            `;
+        });
+    });
+}
+
+// Modal ochish
+window.openTeamModalDynamic = function(index) {
+    if (!window.teamMembers) return;
+    const v = window.teamMembers[index];
+    if (!v) return;
+    
+    const modal = document.getElementById('team-modal');
+    document.getElementById('modal-name').textContent = v.name;
+    document.getElementById('modal-role').textContent = v.role;
+    document.getElementById('modal-desc').textContent = v.role; 
+    
+    const iconEl = document.getElementById('modal-avatar');
+    if (v.imgUrl) {
+        iconEl.innerHTML = `<img src="${v.imgUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`;
+        iconEl.style.padding = "0";
+        iconEl.style.background = "transparent";
+    } else {
+        iconEl.innerHTML = `<i class="fas fa-user"></i>`;
+        iconEl.style.padding = "";
+        iconEl.style.background = "";
     }
     
     modal.classList.add('active');
