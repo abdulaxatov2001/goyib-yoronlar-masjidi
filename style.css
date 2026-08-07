@@ -3,16 +3,16 @@
    ============================================= */
 
 :root {
-    --emerald: #0a4d38;
-    --emerald-deep: #062b20;
-    --emerald-dark: #041a13;
-    --gold: #c9a227;
-    --gold-light: #e8c84a;
-    --gold-glow: rgba(201, 162, 39, 0.25);
+    --emerald: #107c5a;
+    --emerald-deep: #0a523b;
+    --emerald-dark: #073526;
+    --gold: #d4a017;
+    --gold-light: #f3c242;
+    --gold-glow: rgba(212, 160, 23, 0.25);
     --white: #ffffff;
-    --white-muted: #c4d8cc;
-    --glass-bg: rgba(10, 77, 56, 0.45);
-    --glass-border: rgba(255, 255, 255, 0.12);
+    --white-muted: #d1e3da;
+    --glass-bg: rgba(16, 124, 90, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.15);
     --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
     --radius: 16px;
     --radius-sm: 10px;
@@ -20,7 +20,9 @@
 }
 
 /* Reset */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -38,7 +40,9 @@ body {
     overflow-x: hidden;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: 'Playfair Display', serif;
 }
 
@@ -124,7 +128,8 @@ a {
     border-radius: var(--radius);
     padding: 10px 20px;
     gap: 12px;
-    flex-wrap: wrap; /* zoom uchun */
+    flex-wrap: wrap;
+    /* zoom uchun */
 }
 
 .clock-block {
@@ -168,14 +173,28 @@ a {
     font-weight: 600;
     margin-bottom: 2px;
 }
-.legend-item { display: flex; align-items: center; gap: 6px; }
-.masjid-legend { color: var(--gold); }
-.api-legend { color: var(--white-muted); }
-.legend-item i { font-size: 0.7rem; }
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.masjid-legend {
+    color: var(--gold);
+}
+
+.api-legend {
+    color: var(--white-muted);
+}
+
+.legend-item i {
+    font-size: 0.7rem;
+}
 
 .update-badge {
     font-size: 0.58rem;
-    color: rgba(212,160,23,0.55);
+    color: rgba(212, 160, 23, 0.55);
     font-weight: 400;
     text-transform: none;
     letter-spacing: 0;
@@ -194,7 +213,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
     padding: 8px 4px;
     border-radius: var(--radius-sm);
     transition: background var(--transition), transform 0.2s;
@@ -202,7 +221,7 @@ a {
 }
 
 .prayer-item:hover {
-    background: rgba(255,255,255,0.06);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .prayer-item.active {
@@ -219,7 +238,10 @@ a {
     font-weight: 600;
     margin-bottom: 4px;
 }
-.prayer-item.active .p-name { color: var(--gold-light); }
+
+.prayer-item.active .p-name {
+    color: var(--gold-light);
+}
 
 .masjid-time {
     font-size: 1.1rem;
@@ -228,7 +250,10 @@ a {
     font-variant-numeric: tabular-nums;
     line-height: 1.1;
 }
-.prayer-item.active .masjid-time { color: var(--gold-light); }
+
+.prayer-item.active .masjid-time {
+    color: var(--gold-light);
+}
 
 .api-time {
     font-size: 0.7rem;
@@ -237,7 +262,7 @@ a {
     font-variant-numeric: tabular-nums;
     margin-top: 6px;
     padding-top: 6px;
-    border-top: 1px dashed rgba(255,255,255,0.1);
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
     width: 80%;
     text-align: center;
 }
@@ -387,7 +412,7 @@ a {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(4, 26, 19, 0.92) 0%, rgba(10, 77, 56, 0.5) 100%);
+    background: linear-gradient(135deg, rgba(7, 53, 38, 0.75) 0%, rgba(16, 124, 90, 0.4) 100%);
     z-index: 1;
 }
 
@@ -395,7 +420,8 @@ a {
     position: relative;
     z-index: 2;
     max-width: 650px;
-    padding-top: 180px; /* Header yopib qo'ymasligi uchun */
+    padding-top: 180px;
+    /* Header yopib qo'ymasligi uchun */
     padding-bottom: 40px;
 }
 
@@ -842,6 +868,7 @@ a {
    RESPONSIVE — Telefon (max 768px)
    ========================================= */
 @media (max-width: 768px) {
+
     /* Top bar */
     .top-bar {
         padding: 6px 4%;
@@ -1007,6 +1034,7 @@ a {
         padding: 8px 16px;
         font-size: 0.8rem;
     }
+
     .gallery-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
@@ -1043,38 +1071,46 @@ a {
         flex-wrap: wrap;
         justify-content: center;
     }
+
     .prayer-times-grid-container {
         width: 100%;
         order: 3;
     }
+
     .hero-content {
         padding-top: 240px;
     }
 }
+
 @media (max-width: 900px) {
     .prayer-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+
     .hero-content {
         padding-top: 280px;
     }
 }
+
 @media (max-width: 500px) {
     .prayer-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 6px;
     }
+
     .prayer-item {
         padding: 8px 2px;
     }
+
     .masjid-time {
         font-size: 1rem;
     }
+
     .prayer-legends {
         font-size: 0.55rem;
     }
+
     .hero-content {
         padding-top: 200px;
     }
 }
-
