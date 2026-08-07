@@ -332,12 +332,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function showMasjidTimes(times) {
         if (!times) return;
         currentPrayerTimes = times;
-        document.getElementById('time-bomdod').textContent = times.bomdod || '--:--';
+        document.getElementById('time-bomdod').textContent = '🤲 ' + (times.bomdod || '--:--');
         document.getElementById('time-quyosh').textContent = times.quyosh || '--:--';
-        document.getElementById('time-peshin').textContent = times.peshin || '--:--';
-        document.getElementById('time-asr').textContent   = times.asr   || '--:--';
-        document.getElementById('time-shom').textContent  = times.shom  || '--:--';
-        document.getElementById('time-xufton').textContent= times.xufton|| '--:--';
+        document.getElementById('time-peshin').textContent = '🤲 ' + (times.peshin || '--:--');
+        document.getElementById('time-asr').textContent   = '🤲 ' + (times.asr   || '--:--');
+        document.getElementById('time-shom').textContent  = '🤲 ' + (times.shom  || '--:--');
+        document.getElementById('time-xufton').textContent= '🤲 ' + (times.xufton|| '--:--');
 
         // Yangilanish vaqtini ko'rsatish
         if (times.updated_at) {
@@ -368,12 +368,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             if (data && data.code === 200) {
                 const t = data.data.timings;
-                document.getElementById('api-bomdod').textContent = t.Fajr    || '--:--';
+                document.getElementById('api-bomdod').textContent = '⌚ ' + (t.Fajr    || '--:--');
                 document.getElementById('api-quyosh').textContent = t.Sunrise || '--:--';
-                document.getElementById('api-peshin').textContent = t.Dhuhr   || '--:--';
-                document.getElementById('api-asr').textContent    = t.Asr     || '--:--';
-                document.getElementById('api-shom').textContent   = t.Maghrib || '--:--';
-                document.getElementById('api-xufton').textContent = t.Isha    || '--:--';
+                document.getElementById('api-peshin').textContent = '⌚ ' + (t.Dhuhr   || '--:--');
+                document.getElementById('api-asr').textContent    = '⌚ ' + (t.Asr     || '--:--');
+                document.getElementById('api-shom').textContent   = '⌚ ' + (t.Maghrib || '--:--');
+                document.getElementById('api-xufton').textContent = '⌚ ' + (t.Isha    || '--:--');
 
                 // Agar Firebase sozlanmagan bo'lsa, API vaqtlarini asosiy qilib ko'rsat
                 if (!db) {
