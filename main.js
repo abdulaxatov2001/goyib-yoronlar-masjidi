@@ -487,17 +487,6 @@ document.addEventListener("DOMContentLoaded", () => {
             closeTeamModal();
         }
     });
-
-    // --- Hero Background Slider Animation ---
-    const heroSlides = document.querySelectorAll('.hero-slider .hero-slide');
-    if (heroSlides.length > 0) {
-        let currentSlide = 0;
-        setInterval(() => {
-            heroSlides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % heroSlides.length;
-            heroSlides[currentSlide].classList.add('active');
-        }, 5000); // 5 seconds per slide
-    }
 });
 
 // Firebase orqali dinamik ma'lumotlarni o'qish
