@@ -44,6 +44,7 @@ html {
 html.font-scale-lg {
     font-size: 18px;
 }
+
 html.font-scale-lg .hero-content {
     padding-top: 290px;
 }
@@ -51,6 +52,7 @@ html.font-scale-lg .hero-content {
 html.font-scale-xl {
     font-size: 20px;
 }
+
 html.font-scale-xl .hero-content {
     padding-top: 340px;
 }
@@ -516,7 +518,7 @@ a {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgb(27 87 66 / 24%) 0%, rgba(28, 107, 82, 0.65) 100%);
+    /* background: linear-gradient(135deg, rgb(27 87 66 / 24%) 0%, rgba(28, 107, 82, 0.65) 100%); */
     z-index: 1;
 }
 
@@ -1047,7 +1049,7 @@ a {
     max-width: 100%;
     max-height: 85vh;
     border-radius: var(--radius-sm);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
     object-fit: contain;
 }
 
@@ -1315,15 +1317,15 @@ a {
     .hero-content {
         padding-top: 260px;
     }
-    
+
     html.font-scale-lg .hero-content {
         padding-top: 350px;
     }
-    
+
     html.font-scale-xl .hero-content {
         padding-top: 400px;
     }
-    
+
     .nav-logo {
         font-size: 0.9rem;
         white-space: normal;
