@@ -420,15 +420,6 @@
                     </div>
                 </div>
                 <div class="prayer-field">
-                    <label><i class="fas fa-circle" style="color:#fde68a"></i> Quyosh</label>
-                    <div class="time-input-group">
-                        <button class="time-btn" onclick="adjustTime('quyosh', -1)"><i
-                                class="fas fa-minus"></i></button>
-                        <input type="time" id="t-quyosh">
-                        <button class="time-btn" onclick="adjustTime('quyosh', 1)"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-                <div class="prayer-field">
                     <label><i class="fas fa-sun" style="color:#f97316"></i> Peshin</label>
                     <div class="time-input-group">
                         <button class="time-btn" onclick="adjustTime('peshin', -1)"><i
@@ -569,7 +560,7 @@
             if (!fbReady) return;
             db.ref('prayer_times').once('value').then(s => {
                 const d = s.val() || {};
-                ['bomdod', 'quyosh', 'peshin', 'asr', 'shom', 'xufton'].forEach(k => {
+                ['bomdod', 'peshin', 'asr', 'shom', 'xufton'].forEach(k => {
                     if (d[k]) document.getElementById('t-' + k).value = d[k];
                 });
             });
@@ -577,7 +568,7 @@
         function savePrayers() {
             if (!fbReady) return;
             const data = {};
-            ['bomdod', 'quyosh', 'peshin', 'asr', 'shom', 'xufton'].forEach(k => {
+            ['bomdod', 'peshin', 'asr', 'shom', 'xufton'].forEach(k => {
                 data[k] = document.getElementById('t-' + k).value;
             });
             data.last_update = new Date().toISOString();

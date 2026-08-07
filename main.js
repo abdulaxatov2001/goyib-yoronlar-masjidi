@@ -331,9 +331,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Masjid vaqtlarini ko'rsatish (Firebase dan)
     function showMasjidTimes(times) {
         if (!times) return;
+        
+        // Quyosh vaqti API dan kelgan bo'lsa, shuni ishlatamiz
+        if (window.apiQuyoshTime) {
+            times.quyosh = window.apiQuyoshTime;
+        } else if (!times.quyosh) {
+            times.quyosh = '--:--';
+        }
+
         currentPrayerTimes = times;
         document.getElementById('time-bomdod').textContent = '🤲 ' + (times.bomdod || '--:--');
-        document.getElementById('time-quyosh').textContent = times.quyosh || '--:--';
+        document.getElementById('time-quyosh').textContent = times.quyosh;
         document.getElementById('time-peshin').textContent = '🤲 ' + (times.peshin || '--:--');
         document.getElementById('time-asr').textContent   = '🤲 ' + (times.asr   || '--:--');
         document.getElementById('time-shom').textContent  = '🤲 ' + (times.shom  || '--:--');
@@ -360,26 +368,50 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Aladhan API — astronomik vaqtlar (faqat ko'rsatish uchun)
+    // Yangi API'dan vaqtlarni olish (namoz-vaqti.uz) va 3 daqiqa qo'shish
     async function loadApiTimes() {
         try {
-            // Pop tumani koordinatalari (lat=40.8732, lng=70.9575) va Hanafi mazhabi (school=1)
-            const res = await fetch(`https://api.aladhan.com/v1/timings?latitude=40.8732&longitude=70.9575&method=3&school=1`);
+            const res = await fetch(`https://namoz-vaqti.uz/index.php?format=json&region=namangan`);
             const data = await res.json();
-            if (data && data.code === 200) {
-                const t = data.data.timings;
-                document.getElementById('api-bomdod').textContent = '⌚ ' + (t.Fajr    || '--:--');
-                document.getElementById('api-quyosh').textContent = t.Sunrise || '--:--';
-                document.getElementById('api-peshin').textContent = '⌚ ' + (t.Dhuhr   || '--:--');
-                document.getElementById('api-asr').textContent    = '⌚ ' + (t.Asr     || '--:--');
-                document.getElementById('api-shom').textContent   = '⌚ ' + (t.Maghrib || '--:--');
-                document.getElementById('api-xufton').textContent = '⌚ ' + (t.Isha    || '--:--');
+            
+            if (data && data.today && data.today.times) {
+                // 3 daqiqa qo'shish funksiyasi (Pop tumani uchun)
+                const add3Min = (timeStr) => {
+                    if(!timeStr) return '--:--';
+                    let [h, m] = timeStr.split(':').map(Number);
+                    m += 3;
+                    if (m >= 60) { h += 1; m -= 60; }
+                    if (h >= 24) h -= 24;
+                    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+                };
+
+                const t = data.today.times;
+                const bomdod = add3Min(t.bomdod);
+                const quyosh = add3Min(t.quyosh);
+                const peshin = add3Min(t.peshin);
+                const asr = add3Min(t.asr);
+                const shom = add3Min(t.shom);
+                const xufton = add3Min(t.xufton);
+
+                document.getElementById('api-bomdod').textContent = '⌚ ' + bomdod;
+                document.getElementById('api-quyosh').textContent = quyosh;
+                document.getElementById('api-peshin').textContent = '⌚ ' + peshin;
+                document.getElementById('api-asr').textContent    = '⌚ ' + asr;
+                document.getElementById('api-shom').textContent   = '⌚ ' + shom;
+                document.getElementById('api-xufton').textContent = '⌚ ' + xufton;
+
+                // Quyosh masjid vaqtini API'dan olamiz
+                window.apiQuyoshTime = quyosh;
+                document.getElementById('time-quyosh').textContent = quyosh;
+                if (currentPrayerTimes) {
+                    currentPrayerTimes.quyosh = quyosh;
+                    updateCountdown(currentPrayerTimes);
+                }
 
                 // Agar Firebase sozlanmagan bo'lsa, API vaqtlarini asosiy qilib ko'rsat
                 if (!db) {
                     const apiTimes = {
-                        bomdod: t.Fajr, quyosh: t.Sunrise, peshin: t.Dhuhr,
-                        asr: t.Asr, shom: t.Maghrib, xufton: t.Isha
+                        bomdod, quyosh, peshin, asr, shom, xufton
                     };
                     showMasjidTimes(apiTimes);
                     const badge = document.getElementById('last-updated');
