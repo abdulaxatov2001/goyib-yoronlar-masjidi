@@ -361,6 +361,35 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* ─── Mobil moslashuvchanlik ─── */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                padding: 24px 16px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                border-radius: 18px;
+            }
+            .prayer-grid {
+                grid-template-columns: 1fr;
+            }
+            #gallery-list {
+                grid-template-columns: 1fr !important;
+            }
+            .tabs {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .tab {
+                flex: 1 1 calc(50% - 6px);
+                text-align: center;
+                padding: 12px 10px;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 
