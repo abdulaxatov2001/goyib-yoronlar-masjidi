@@ -532,6 +532,10 @@
             <input type="text" id="team-name" placeholder="Masalan: Mardonbek domla...">
             <label>Vazifasi</label>
             <input type="text" id="team-role" placeholder="Masalan: Imom Xatib...">
+            <label>Telefon raqam (Ixtiyoriy)</label>
+            <input type="text" id="team-phone" placeholder="Masalan: +998901234567">
+            <label>Telegram Username (Ixtiyoriy)</label>
+            <input type="text" id="team-tg" placeholder="Masalan: abdulloh">
             <label>Ta'rifi</label>
             <textarea id="team-desc" placeholder="Xodim haqida qisqacha ma'lumot..."></textarea>
             <label>Rasm yuklash</label>
@@ -717,6 +721,8 @@
             const btn = document.getElementById('btn-save-team');
             const name = document.getElementById('team-name').value;
             const role = document.getElementById('team-role').value;
+            const phone = document.getElementById('team-phone').value;
+            const tg = document.getElementById('team-tg').value;
             const desc = document.getElementById('team-desc').value;
             const file = document.getElementById('team-img').files[0];
             if (!name || !role) return alert("Ism va vazifani kiriting!");
@@ -727,15 +733,17 @@
                 let imgUrl = file ? await uploadImage(file) : oldImgUrl;
                 if (editingTeamKey) {
                     await db.ref('team').child(editingTeamKey).update({
-                        name, role, desc, imgUrl: imgUrl || ''
+                        name, role, phone, tg, desc, imgUrl: imgUrl || ''
                     });
                     editingTeamKey = null;
                 } else {
-                    await db.ref('team').push({ name, role, desc, imgUrl: imgUrl || '' });
+                    await db.ref('team').push({ name, role, phone, tg, desc, imgUrl: imgUrl || '' });
                 }
                 oldImgUrl = null;
                 document.getElementById('team-name').value = '';
                 document.getElementById('team-role').value = '';
+                document.getElementById('team-phone').value = '';
+                document.getElementById('team-tg').value = '';
                 document.getElementById('team-desc').value = '';
                 document.getElementById('team-img').value = '';
                 loadList('team');
@@ -798,6 +806,8 @@
                     oldImgUrl = v.imgUrl || null;
                     document.getElementById('team-name').value = v.name;
                     document.getElementById('team-role').value = v.role;
+                    document.getElementById('team-phone').value = v.phone || '';
+                    document.getElementById('team-tg').value = v.tg || '';
                     document.getElementById('team-desc').value = v.desc || '';
                     document.getElementById('btn-save-team').innerHTML = `<i class="fas fa-save" style="margin-right:8px"></i>Yangilash`;
                     switchTab('tab-team');

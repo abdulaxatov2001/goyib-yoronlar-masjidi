@@ -846,6 +846,16 @@ window.openTeamModalDynamic = function(index) {
     } else {
         phoneEl.style.display = 'none';
     } 
+
+    const tgEl = document.getElementById('modal-tg');
+    if (v.tg) {
+        const username = v.tg.replace('@', '');
+        tgEl.innerHTML = `<i class="fab fa-telegram-plane" style="margin-right: 5px;"></i> @${username}`;
+        tgEl.href = `https://t.me/${username}`;
+        tgEl.style.display = 'inline-block';
+    } else {
+        tgEl.style.display = 'none';
+    }
     
     const iconEl = document.getElementById('modal-avatar');
     if (v.imgUrl) {
