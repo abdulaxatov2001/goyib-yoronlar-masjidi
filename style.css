@@ -3,22 +3,16 @@
    ============================================= */
 
 :root {
-    /* Premium iliq yashil (Forest/Olive) ohanglari */
-    --emerald: #166534;
-    /* Green 800 - iliq va to'q yashil */
-    --emerald-deep: #14532d;
-    /* Green 900 */
-    --emerald-dark: #052e16;
-    /* Green 950 - juda to'q */
-    --emerald-light: #22c55e;
-    /* Green 500 */
+    /* Asosiy Yangi Ranglar (Prompt bo'yicha) */
+    --emerald: #2D7A4A;
+    --emerald-deep: #1f5233;
+    --emerald-dark: #12301e;
+    --emerald-light: #4A90E2; /* Obzor/Ko'k rang sifatida ishlatsa bo'ladi */
 
-    /* Yashil urg'u ranglar */
-    --mint: #ffffff;
-    /* Emerald 500 - Yorqin yashil */
-    --mint-deep: #059669;
-    /* Emerald 600 */
-    --mint-glow: rgba(16, 185, 129, 0.15);
+    /* Tilla urg'u ranglar */
+    --mint: #D4AF37;
+    --mint-deep: #B8860B;
+    --mint-glow: rgba(212, 175, 55, 0.15);
 
     --page-bg: #fdfbf7;
     /* Juda och iliq fon (qor-oq emas) */
@@ -547,7 +541,7 @@ a {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(45, 122, 74, 0.5), rgba(0, 0, 0, 0.7));
+    background: rgba(0, 0, 0, 0.35); /* Faqatgina biroz qoramtir fon, yashil emas */
     z-index: 1;
 }
 
