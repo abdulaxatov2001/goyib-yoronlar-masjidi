@@ -180,12 +180,13 @@
                 <span></span>
             </button>
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="#dua" data-i18n="nav_dua">Duo olish</a></li>
+                <li class="active"><a href="#hero" data-i18n="nav_home">Bosh Sahifa</a></li>
                 <li><a href="#about" data-i18n="nav_about">Biz haqimizda</a></li>
                 <li><a href="#team" data-i18n="nav_team">Jamoa</a></li>
                 <li><a href="#news" data-i18n="nav_news">Yangiliklar</a></li>
                 <li><a href="#events" data-i18n="nav_events">Tadbirlar</a></li>
                 <li><a href="#gallery" data-i18n="nav_gallery">Galereya</a></li>
+                <li><a href="#dua" data-i18n="nav_dua">Duo olish</a></li>
                 <li><a href="#contact" data-i18n="nav_contact">Aloqa</a></li>
                 <li class="nav-donate-li"><a href="#donate" class="nav-donate-btn" data-i18n="nav_donate">Xayriya</a>
                 </li>
@@ -262,18 +263,20 @@
         <div class="section-header">
             <h2 data-i18n="dua_title">Jamoatdan duo olish</h2>
         </div>
-        <div class="dua-wrapper glassmorphism" style="max-width: 600px; margin: 0 auto; padding: 2rem;">
-            <p id="dua-warning" style="color: #ff9800; font-weight: bold; margin-bottom: 1rem; text-align: center; display: none;">
-                Diqqat: Juma kuni soat 12:40 dan 13:00 gacha duo yuborish vaqtincha to'xtatiladi. 13:00 dan so'ng keyingi hafta uchun qabul qilinadi.
-            </p>
-            <form id="dua-form" style="display: flex; flex-direction: column; gap: 15px;">
-                <input type="text" id="dua-name" placeholder="Ismingiz (ixtiyoriy)" style="padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: var(--text);">
-                <textarea id="dua-message" placeholder="Duo mazmuni (Masalan: Bemorman, jamoatdan shifo so'rab duo qilishlarini iltimos qilaman)" required rows="4" style="padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: var(--text);"></textarea>
-                <button type="submit" id="dua-submit-btn" style="padding: 12px; border-radius: 8px; border: none; background: var(--primary); color: white; font-weight: bold; cursor: pointer; transition: 0.3s;">Yuborish</button>
-            </form>
-            <p id="dua-success" style="color: #4caf50; font-weight: bold; margin-top: 1rem; text-align: center; display: none;">
-                Duoingiz qabul qilindi. Alloh ijobat qilsin!
-            </p>
+        <div class="dua-wrapper" style="max-width: 600px; margin: 0 auto;">
+            <div class="events-card glassmorphism" style="padding: 2rem; display: flex; flex-direction: column; gap: 15px;">
+                <p id="dua-warning" style="color: #ff9800; font-weight: bold; margin-bottom: 10px; text-align: center; display: none;">
+                    Diqqat: Juma kuni soat 12:40 dan 13:00 gacha duo yuborish vaqtincha to'xtatiladi. 13:00 dan so'ng keyingi hafta uchun qabul qilinadi.
+                </p>
+                <form id="dua-form" style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
+                    <input type="text" id="dua-name" placeholder="Ismingiz (ixtiyoriy)" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: var(--white); font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='rgba(255,255,255,0.2)'">
+                    <textarea id="dua-message" placeholder="Duo mazmuni (Masalan: Bemorman, jamoatdan shifo so'rab duo qilishlarini iltimos qilaman)" required rows="4" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: var(--white); font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s; resize: vertical;" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='rgba(255,255,255,0.2)'"></textarea>
+                    <button type="submit" id="dua-submit-btn" style="padding: 14px; border-radius: 8px; border: none; background: var(--primary); color: var(--bg); font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Yuborish</button>
+                </form>
+                <p id="dua-success" style="color: #4caf50; font-weight: bold; margin-top: 10px; text-align: center; display: none;">
+                    Duoingiz qabul qilindi. Alloh ijobat qilsin!
+                </p>
+            </div>
         </div>
     </section>
 
