@@ -706,9 +706,9 @@ function logVisit() {
     // Firebase ulanganligini tekshiramiz
     if (typeof firebase === 'undefined' || !firebase.database) return;
     
-    // Foydalanuvchi joriy sessiyada saytga kirib bo'lgan bo'lsa, qaytamiz (qayta-qayta sanamaslik uchun)
-    if (sessionStorage.getItem('site_visited')) return;
-    sessionStorage.setItem('site_visited', 'true');
+    // Test uchun hozircha sessionStorage tekshiruvini olib tashlaymiz
+    // if (sessionStorage.getItem('site_visited')) return;
+    // sessionStorage.setItem('site_visited', 'true');
 
     const db = firebase.database();
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
