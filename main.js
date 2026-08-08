@@ -427,9 +427,22 @@ document.addEventListener("DOMContentLoaded", () => {
     
     function loadFromFirebase() {
         if (!db) return;
+        
+        // --- 1. Keshdan o'qish (Tezkor ko'rsatish uchun) ---
+        try {
+            const cached = localStorage.getItem('cached_prayer_times');
+            if (cached) {
+                showMasjidTimes(JSON.parse(cached));
+            }
+        } catch(e) { }
+
+        // --- 2. Tarmoqdan (Firebase) eng so'nggi ma'lumotni o'qish ---
         db.ref('prayer_times').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
+                // Keshni yangilash
+                try { localStorage.setItem('cached_prayer_times', JSON.stringify(data)); } catch(e) {}
+                
                 showMasjidTimes(data);
                 
                 // Namoz vaqtlari yuklangach, qolgan og'ir ma'lumotlarni (jamoa, galereya) yuklash
