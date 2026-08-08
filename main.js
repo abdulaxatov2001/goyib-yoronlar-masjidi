@@ -243,20 +243,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // --- Dark Mode Logic ---
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    if (themeToggleBtn) {
+    const themeCheckbox = document.getElementById('checkbox-theme');
+    if (themeCheckbox) {
         // Load saved theme
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-mode');
-            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+            themeCheckbox.checked = true;
         }
 
-        themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            themeToggleBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        themeCheckbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            }
         });
     }
 
