@@ -714,10 +714,15 @@ window.openNewsModal = function(index) {
     }
     
     document.getElementById('news-modal').classList.add('active');
+    history.pushState({ modalOpen: true }, "");
 }
 
-window.closeNewsModal = function() {
-    document.getElementById('news-modal').classList.remove('active');
+window.closeNewsModal = function(fromPopState = false) {
+    const modal = document.getElementById('news-modal');
+    if (modal && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        if (!fromPopState) history.back();
+    }
 }
 
 function renderNews() {
@@ -869,12 +874,16 @@ window.openTeamModalDynamic = function(index) {
     }
     
     modal.classList.add('active');
+    history.pushState({ modalOpen: true }, "");
 }
 
 // Modal yopish
-window.closeTeamModal = function() {
+window.closeTeamModal = function(fromPopState = false) {
     const modal = document.getElementById('team-modal');
-    if (modal) modal.classList.remove('active');
+    if (modal && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        if (!fromPopState) history.back();
+    }
 };
 
 // Lightbox ochish/yopish va navigatsiya
@@ -895,11 +904,15 @@ window.openLightbox = function(url) {
 
     img.src = url;
     modal.classList.add('active');
+    history.pushState({ modalOpen: true }, "");
 };
 
-window.closeLightbox = function() {
+window.closeLightbox = function(fromPopState = false) {
     const modal = document.getElementById('lightbox-modal');
-    if (modal) modal.classList.remove('active');
+    if (modal && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        if (!fromPopState) history.back();
+    }
 };
 
 window.prevLightboxImage = function() {
@@ -1061,3 +1074,18 @@ function showToast() {
         toast.classList.remove('show');
     }, 3000);
 }
+
+// --- Modal yopish (Esc, Orqaga tugmasi) ---
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        if (typeof closeNewsModal === 'function') closeNewsModal();
+        if (typeof closeTeamModal === 'function') closeTeamModal();
+        if (typeof closeLightbox === 'function') closeLightbox();
+    }
+});
+
+window.addEventListener('popstate', (e) => {
+    if (typeof closeNewsModal === 'function') closeNewsModal(true);
+    if (typeof closeTeamModal === 'function') closeTeamModal(true);
+    if (typeof closeLightbox === 'function') closeLightbox(true);
+});
