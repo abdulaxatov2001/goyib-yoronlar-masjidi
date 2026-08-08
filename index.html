@@ -135,7 +135,10 @@
 
         <!-- Navigation -->
         <nav class="navbar">
-            <a href="#" class="nav-logo" data-i18n="hero_title_inline">"G'OYIB YORONLAR" JOME MASJIDI</a>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <a href="#" class="nav-logo" data-i18n="hero_title_inline">"G'OYIB YORONLAR" JOME MASJIDI</a>
+                <span id="realtime-clock" class="header-clock">--:--:--</span>
+            </div>
             <button class="hamburger" id="hamburger-btn" aria-label="Menyuni ochish">
                 <span></span>
                 <span></span>
@@ -149,8 +152,8 @@
                 <li><a href="#events" data-i18n="nav_events">Tadbirlar</a></li>
                 <li><a href="#gallery" data-i18n="nav_gallery">Galereya</a></li>
                 <li><a href="#contact" data-i18n="nav_contact">Aloqa</a></li>
-                <li class="nav-donate-li"><a href="#donate" class="nav-donate-btn" data-i18n="nav_donate">Xayriya</a>
-                </li>
+                <li class="nav-donate-li"><a href="#donate" class="nav-donate-btn" data-i18n="nav_donate">Xayriya</a></li>
+                <li><button id="theme-toggle" class="theme-btn" aria-label="Tungi rejim"><i class="fas fa-moon"></i></button></li>
             </ul>
         </nav>
     </header>

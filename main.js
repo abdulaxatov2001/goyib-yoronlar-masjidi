@@ -196,6 +196,9 @@ const translations = {
 let currentPrayerTimes = null;
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Tashriflar statistikasini hisoblash
+    logVisit();
+    
     // --- Shrift o'lchamini kattalashtirish (Yoshi kattalar uchun) ---
     const htmlEl = document.documentElement;
     const btnNorm = document.getElementById('font-scale-norm');
@@ -241,6 +244,24 @@ document.addEventListener("DOMContentLoaded", () => {
         setLanguage(e.target.value);
     });
 
+    // --- Dark Mode Logic ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeToggleBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    }
+
     // --- Vaqt va sana mantiqi ---
     const uzMonths = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"];
     const uzDays = ["Yakshanba", "Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba"];
@@ -269,6 +290,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById('current-time').textContent = timeString;
         document.getElementById('current-date').textContent = dateString;
+
+        const clockEl = document.getElementById('realtime-clock');
+        if (clockEl) {
+            clockEl.textContent = now.toLocaleTimeString('uz-UZ', { hour12: false });
+        }
 
         if (currentPrayerTimes) {
             updateCountdown(currentPrayerTimes);
@@ -610,3 +636,28 @@ window.closeLightbox = function() {
     const modal = document.getElementById('lightbox-modal');
     if (modal) modal.classList.remove('active');
 };
+
+// --- Statistika (Analytics) funksiyasi ---
+function logVisit() {
+    // Firebase ulanganligini tekshiramiz
+    if (typeof firebase === 'undefined' || !firebase.database) return;
+    
+    // Foydalanuvchi joriy sessiyada saytga kirib bo'lgan bo'lsa, qaytamiz (qayta-qayta sanamaslik uchun)
+    if (sessionStorage.getItem('site_visited')) return;
+    sessionStorage.setItem('site_visited', 'true');
+
+    const db = firebase.database();
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    
+    // Umumiy tashriflar sonini oshirish
+    const totalRef = db.ref('statistics/total_visits');
+    totalRef.transaction((current) => {
+        return (current || 0) + 1;
+    }).catch(err => console.error("Stats log error:", err));
+    
+    // Bugungi tashriflar sonini oshirish
+    const dailyRef = db.ref(`statistics/daily_visits/${today}`);
+    dailyRef.transaction((current) => {
+        return (current || 0) + 1;
+    }).catch(err => console.error("Stats daily log error:", err));
+}
