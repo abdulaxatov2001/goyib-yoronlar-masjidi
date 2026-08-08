@@ -60,7 +60,9 @@ const translations = {
         nav_charity: "Xayriya",
         charity_title: "Xayriya va Ehson",
         charity_general: "Masjid ehtiyojlari uchun umumiy ehson",
-        charity_utility: "Kommunal to'lovlar uchun"
+        charity_utility: "Kommunal to'lovlar uchun",
+        reconstruction_title: "Masjidimiz Kecha va Bugun",
+        reconstruction_desc: "O'rtadagi chiziqni surib masjidimizning avvalgi va hozirgi holatini ko'rishingiz mumkin."
     },
     uz_cy: {
         bomdod: "БОМДОД",
@@ -123,7 +125,9 @@ const translations = {
         nav_charity: "Хайрия",
         charity_title: "Хайрия ва Эҳсон",
         charity_general: "Масжид эҳтиёжлари учун умумий эҳсон",
-        charity_utility: "Коммунал тўловлар учун"
+        charity_utility: "Коммунал тўловлар учун",
+        reconstruction_title: "Масжидимиз Кеча ва Бугун",
+        reconstruction_desc: "Ўртадаги чизиқни суриб масжидимизнинг аввалги ва ҳозирги ҳолатини кўришингиз мумкин."
     },
     ru: {
         bomdod: "ФАДЖР",
@@ -186,7 +190,9 @@ const translations = {
         nav_charity: "Пожертвование",
         charity_title: "Благотворительность и Пожертвование",
         charity_general: "Общее пожертвование на нужды мечети",
-        charity_utility: "На коммунальные платежи"
+        charity_utility: "На коммунальные платежи",
+        reconstruction_title: "Мечеть Вчера и Сегодня",
+        reconstruction_desc: "Сдвиньте линию посередине, чтобы увидеть прошлое и настоящее состояние нашей мечети."
     },
     en: {
         bomdod: "FAJR",
@@ -249,7 +255,9 @@ const translations = {
         nav_charity: "Donate",
         charity_title: "Charity and Donation",
         charity_general: "General donation for mosque needs",
-        charity_utility: "For utility bills"
+        charity_utility: "For utility bills",
+        reconstruction_title: "Our Mosque Yesterday and Today",
+        reconstruction_desc: "Slide the center line to compare the previous and current state of our mosque."
     }
 };
 
@@ -1088,4 +1096,19 @@ window.addEventListener('popstate', (e) => {
     if (typeof closeNewsModal === 'function') closeNewsModal(true);
     if (typeof closeTeamModal === 'function') closeTeamModal(true);
     if (typeof closeLightbox === 'function') closeLightbox(true);
+});
+
+// --- Before / After Slider ---
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('ba-slider');
+    const beforeImg = document.getElementById('ba-before');
+    const sliderLine = document.getElementById('ba-slider-line');
+
+    if (slider) {
+        slider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (beforeImg) beforeImg.style.width = `${val}%`;
+            if (sliderLine) sliderLine.style.left = `${val}%`;
+        });
+    }
 });
