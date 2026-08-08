@@ -193,7 +193,9 @@ a {
 }
 .custom-select .select-items {
     position: absolute;
-    background-color: var(--emerald-deep);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     top: 100%;
     left: 0;
     right: 0;
@@ -202,11 +204,11 @@ a {
     overflow: hidden;
     border: 1px solid var(--glass-border);
     margin-top: 4px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 body.dark-mode .custom-select .select-items {
-    background-color: #1a1a1a;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 .custom-select .select-items div {
     color: var(--white);
@@ -227,7 +229,7 @@ body.dark-mode .custom-select .select-items {
     align-items: center;
 }
 .font-switcher .custom-select .select-selected {
-    min-width: 50px;
+    min-width: 60px;
     text-align: center;
     justify-content: center;
 }
