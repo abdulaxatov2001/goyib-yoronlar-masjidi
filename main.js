@@ -296,6 +296,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const uzCyMonths = ["Январ", "Феврал", "Март", "Апрел", "Май", "Июн", "Июл", "Август", "Сентябр", "Октябр", "Ноябр", "Декабр"];
     const uzCyDays = ["Якшанба", "Душанба", "Сешанба", "Чоршанба", "Пайшанба", "Жума", "Шанба"];
 
+    // Hijriy oylar
+    const hijriMonths = {
+        uz_lt: ["Muharram", "Safar", "Rabiul avval", "Rabiul oxir", "Jumodul avval", "Jumodul oxir", "Rajab", "Sha'bon", "Ramazon", "Shavvol", "Zulqa'da", "Zulhijja"],
+        uz_cy: ["Муҳаррам", "Сафар", "Рабиул аввал", "Рабиул охир", "Жумодул аввал", "Жумодул охир", "Ражаб", "Шаъбон", "Рамазон", "Шаввол", "Зулқаъда", "Зулҳижжа"],
+        ru: ["Мухаррам", "Сафар", "Раби аль-авваль", "Раби аль-ахир", "Джумада аль-уля", "Джумада аль-ахира", "Раджаб", "Шаабан", "Рамадан", "Шавваль", "Зуль-када", "Зуль-хиджа"],
+        en: ["Muharram", "Safar", "Rabi al-Awwal", "Rabi al-Thani", "Jumada al-Awwal", "Jumada al-Thani", "Rajab", "Sha'ban", "Ramadan", "Shawwal", "Dhu al-Qi'dah", "Dhu al-Hijjah"]
+    };
+    
+    let currentHijriDate = null;
+
     function updateClock() {
         const now = new Date();
         const timeString = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
@@ -314,6 +324,13 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             dateString = now.toLocaleDateString('en-US', options);
+        }
+
+        if (currentHijriDate) {
+            const hMonthIndex = parseInt(currentHijriDate.month) - 1;
+            const hMonthName = hijriMonths[currentLang] ? hijriMonths[currentLang][hMonthIndex] : hijriMonths['uz_cy'][hMonthIndex];
+            const hYearSuffix = (currentLang === 'uz_lt' || currentLang === 'uz_cy') ? (currentLang === 'uz_lt' ? '-yil' : '-йил') : '';
+            dateString += ` / ${currentHijriDate.day}-${hMonthName} ${currentHijriDate.year}${hYearSuffix}`;
         }
 
         document.getElementById('current-time').textContent = timeString;
@@ -504,6 +521,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
             if (data && data.code === 200) {
                 const t = data.data.timings;
+                const hDate = data.data.date.hijri;
+                currentHijriDate = {
+                    day: hDate.day,
+                    month: hDate.month.number,
+                    year: hDate.year
+                };
+                updateClock(); // Refresh the date string to include hijri
                 
                 const bomdod = t.Fajr || '--:--';
                 const quyosh = t.Sunrise || '--:--';
