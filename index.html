@@ -90,7 +90,8 @@
                 <!-- Soat va sana -->
                 <div class="clock-block">
                     <span class="clock-time" id="current-time">00:00</span>
-                    <div class="date-container" style="display: flex; flex-direction: column; gap: 3px; align-items: center; margin-top: 4px;">
+                    <div class="date-container"
+                        style="display: flex; flex-direction: column; gap: 3px; align-items: center; margin-top: 4px;">
                         <span class="clock-date" id="current-date" data-i18n="loading">Yuklanmoqda....</span>
                         <span class="clock-date" id="hijri-date" style="font-size: 0.85em; opacity: 0.9;"></span>
                     </div>
@@ -179,14 +180,15 @@
                 <span></span>
             </button>
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="#" data-i18n="nav_home">Bosh Sahifa</a></li>
+                <li><a href="#dua" data-i18n="nav_dua">Duo olish</a></li>
                 <li><a href="#about" data-i18n="nav_about">Biz haqimizda</a></li>
                 <li><a href="#team" data-i18n="nav_team">Jamoa</a></li>
                 <li><a href="#news" data-i18n="nav_news">Yangiliklar</a></li>
                 <li><a href="#events" data-i18n="nav_events">Tadbirlar</a></li>
                 <li><a href="#gallery" data-i18n="nav_gallery">Galereya</a></li>
                 <li><a href="#contact" data-i18n="nav_contact">Aloqa</a></li>
-                <li class="nav-donate-li"><a href="#donate" class="nav-donate-btn" data-i18n="nav_donate">Xayriya</a></li>
+                <li class="nav-donate-li"><a href="#donate" class="nav-donate-btn" data-i18n="nav_donate">Xayriya</a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -255,6 +257,26 @@
         </div>
     </section>
 
+    <!-- Duo Olish Section -->
+    <section class="section" id="dua">
+        <div class="section-header">
+            <h2 data-i18n="dua_title">Jamoatdan duo olish</h2>
+        </div>
+        <div class="dua-wrapper glassmorphism" style="max-width: 600px; margin: 0 auto; padding: 2rem;">
+            <p id="dua-warning" style="color: #ff9800; font-weight: bold; margin-bottom: 1rem; text-align: center; display: none;">
+                Diqqat: Juma kuni soat 12:40 dan 13:00 gacha duo yuborish vaqtincha to'xtatiladi. 13:00 dan so'ng keyingi hafta uchun qabul qilinadi.
+            </p>
+            <form id="dua-form" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="text" id="dua-name" placeholder="Ismingiz (ixtiyoriy)" style="padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: var(--text);">
+                <textarea id="dua-message" placeholder="Duo mazmuni (Masalan: Bemorman, jamoatdan shifo so'rab duo qilishlarini iltimos qilaman)" required rows="4" style="padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: var(--text);"></textarea>
+                <button type="submit" id="dua-submit-btn" style="padding: 12px; border-radius: 8px; border: none; background: var(--primary); color: white; font-weight: bold; cursor: pointer; transition: 0.3s;">Yuborish</button>
+            </form>
+            <p id="dua-success" style="color: #4caf50; font-weight: bold; margin-top: 1rem; text-align: center; display: none;">
+                Duoingiz qabul qilindi. Alloh ijobat qilsin!
+            </p>
+        </div>
+    </section>
+
     <!-- Contact & Map Section -->
     <section class="section" id="contact">
         <div class="section-header">
@@ -272,7 +294,7 @@
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
-                    <span>+998 90 123 45 67</span>
+                    <a href="tel:+998934946636" style="color: inherit; text-decoration: none; font-weight: bold;">+998 93 494 66 36</a>
                 </div>
                 <div class="contact-item">
                     <i class="fab fa-telegram-plane"></i>
@@ -326,9 +348,11 @@
     <!-- Lightbox Modal -->
     <div class="modal-overlay" id="lightbox-modal" onclick="closeLightbox()">
         <span class="modal-close" onclick="closeLightbox()"><i class="fas fa-times"></i></span>
-        <button class="lightbox-btn lightbox-prev" onclick="event.stopPropagation(); prevLightboxImage()"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-btn lightbox-prev" onclick="event.stopPropagation(); prevLightboxImage()"><i
+                class="fas fa-chevron-left"></i></button>
         <img class="lightbox-img" id="lightbox-img" src="" alt="Gallery Image" onclick="event.stopPropagation()">
-        <button class="lightbox-btn lightbox-next" onclick="event.stopPropagation(); nextLightboxImage()"><i class="fas fa-chevron-right"></i></button>
+        <button class="lightbox-btn lightbox-next" onclick="event.stopPropagation(); nextLightboxImage()"><i
+                class="fas fa-chevron-right"></i></button>
     </div>
 
     <script src="main.js"></script>

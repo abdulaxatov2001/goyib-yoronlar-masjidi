@@ -808,3 +808,58 @@ function logVisit() {
         return (current || 0) + 1;
     }).catch(err => console.error("Stats daily log error:", err));
 }
+
+// --- Duo Olish Formasi Mantiqi ---
+document.addEventListener('DOMContentLoaded', () => {
+    const duaForm = document.getElementById('dua-form');
+    const duaWarning = document.getElementById('dua-warning');
+    const duaSuccess = document.getElementById('dua-success');
+    
+    if (duaForm) {
+        duaForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const now = new Date();
+            const dayOfWeek = now.getDay(); // 5 = Friday
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            
+            // Juma kuni 12:40 dan 13:00 gacha yopamiz
+            if (dayOfWeek === 5 && hours === 12 && minutes >= 40) {
+                duaWarning.style.display = 'block';
+                duaSuccess.style.display = 'none';
+                return;
+            }
+            
+            duaWarning.style.display = 'none';
+            
+            const nameInput = document.getElementById('dua-name').value.trim();
+            const messageInput = document.getElementById('dua-message').value.trim();
+            
+            if (!messageInput) return;
+            
+            if (typeof firebase !== 'undefined' && firebase.apps.length) {
+                const db = firebase.database();
+                try {
+                    await db.ref('dua_requests').push({
+                        name: nameInput || 'Yashirin',
+                        message: messageInput,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    });
+                    
+                    duaSuccess.style.display = 'block';
+                    duaForm.reset();
+                    
+                    setTimeout(() => {
+                        duaSuccess.style.display = 'none';
+                    }, 5000);
+                } catch (err) {
+                    console.error("Duo yuborishda xatolik:", err);
+                    alert("Xatolik yuz berdi. Iltimos, keyinroq qayta urinib ko'ring.");
+                }
+            } else {
+                alert("Tizimga ulanishda muammo (Firebase).");
+            }
+        });
+    }
+});

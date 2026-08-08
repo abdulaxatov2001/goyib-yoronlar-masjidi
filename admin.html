@@ -433,6 +433,7 @@
             <div class="tab" onclick="switchTab('tab-news')">Yangiliklar</div>
             <div class="tab" onclick="switchTab('tab-team')">Jamoa</div>
             <div class="tab" onclick="switchTab('tab-gallery')">Galereya</div>
+            <div class="tab" onclick="switchTab('tab-dua')">Duo So'rovlari</div>
         </div>
 
         <!-- STATISTIKA -->
@@ -548,6 +549,14 @@
             <div id="gallery-list" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;"></div>
         </div>
 
+        <!-- Duo So'rovlari Tab -->
+        <div id="tab-dua" class="tab-content">
+            <h2>Haftalik Duo So'rovlari</h2>
+            <div id="dua-admin-list">
+                <!-- Javascript will populate this with grouped weeks -->
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -583,6 +592,7 @@
                 loadList('team');
                 loadGallery();
                 loadStats(); // Statistikani yuklash
+                loadDuas();
             } else {
                 document.getElementById('login-err').classList.add('show');
             }
@@ -827,6 +837,67 @@
                 </div>
             `;
                 });
+            });
+        // ================= DUA REQUESTS =================
+        function getWeekIdentifier(timestamp) {
+            const date = new Date(timestamp);
+            // Calculate week identifier. For simplicity: "Yil-Hafta" or just week start date
+            // Let's use the Monday of the week as the identifier
+            const day = date.getDay();
+            const diff = date.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+            const monday = new Date(date.setDate(diff));
+            return monday.toISOString().split('T')[0]; // YYYY-MM-DD format for Monday
+        }
+
+        function loadDuas() {
+            if (!fbReady) return;
+            db.ref('dua_requests').on('value', snap => {
+                const container = document.getElementById('dua-admin-list');
+                if (!container) return;
+                container.innerHTML = '';
+                
+                let duas = [];
+                snap.forEach(child => {
+                    duas.push({ key: child.key, ...child.val() });
+                });
+                
+                // Sort by newest first
+                duas.sort((a, b) => b.timestamp - a.timestamp);
+                
+                // Group by week
+                const weeks = {};
+                duas.forEach(d => {
+                    const week = getWeekIdentifier(d.timestamp);
+                    if (!weeks[week]) weeks[week] = [];
+                    weeks[week].push(d);
+                });
+                
+                // Render
+                for (const [week, weekDuas] of Object.entries(weeks)) {
+                    let html = `<div style="background: var(--card-bg); padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">`;
+                    html += `<h3 style="margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; color: var(--primary);">Hafta boshi: ${week}</h3>`;
+                    
+                    weekDuas.forEach(d => {
+                        const dateObj = new Date(d.timestamp);
+                        const timeStr = dateObj.toLocaleDateString('uz-UZ') + ' ' + dateObj.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
+                        html += `
+                            <div style="border-bottom: 1px solid var(--border-color); padding: 10px 0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <strong>${d.name || 'Yashirin'}</strong>
+                                    <span style="font-size: 0.85rem; color: #888;">${timeStr}</span>
+                                </div>
+                                <p style="margin: 0; white-space: pre-wrap; font-size: 0.95rem;">${d.message}</p>
+                                <button onclick="deleteItem('dua_requests', '${d.key}')" class="btn" style="background:#e74c3c; padding: 4px 8px; font-size: 0.8rem; margin-top: 8px;">O'chirish</button>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                    container.innerHTML += html;
+                }
+                
+                if (duas.length === 0) {
+                    container.innerHTML = '<p>Hozircha duo so\'rovlari yo\'q.</p>';
+                }
             });
         }
     </script>
