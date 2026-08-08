@@ -71,6 +71,69 @@
 
 
 
+        <!-- Prayer Times Bar -->
+        <div class="prayer-bar">
+            <div class="prayer-bar-inner">
+                <!-- Soat va sana -->
+                <div class="clock-block">
+                    <span class="clock-time" id="current-time">00:00</span>
+                    <span class="clock-date" id="current-date" data-i18n="loading">Yuklanmoqda....</span>
+                </div>
+
+                <!-- Namoz vaqtlari: Grid Layout -->
+                <div class="prayer-times-grid-container">
+                    <div class="prayer-legends">
+                        <div class="legend-item masjid-legend">
+                            <i class="fas fa-mosque"></i> <span data-i18n="masjid_time_label">Masjidda o'qilish
+                                vaqti</span> <span class="update-badge" id="last-updated"></span>
+                        </div>
+                        <div class="legend-item api-legend">
+                            <i class="fas fa-globe"></i> <span data-i18n="api_time_label">Astronomik vaqt</span>
+                        </div>
+                    </div>
+
+                    <div class="prayer-grid">
+                        <div class="prayer-item" data-prayer="bomdod">
+                            <div class="p-name" data-i18n="bomdod">BOMDOD</div>
+                            <div class="p-time masjid-time" id="time-bomdod">--:--</div>
+                            <div class="p-time api-time" id="api-bomdod">--:--</div>
+                        </div>
+                        <div class="prayer-item" data-prayer="quyosh">
+                            <div class="p-name" data-i18n="quyosh">QUYOSH</div>
+                            <div class="p-time masjid-time" id="time-quyosh">--:--</div>
+                            <div class="p-time api-time" id="api-quyosh">--:--</div>
+                        </div>
+                        <div class="prayer-item" data-prayer="peshin">
+                            <div class="p-name" data-i18n="peshin">PESHIN</div>
+                            <div class="p-time masjid-time" id="time-peshin">--:--</div>
+                            <div class="p-time api-time" id="api-peshin">--:--</div>
+                        </div>
+                        <div class="prayer-item" data-prayer="asr">
+                            <div class="p-name" data-i18n="asr">ASR</div>
+                            <div class="p-time masjid-time" id="time-asr">--:--</div>
+                            <div class="p-time api-time" id="api-asr">--:--</div>
+                        </div>
+                        <div class="prayer-item" data-prayer="shom">
+                            <div class="p-name" data-i18n="shom">SHOM</div>
+                            <div class="p-time masjid-time" id="time-shom">--:--</div>
+                            <div class="p-time api-time" id="api-shom">--:--</div>
+                        </div>
+                        <div class="prayer-item" data-prayer="xufton">
+                            <div class="p-name" data-i18n="xufton">XUFTON</div>
+                            <div class="p-time masjid-time" id="time-xufton">--:--</div>
+                            <div class="p-time api-time" id="api-xufton">--:--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keyingi namozga sanash -->
+                <div class="countdown-block">
+                    <span class="cd-label" data-i18n="next_prayer_in">Keyingi namozga:</span>
+                    <span class="cd-timer" id="countdown-timer">--:--:--</span>
+                </div>
+            </div>
+        </div>
+
         <!-- Navigation -->
         <nav class="navbar">
             <div style="display: flex; align-items: center; gap: 15px;">
@@ -102,71 +165,7 @@
         <div class="hero-content">
             <h1 class="hero-title" data-i18n="hero_title">G'OYIB YORONLAR<br>JOME MASJIDI</h1>
             <p class="hero-subtitle" data-i18n="hero_subtitle">Namangan viloyati Pop tumani To'da qishlog'i</p>
-            <p class="hero-desc" data-i18n="hero_desc">Ma'naviyat maskani va iymon-e'tiqod nuri</p>
             <a href="#about" class="hero-btn" data-i18n="hero_btn">Masjid haqida batafsil</a>
-
-            <!-- Prayer Times Bar -->
-            <div class="prayer-bar" style="margin-top: 40px;">
-                <div class="prayer-bar-inner">
-                    <!-- Soat va sana -->
-                    <div class="clock-block">
-                        <span class="clock-time" id="current-time">00:00</span>
-                        <span class="clock-date" id="current-date" data-i18n="loading">Yuklanmoqda....</span>
-                    </div>
-
-                    <!-- Namoz vaqtlari: Grid Layout -->
-                    <div class="prayer-times-grid-container">
-                        <div class="prayer-legends">
-                            <div class="legend-item masjid-legend">
-                                <i class="fas fa-mosque"></i> <span data-i18n="masjid_time_label">Masjidda o'qilish
-                                    vaqti</span> <span class="update-badge" id="last-updated"></span>
-                            </div>
-                            <div class="legend-item api-legend">
-                                <i class="fas fa-globe"></i> <span data-i18n="api_time_label">Astronomik vaqt</span>
-                            </div>
-                        </div>
-
-                        <div class="prayer-grid">
-                            <div class="prayer-item" data-prayer="bomdod">
-                                <div class="p-name"><span class="p-emoji">🌅</span> <span data-i18n="bomdod">BOMDOD</span></div>
-                                <div class="p-time masjid-time" id="time-bomdod">--:--</div>
-                                <div class="p-time api-time" id="api-bomdod">--:--</div>
-                            </div>
-                            <div class="prayer-item" data-prayer="quyosh">
-                                <div class="p-name"><span class="p-emoji">☀️</span> <span data-i18n="quyosh">QUYOSH</span></div>
-                                <div class="p-time masjid-time" id="time-quyosh">--:--</div>
-                                <div class="p-time api-time" id="api-quyosh">--:--</div>
-                            </div>
-                            <div class="prayer-item" data-prayer="peshin">
-                                <div class="p-name"><span class="p-emoji">🌤️</span> <span data-i18n="peshin">PESHIN</span></div>
-                                <div class="p-time masjid-time" id="time-peshin">--:--</div>
-                                <div class="p-time api-time" id="api-peshin">--:--</div>
-                            </div>
-                            <div class="prayer-item" data-prayer="asr">
-                                <div class="p-name"><span class="p-emoji">🌆</span> <span data-i18n="asr">ASR</span></div>
-                                <div class="p-time masjid-time" id="time-asr">--:--</div>
-                                <div class="p-time api-time" id="api-asr">--:--</div>
-                            </div>
-                            <div class="prayer-item" data-prayer="shom">
-                                <div class="p-name"><span class="p-emoji">🌇</span> <span data-i18n="shom">SHOM</span></div>
-                                <div class="p-time masjid-time" id="time-shom">--:--</div>
-                                <div class="p-time api-time" id="api-shom">--:--</div>
-                            </div>
-                            <div class="prayer-item" data-prayer="xufton">
-                                <div class="p-name"><span class="p-emoji">🌙</span> <span data-i18n="xufton">XUFTON</span></div>
-                                <div class="p-time masjid-time" id="time-xufton">--:--</div>
-                                <div class="p-time api-time" id="api-xufton">--:--</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Keyingi namozga sanash -->
-                    <div class="countdown-block">
-                        <span class="cd-label" data-i18n="next_prayer_in">Keyingi namozga:</span>
-                        <span class="cd-timer" id="countdown-timer">--:--:--</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -283,7 +282,7 @@
 
     <!-- Team Modal -->
     <div class="modal-overlay" id="team-modal" onclick="closeTeamModal()">
-        <div class="modal-content glassmorphism" onclick="event.stopPropagation()">
+        <div class="modal-content team-modal-white" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeTeamModal()"><i class="fas fa-times"></i></span>
             <div class="modal-avatar" id="modal-avatar"><i class="fas fa-user"></i></div>
             <h3 id="modal-name">Ism</h3>

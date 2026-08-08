@@ -334,21 +334,17 @@ a {
     background: rgba(255, 255, 255, 0.05);
     padding: 8px 4px;
     border-radius: var(--radius-sm);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background var(--transition), transform 0.2s;
     border: 1px solid transparent;
-    border-top: 4px solid transparent;
 }
 
-.prayer-item:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(45, 122, 74, 0.2);
-    border-top-color: #D4AF37;
+.prayer-item:hover {
+    background: rgba(255, 255, 255, 0.09);
 }
 
 .prayer-item.active {
-    background: rgba(255, 255, 255, 0.12);
-    border-top-color: var(--mint);
+    background: var(--mint-glow);
+    border-color: var(--mint);
     transform: translateY(-2px);
 }
 
@@ -548,9 +544,8 @@ a {
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 1100px;
-    width: 100%;
-    padding-top: 140px;
+    max-width: 680px;
+    padding-top: 280px;
     padding-bottom: 40px;
 }
 
@@ -985,6 +980,32 @@ a {
 
 .modal-overlay.active .modal-content {
     transform: scale(1);
+}
+
+.team-modal-white {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+}
+body.dark-mode .team-modal-white {
+    background: #1e1e1e !important;
+    border-color: #333 !important;
+}
+
+.team-modal-white #modal-name {
+    color: #111827;
+}
+body.dark-mode .team-modal-white #modal-name {
+    color: #f3f4f6;
+}
+
+.team-modal-white #modal-role {
+    color: #059669;
+}
+.team-modal-white #modal-desc {
+    color: #4b5563;
+}
+body.dark-mode .team-modal-white #modal-desc {
+    color: #9ca3af;
 }
 
 .modal-close {

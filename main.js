@@ -660,6 +660,27 @@ window.nextLightboxImage = function() {
     document.getElementById('lightbox-img').src = galleryImagesList[currentLightboxIndex];
 };
 
+// Touch swipe for Lightbox
+let touchstartX = 0;
+let touchendX = 0;
+    
+function handleGesture() {
+    if (touchendX < touchstartX - 40) window.nextLightboxImage();
+    if (touchendX > touchstartX + 40) window.prevLightboxImage();
+}
+
+const lightboxModalObj = document.getElementById('lightbox-modal');
+if(lightboxModalObj) {
+    lightboxModalObj.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    lightboxModalObj.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].screenX;
+        handleGesture();
+    }, {passive: true});
+}
+
 // --- Statistika (Analytics) funksiyasi ---
 function logVisit() {
     // Firebase ulanganligini tekshiramiz
