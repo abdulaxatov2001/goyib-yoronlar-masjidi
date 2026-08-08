@@ -243,31 +243,55 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // --- Shrift o'lchamini kattalashtirish (Yoshi kattalar uchun) ---
     const htmlEl = document.documentElement;
-    const btnNorm = document.getElementById('font-scale-norm');
-    const btnLg = document.getElementById('font-scale-lg');
-    const btnXl = document.getElementById('font-scale-xl');
+    const customFontSelect = document.getElementById('custom-font-select');
 
     function applyFontScale(scale) {
         htmlEl.classList.remove('font-scale-lg', 'font-scale-xl');
-        [btnNorm, btnLg, btnXl].forEach(btn => btn && btn.classList.remove('active'));
         if (scale === 'lg') {
             htmlEl.classList.add('font-scale-lg');
-            if (btnLg) btnLg.classList.add('active');
         } else if (scale === 'xl') {
             htmlEl.classList.add('font-scale-xl');
-            if (btnXl) btnXl.classList.add('active');
-        } else {
-            if (btnNorm) btnNorm.classList.add('active');
         }
         localStorage.setItem('font_scale', scale);
     }
 
-    if (btnNorm) btnNorm.addEventListener('click', () => applyFontScale('norm'));
-    if (btnLg) btnLg.addEventListener('click', () => applyFontScale('lg'));
-    if (btnXl) btnXl.addEventListener('click', () => applyFontScale('xl'));
+    if (customFontSelect) {
+        const fontSelectedEl = customFontSelect.querySelector('.select-selected');
+        const fontItemsEl = customFontSelect.querySelector('.select-items');
+        const fontOptions = fontItemsEl.querySelectorAll('div');
 
-    const savedScale = localStorage.getItem('font_scale') || 'norm';
-    applyFontScale(savedScale);
+        fontSelectedEl.addEventListener('click', function(e) {
+            e.stopPropagation();
+            fontItemsEl.classList.toggle('select-hide');
+            customFontSelect.classList.toggle('select-arrow-active');
+        });
+
+        fontOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                fontSelectedEl.innerHTML = this.innerHTML;
+                const scale = this.getAttribute('data-value');
+                applyFontScale(scale);
+                fontItemsEl.classList.add('select-hide');
+                customFontSelect.classList.remove('select-arrow-active');
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!customFontSelect.contains(e.target)) {
+                fontItemsEl.classList.add('select-hide');
+                customFontSelect.classList.remove('select-arrow-active');
+            }
+        });
+        
+        const savedScale = localStorage.getItem('font_scale') || 'norm';
+        applyFontScale(savedScale);
+        
+        fontOptions.forEach(opt => {
+            if(opt.getAttribute('data-value') === savedScale) {
+                fontSelectedEl.innerHTML = opt.innerHTML;
+            }
+        });
+    }
 
     // --- Tillar mantiqi ---
     const customSelect = document.getElementById('custom-lang-select');

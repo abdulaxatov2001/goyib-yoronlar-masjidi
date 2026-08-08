@@ -56,12 +56,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="font-scaler" title="Yoshi kattalar uchun shrift o'lchamini o'zgartirish">
-                    <span class="font-scaler-label"><i class="fas fa-text-height"></i> <span data-i18n="text_size">Matn:</span></span>
-                    <button type="button" class="font-btn active" id="font-scale-norm"
-                        aria-label="Normallashtirish">A</button>
-                    <button type="button" class="font-btn" id="font-scale-lg" aria-label="Kattalashtirish">A+</button>
-                    <button type="button" class="font-btn" id="font-scale-xl" aria-label="Juda katta">A++</button>
+                <div class="font-switcher" title="Yoshi kattalar uchun shrift o'lchamini o'zgartirish">
+                    <div class="custom-select" id="custom-font-select">
+                        <div class="select-selected">Aa</div>
+                        <div class="select-items select-hide">
+                            <div data-value="norm">A (Normal)</div>
+                            <div data-value="lg">A+ (Katta)</div>
+                            <div data-value="xl">A++ (Juda katta)</div>
+                        </div>
+                    </div>
                 </div>
                 <!-- Dark Mode Toggle Slider -->
                 <div class="theme-switch-wrapper" title="Tungi / Kunduzgi rejim">
@@ -171,21 +174,24 @@
 
         <!-- Navigation -->
         <nav class="navbar">
-            <button class="hamburger" id="hamburger-btn" aria-label="Menyuni ochish">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="hamburger" id="hamburger-btn" aria-label="Menyuni ochish" style="display: flex; align-items: center; gap: 8px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <span style="display: block; width: 25px; height: 3px; background-color: var(--white); transition: var(--transition);"></span>
+                    <span style="display: block; width: 25px; height: 3px; background-color: var(--white); transition: var(--transition);"></span>
+                    <span style="display: block; width: 25px; height: 3px; background-color: var(--white); transition: var(--transition);"></span>
+                </div>
+                <span style="color: var(--white); font-weight: bold; font-size: 1rem;" class="mobile-menu-text">Menyu</span>
             </button>
             <ul class="nav-menu" id="nav-menu">
-                <li class="active"><a href="#hero" data-i18n="nav_home">Bosh Sahifa</a></li>
-                <li><a href="#about" data-i18n="nav_about">Biz haqimizda</a></li>
-                <li><a href="#team" data-i18n="nav_team">Jamoa</a></li>
-                <li><a href="#news" data-i18n="nav_news">Yangiliklar</a></li>
-                <li><a href="#events" data-i18n="nav_events">Tadbirlar</a></li>
-                <li><a href="#gallery" data-i18n="nav_gallery">Galereya</a></li>
-                <li><a href="#dua" data-i18n="nav_dua">Duo olish</a></li>
-                <li><a href="#contact" data-i18n="nav_contact">Aloqa</a></li>
-                <li class="nav-donate-li"><a href="#donate" class="nav-donate-btn" data-i18n="nav_donate">Xayriya</a>
+                <li><a href="#" data-i18n="nav_home"><i class="fas fa-home" style="margin-right: 6px;"></i>Bosh Sahifa</a></li>
+                <li><a href="#about" data-i18n="nav_about"><i class="fas fa-info-circle" style="margin-right: 6px;"></i>Biz haqimizda</a></li>
+                <li><a href="#team" data-i18n="nav_team"><i class="fas fa-users" style="margin-right: 6px;"></i>Jamoa</a></li>
+                <li><a href="#news" data-i18n="nav_news"><i class="fas fa-newspaper" style="margin-right: 6px;"></i>Yangiliklar</a></li>
+                <li><a href="#events" data-i18n="nav_events"><i class="fas fa-calendar-alt" style="margin-right: 6px;"></i>Tadbirlar</a></li>
+                <li><a href="#gallery" data-i18n="nav_gallery"><i class="fas fa-images" style="margin-right: 6px;"></i>Galereya</a></li>
+                <li><a href="#dua" data-i18n="nav_dua"><i class="fas fa-praying-hands" style="margin-right: 6px;"></i>Duo olish</a></li>
+                <li><a href="#contact" data-i18n="nav_contact"><i class="fas fa-envelope" style="margin-right: 6px;"></i>Aloqa</a></li>
+                <li class="nav-donate-li"><a href="#donate" class="nav-donate-btn" data-i18n="nav_donate"><i class="fas fa-hand-holding-heart" style="margin-right: 6px;"></i>Xayriya</a>
                 </li>
             </ul>
         </nav>

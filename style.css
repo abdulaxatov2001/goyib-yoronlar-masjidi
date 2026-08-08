@@ -221,45 +221,19 @@ body.dark-mode .custom-select .select-items {
     display: none;
 }
 
-.font-scaler {
+.font-switcher {
     display: flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid var(--glass-border);
-    padding: 3px 8px;
-    border-radius: 8px;
 }
-
-.font-scaler-label {
-    font-size: 0.75rem;
-    color: var(--white);
-    margin-right: 4px;
-    font-weight: 600;
-}
-
-.font-btn {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: var(--white);
-    font-size: 0.8rem;
-    font-weight: 700;
-    width: 28px;
-    height: 26px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all var(--transition);
-    display: inline-flex;
-    align-items: center;
+.font-switcher .custom-select .select-selected {
+    min-width: 50px;
+    text-align: center;
     justify-content: center;
 }
 
-.font-btn:hover,
-.font-btn.active {
-    background: var(--mint-deep);
-    color: var(--white);
-    border-color: var(--mint-deep);
-}
+
+
+
 
 /* Theme Toggle Slider */
 .theme-switch-wrapper {
@@ -1248,20 +1222,12 @@ body.dark-mode .team-modal-white #modal-desc {
     }
     .top-bar-left {
         gap: 6px;
-        flex-wrap: nowrap;
-    }
-    .font-scaler-label {
-        display: none;
+        flex-wrap: wrap; /* Allow wrapping on very small screens */
     }
     .custom-select .select-selected {
         padding: 4px 6px;
         font-size: 0.75rem;
         gap: 4px;
-    }
-    .font-btn {
-        width: 24px;
-        height: 24px;
-        font-size: 0.75rem;
     }
     .theme-switch {
         width: 44px;
