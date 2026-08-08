@@ -262,19 +262,22 @@
     <section class="section" id="dua">
         <div class="section-header">
             <h2 data-i18n="dua_title">Jamoatdan duo olish</h2>
+            <p style="color: var(--text); opacity: 0.9; max-width: 600px; margin: 10px auto; font-size: 0.95rem; line-height: 1.5;">
+                Eslatma: Juma kuni soat 12:40 dan 13:00 gacha duo yuborish vaqtincha to'xtatiladi. 13:00 dan so'ng yuborilgan duolar keyingi Juma namoziga qoladi.
+            </p>
         </div>
         <div class="dua-wrapper" style="max-width: 600px; margin: 0 auto;">
             <div class="events-card glassmorphism" style="padding: 2rem; display: flex; flex-direction: column; gap: 15px;">
-                <p id="dua-warning" style="color: #ff9800; font-weight: bold; margin-bottom: 10px; text-align: center; display: none;">
-                    Diqqat: Juma kuni soat 12:40 dan 13:00 gacha duo yuborish vaqtincha to'xtatiladi. 13:00 dan so'ng keyingi hafta uchun qabul qilinadi.
+                <p id="dua-warning" style="color: #e74c3c; font-weight: bold; margin-bottom: 10px; text-align: center; display: none;">
+                    Hozir Juma namozi vaqti (12:40 - 13:00). Duolar qabul qilinmaydi.
                 </p>
                 <form id="dua-form" style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
-                    <input type="text" id="dua-name" placeholder="Ismingiz (ixtiyoriy)" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: var(--white); font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='rgba(255,255,255,0.2)'">
-                    <textarea id="dua-message" placeholder="Duo mazmuni (Masalan: Bemorman, jamoatdan shifo so'rab duo qilishlarini iltimos qilaman)" required rows="4" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: var(--white); font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s; resize: vertical;" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='rgba(255,255,255,0.2)'"></textarea>
-                    <button type="submit" id="dua-submit-btn" style="padding: 14px; border-radius: 8px; border: none; background: var(--primary); color: var(--bg); font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Yuborish</button>
+                    <input type="text" id="dua-name" placeholder="Ismingiz (ixtiyoriy)" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #ccc; background: #fff; color: #333; font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='#ccc'">
+                    <textarea id="dua-message" placeholder="Duo mazmuni (Masalan: Bemorman, jamoatdan shifo so'rab duo qilishlarini iltimos qilaman)" required rows="4" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #ccc; background: #fff; color: #333; font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s; resize: vertical;" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='#ccc'"></textarea>
+                    <button type="submit" id="dua-submit-btn" style="padding: 14px; border-radius: 8px; border: none; background: var(--primary); color: #fff; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Yuborish</button>
                 </form>
-                <p id="dua-success" style="color: #4caf50; font-weight: bold; margin-top: 10px; text-align: center; display: none;">
-                    Duoingiz qabul qilindi. Alloh ijobat qilsin!
+                <p id="dua-success" style="color: #27ae60; font-weight: bold; margin-top: 10px; text-align: center; display: none; line-height: 1.4;">
+                    Xabaringiz yuborildi. Kelayotgan juma namozida yetkaziladi!
                 </p>
             </div>
         </div>
