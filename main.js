@@ -227,8 +227,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Tillar mantiqi ---
     const customSelect = document.getElementById('custom-lang-select');
+    let currentAppLanguage = 'uz_cy';
     
     function setLanguage(lang) {
+        currentAppLanguage = lang;
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (translations[lang] && translations[lang][key]) {
@@ -298,7 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const now = new Date();
         const timeString = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
 
-        let currentLang = langSelect.value;
+        let currentLang = typeof currentAppLanguage !== 'undefined' ? currentAppLanguage : 'uz_cy';
         let dateString = '';
 
         if (currentLang === 'uz_lt') {
