@@ -1158,6 +1158,13 @@ input:checked+.slider:before {
     position: relative;
     transform: scale(0.8);
     transition: transform 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+.modal-content::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
 }
 
 .modal-overlay.active .modal-content {
