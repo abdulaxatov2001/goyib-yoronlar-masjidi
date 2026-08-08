@@ -22,6 +22,15 @@ const translations = {
         hero_btn: "Masjid haqida batafsil",
         dua_title: "Jamoatdan duo olish",
         news_title: "Masjid Hayotidan Yangiliklar",
+        text_size: "Matn:",
+        dua_warning_note: "Eslatma: Juma kuni soat 12:40 dan 13:00 gacha duo yuborish vaqtincha to'xtatiladi. 13:00 dan so'ng yuborilgan duolar keyingi Juma namoziga qoladi.",
+        dua_blocked: "Hozir Juma namozi vaqti (12:40 - 13:00). Duolar qabul qilinmaydi.",
+        dua_name_ph: "Ismingiz (ixtiyoriy)",
+        dua_msg_ph: "Duo mazmuni (Masalan: Bemorman, jamoatdan shifo so'rab duo qilishlarini iltimos qilaman)",
+        dua_submit: "Yuborish",
+        dua_success: "Xabaringiz yuborildi. Kelayotgan juma namozida yetkaziladi!",
+        masjid_time_label: "Masjidda o'qilish vaqti",
+        api_time_label: "Astronomik vaqt",
         loading: "Yuklanmoqda...",
         next_prayer_in: "Keyingi namozga:",
         source_text: "Namoz vaqtlari manbasi:",
@@ -72,6 +81,15 @@ const translations = {
         hero_btn: "Масжид ҳақида батафсил",
         dua_title: "Жамоатдан дуо олиш",
         news_title: "Масжид Ҳаётидан Янгиликлар",
+        text_size: "Матн:",
+        dua_warning_note: "Эслатма: Жума куни соат 12:40 дан 13:00 гача дуо юбориш вақтинча тўхтатилади. 13:00 дан сўнг юборилган дуолар кейинги Жума намозига қолади.",
+        dua_blocked: "Ҳозир Жума намози вақти (12:40 - 13:00). Дуолар қабул қилинмайди.",
+        dua_name_ph: "Исмингиз (ихтиёрий)",
+        dua_msg_ph: "Дуо мазмуни (Масалан: Беморман, жамоатдан шифо сўраб дуо қилишларини илтимос қиламан)",
+        dua_submit: "Юбориш",
+        dua_success: "Хабарингиз юборилди. Келаётган жума намозида етказилади!",
+        masjid_time_label: "Масжидда ўқилиш вақти",
+        api_time_label: "Астрономик вақт",
         loading: "Юкланмоқда...",
         next_prayer_in: "Кейинги намозга:",
         source_text: "Намоз вақтлари манбаси:",
@@ -122,6 +140,15 @@ const translations = {
         hero_btn: "Подробнее о мечети",
         dua_title: "Получить молитву от джамаата",
         news_title: "Новости из жизни мечети",
+        text_size: "Текст:",
+        dua_warning_note: "Примечание: По пятницам с 12:40 до 13:00 прием молитв временно приостанавливается. Молитвы, отправленные после 13:00, останутся до следующего пятничного намаза.",
+        dua_blocked: "Сейчас время Пятничного намаза (12:40 - 13:00). Молитвы не принимаются.",
+        dua_name_ph: "Ваше имя (необязательно)",
+        dua_msg_ph: "Содержание молитвы (Например: Я болен, прошу джамаат помолиться о моем выздоровлении)",
+        dua_submit: "Отправить",
+        dua_success: "Ваше сообщение отправлено. Оно будет передано на предстоящем пятничном намазе!",
+        masjid_time_label: "Время чтения в мечети",
+        api_time_label: "Астрономическое время",
         loading: "Загрузка...",
         next_prayer_in: "До следующего намаза:",
         source_text: "Источник времени намаза:",
@@ -172,6 +199,15 @@ const translations = {
         hero_btn: "More about the mosque",
         dua_title: "Receive prayer from the congregation",
         news_title: "Mosque Life News",
+        text_size: "Text:",
+        dua_warning_note: "Note: On Fridays from 12:40 to 13:00, prayer requests are temporarily suspended. Prayers sent after 13:00 will be held for the next Friday prayer.",
+        dua_blocked: "It is currently Friday prayer time (12:40 - 13:00). Prayers are not accepted.",
+        dua_name_ph: "Your name (optional)",
+        dua_msg_ph: "Prayer content (For example: I am sick, I ask the congregation to pray for my recovery)",
+        dua_submit: "Submit",
+        dua_success: "Your message has been sent. It will be delivered at the upcoming Friday prayer!",
+        masjid_time_label: "Mosque prayer time",
+        api_time_label: "Astronomical time",
         loading: "Loading...",
         next_prayer_in: "Next prayer in:",
         source_text: "Prayer times source:",
@@ -243,6 +279,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const key = el.getAttribute('data-i18n');
             if (translations[lang] && translations[lang][key]) {
                 el.innerHTML = translations[lang][key];
+            }
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (translations[lang] && translations[lang][key]) {
+                el.placeholder = translations[lang][key];
             }
         });
         updateClock();
