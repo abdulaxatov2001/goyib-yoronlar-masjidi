@@ -90,7 +90,10 @@
                 <!-- Soat va sana -->
                 <div class="clock-block">
                     <span class="clock-time" id="current-time">00:00</span>
-                    <span class="clock-date" id="current-date" data-i18n="loading">Yuklanmoqda....</span>
+                    <div class="date-container" style="display: flex; flex-direction: column; gap: 3px; align-items: center; margin-top: 4px;">
+                        <span class="clock-date" id="current-date" data-i18n="loading">Yuklanmoqda....</span>
+                        <span class="clock-date" id="hijri-date" style="font-size: 0.85em; opacity: 0.9;"></span>
+                    </div>
                 </div>
 
                 <!-- Namoz vaqtlari: Grid Layout -->
@@ -169,7 +172,6 @@
         <nav class="navbar">
             <div style="display: flex; align-items: center; gap: 15px;">
                 <a href="#" class="nav-logo" data-i18n="hero_title_inline">"G'OYIB YORONLAR" JOME MASJIDI</a>
-                <span id="realtime-clock" class="header-clock">--:--:--</span>
             </div>
             <button class="hamburger" id="hamburger-btn" aria-label="Menyuni ochish">
                 <span></span>

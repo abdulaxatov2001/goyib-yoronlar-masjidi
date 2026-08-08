@@ -330,16 +330,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const hMonthIndex = parseInt(currentHijriDate.month) - 1;
             const hMonthName = hijriMonths[currentLang] ? hijriMonths[currentLang][hMonthIndex] : hijriMonths['uz_cy'][hMonthIndex];
             const hYearSuffix = (currentLang === 'uz_lt' || currentLang === 'uz_cy') ? (currentLang === 'uz_lt' ? '-yil' : '-йил') : '';
-            dateString += ` / ${currentHijriDate.day}-${hMonthName} ${currentHijriDate.year}${hYearSuffix}`;
+            const hijriStr = `${currentHijriDate.day}-${hMonthName} ${currentHijriDate.year}${hYearSuffix}`;
+            const hijriEl = document.getElementById('hijri-date');
+            if (hijriEl) hijriEl.textContent = hijriStr;
         }
 
         document.getElementById('current-time').textContent = timeString;
         document.getElementById('current-date').textContent = dateString;
-
-        const clockEl = document.getElementById('realtime-clock');
-        if (clockEl) {
-            clockEl.textContent = now.toLocaleTimeString('uz-UZ', { hour12: false });
-        }
 
         if (currentPrayerTimes) {
             updateCountdown(currentPrayerTimes);
