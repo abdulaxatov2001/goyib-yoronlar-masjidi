@@ -592,7 +592,7 @@
         function loadStats() {
             if (!db) return;
             const today = new Date().toISOString().split('T')[0];
-            const statsRef = db.ref('stats');
+            const statsRef = db.ref('statistics');
             
             statsRef.once('value').then(snapshot => {
                 if (snapshot.exists()) {

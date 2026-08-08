@@ -663,23 +663,43 @@ window.nextLightboxImage = function() {
 // Touch swipe for Lightbox
 let touchstartX = 0;
 let touchendX = 0;
+let touchstartY = 0;
+let touchendY = 0;
     
 function handleGesture() {
-    if (touchendX < touchstartX - 40) window.nextLightboxImage();
-    if (touchendX > touchstartX + 40) window.prevLightboxImage();
+    // Gorizontal va vertikal siljishni hisoblash
+    const deltaX = touchendX - touchstartX;
+    const deltaY = touchendY - touchstartY;
+    
+    // Agar gorizontal siljish vertikaldan katta bo'lsa va yetarlicha uzun bo'lsa
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
+        if (deltaX < 0) {
+            window.nextLightboxImage(); // Chapga surilsa (keyingi rasm)
+        } else {
+            window.prevLightboxImage(); // O'ngga surilsa (oldingi rasm)
+        }
+    }
 }
 
 const lightboxModalObj = document.getElementById('lightbox-modal');
-if(lightboxModalObj) {
-    lightboxModalObj.addEventListener('touchstart', e => {
-        touchstartX = e.changedTouches[0].screenX;
+const lightboxImgObj = document.getElementById('lightbox-img');
+
+function attachTouchEvents(el) {
+    if (!el) return;
+    el.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].clientX;
+        touchstartY = e.changedTouches[0].clientY;
     }, {passive: true});
 
-    lightboxModalObj.addEventListener('touchend', e => {
-        touchendX = e.changedTouches[0].screenX;
+    el.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].clientX;
+        touchendY = e.changedTouches[0].clientY;
         handleGesture();
     }, {passive: true});
 }
+
+attachTouchEvents(lightboxModalObj);
+attachTouchEvents(lightboxImgObj);
 
 // --- Statistika (Analytics) funksiyasi ---
 function logVisit() {
