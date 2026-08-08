@@ -358,7 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateClock() {
         const now = new Date();
-        const timeString = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
+        const timeString = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
         let currentLang = typeof currentAppLanguage !== 'undefined' ? currentAppLanguage : 'uz_cy';
         let dateString = '';
