@@ -623,11 +623,22 @@ window.closeTeamModal = function() {
     if (modal) modal.classList.remove('active');
 };
 
-// Lightbox ochish/yopish
+// Lightbox ochish/yopish va navigatsiya
+let currentLightboxIndex = 0;
+let galleryImagesList = [];
+
 window.openLightbox = function(url) {
     const modal = document.getElementById('lightbox-modal');
     const img = document.getElementById('lightbox-img');
     if (!modal || !img) return;
+    
+    // Barcha galereya rasmlarini yig'ish
+    const images = Array.from(document.querySelectorAll('.gallery-grid img'));
+    galleryImagesList = images.map(i => i.src);
+    
+    currentLightboxIndex = galleryImagesList.indexOf(url);
+    if(currentLightboxIndex === -1) currentLightboxIndex = 0;
+
     img.src = url;
     modal.classList.add('active');
 };
@@ -635,6 +646,18 @@ window.openLightbox = function(url) {
 window.closeLightbox = function() {
     const modal = document.getElementById('lightbox-modal');
     if (modal) modal.classList.remove('active');
+};
+
+window.prevLightboxImage = function() {
+    if(galleryImagesList.length === 0) return;
+    currentLightboxIndex = (currentLightboxIndex - 1 + galleryImagesList.length) % galleryImagesList.length;
+    document.getElementById('lightbox-img').src = galleryImagesList[currentLightboxIndex];
+};
+
+window.nextLightboxImage = function() {
+    if(galleryImagesList.length === 0) return;
+    currentLightboxIndex = (currentLightboxIndex + 1) % galleryImagesList.length;
+    document.getElementById('lightbox-img').src = galleryImagesList[currentLightboxIndex];
 };
 
 // --- Statistika (Analytics) funksiyasi ---

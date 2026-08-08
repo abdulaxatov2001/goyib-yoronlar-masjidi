@@ -548,9 +548,9 @@ a {
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 680px;
-    padding-top: 240px;
-    /* Header yopib qo'ymasligi uchun */
+    max-width: 1100px;
+    width: 100%;
+    padding-top: 140px;
     padding-bottom: 40px;
 }
 
@@ -1041,54 +1041,63 @@ a {
     line-height: 1.6;
 }
 
-/* ─── Lightbox Modal ─── */
-.lightbox-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 10000;
+/* Lightbox Modal */
+#lightbox-modal {
     display: none;
-    align-items: center;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
     justify-content: center;
-    opacity: 0;
-    transition: opacity var(--transition);
+    align-items: center;
 }
 
-.lightbox-modal.active {
+#lightbox-modal.active {
     display: flex;
-    opacity: 1;
 }
 
-.lightbox-content {
-    position: relative;
-    max-width: 90%;
-    max-height: 90%;
+#lightbox-modal .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 2001;
 }
 
 .lightbox-img {
-    max-width: 100%;
+    max-width: 90%;
     max-height: 85vh;
-    border-radius: var(--radius-sm);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
     object-fit: contain;
 }
 
-.lightbox-close {
+.lightbox-btn {
     position: absolute;
-    top: -40px;
-    right: 0;
-    color: var(--white-muted);
-    font-size: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 10px 15px;
     cursor: pointer;
-    transition: color var(--transition);
-    line-height: 1;
+    border-radius: 50%;
+    transition: background 0.3s;
+    z-index: 2001;
 }
 
-.lightbox-close:hover {
-    color: var(--mint);
+.lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
 }
 
 /* =========================================
@@ -1265,6 +1274,17 @@ a {
     .gallery-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
+    }
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .prayer-bar {
+        padding: 0 2%;
+    }
+
+    .header-clock {
+        display: none;
     }
 }
 
