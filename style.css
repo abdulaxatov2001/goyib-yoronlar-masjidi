@@ -1916,10 +1916,18 @@ body.dark-mode .team-modal-white .modal-close {
     width: 100%;
     max-width: 900px;
     aspect-ratio: 16 / 9;
+    min-height: 200px;
     margin: 20px auto 0;
     overflow: hidden;
     border-radius: 15px;
     box-shadow: var(--shadow);
+}
+
+@media (max-width: 768px) {
+    .before-after-container {
+        aspect-ratio: unset;
+        height: 250px;
+    }
 }
 .ba-image {
     position: absolute;
