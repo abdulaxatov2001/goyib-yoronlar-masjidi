@@ -30,7 +30,7 @@ const translations = {
         dua_submit: "Yuborish",
         dua_success: "Xabaringiz yuborildi. Kelayotgan juma namozida yetkaziladi!",
         masjid_time_label: "Masjidda o'qilish vaqti",
-        api_time_label: "Astronomik vaqt",
+        api_time_label: "Azon vaqti",
         loading: "Yuklanmoqda...",
         next_prayer_in: "Keyingi namozga:",
         source_text: "Namoz vaqtlari manbasi:",
@@ -89,7 +89,7 @@ const translations = {
         dua_submit: "Юбориш",
         dua_success: "Хабарингиз юборилди. Келаётган жума намозида етказилади!",
         masjid_time_label: "Масжидда ўқилиш вақти",
-        api_time_label: "Астрономик вақт",
+        api_time_label: "Азон вақти",
         loading: "Юкланмоқда...",
         next_prayer_in: "Кейинги намозга:",
         source_text: "Намоз вақтлари манбаси:",
@@ -148,7 +148,7 @@ const translations = {
         dua_submit: "Отправить",
         dua_success: "Ваше сообщение отправлено. Оно будет передано на предстоящем пятничном намазе!",
         masjid_time_label: "Время чтения в мечети",
-        api_time_label: "Астрономическое время",
+        api_time_label: "Время азана",
         loading: "Загрузка...",
         next_prayer_in: "До следующего намаза:",
         source_text: "Источник времени намаза:",
@@ -207,7 +207,7 @@ const translations = {
         dua_submit: "Submit",
         dua_success: "Your message has been sent. It will be delivered at the upcoming Friday prayer!",
         masjid_time_label: "Mosque prayer time",
-        api_time_label: "Astronomical time",
+        api_time_label: "Azon vaqti",
         loading: "Loading...",
         next_prayer_in: "Next prayer in:",
         source_text: "Prayer times source:",
@@ -524,17 +524,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (times.updated_at) {
             const badge = document.getElementById('last-updated');
             if (badge) {
-                let updatedText = times.updated_at;
-                if (updatedText.includes('-')) {
-                    const parts = updatedText.split(' ');
-                    if (parts.length === 2) {
-                        const dateParts = parts[0].split('-');
-                        if (dateParts.length === 3) {
-                            updatedText = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]} ${parts[1]}`;
-                        }
-                    }
-                }
-                badge.textContent = updatedText + ' da yangilangan';
+                badge.style.display = 'none'; // yashirib qo'yamiz
             }
         }
         updateCountdown(times);
