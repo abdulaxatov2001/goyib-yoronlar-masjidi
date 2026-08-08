@@ -1200,7 +1200,10 @@ body.dark-mode .team-modal-white #modal-desc {
         left: 0;
         width: 100%;
         flex-direction: column;
-        background: var(--emerald-deep);
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid var(--glass-border);
         padding: 20px 0;
         gap: 0;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -1354,7 +1357,7 @@ body.dark-mode .team-modal-white #modal-desc {
     }
 
     .hero-content {
-        padding-top: 240px;
+        padding-top: 340px;
     }
 }
 
@@ -1364,7 +1367,7 @@ body.dark-mode .team-modal-white #modal-desc {
     }
 
     .hero-content {
-        padding-top: 280px;
+        padding-top: 380px;
     }
 }
 
@@ -1387,7 +1390,7 @@ body.dark-mode .team-modal-white #modal-desc {
     }
 
     .hero-content {
-        padding-top: 260px;
+        padding-top: 380px;
     }
 
     html.font-scale-lg .hero-content {
