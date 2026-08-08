@@ -423,12 +423,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Firebase dan real-time o'qish
+    let hasLoadedDynamic = false;
+    
     function loadFromFirebase() {
         if (!db) return;
         db.ref('prayer_times').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
                 showMasjidTimes(data);
+                
+                // Namoz vaqtlari yuklangach, qolgan og'ir ma'lumotlarni (jamoa, galereya) yuklash
+                if (!hasLoadedDynamic) {
+                    hasLoadedDynamic = true;
+                    setTimeout(() => {
+                        if(typeof loadDynamicContent === 'function') loadDynamicContent();
+                    }, 500);
+                }
             }
         }, (err) => {
             console.warn('Firebase o\'qib bo\'lmadi:', err.message);
@@ -494,8 +504,8 @@ document.addEventListener("DOMContentLoaded", () => {
     loadFromFirebase();
     loadApiTimes();
 
-    // Dinamik kontentlarni Firebase'dan o'qish
-    loadDynamicContent();
+    // Dinamik kontentlarni Firebase'dan o'qish (Endi loadFromFirebase ichida yuklanadi)
+    // loadDynamicContent();
 
     // --- Hamburger menyu mantiqi ---
     const hamburger = document.getElementById('hamburger-btn');
