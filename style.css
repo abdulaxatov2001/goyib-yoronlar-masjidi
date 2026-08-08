@@ -961,6 +961,163 @@ input:checked+.slider:before {
 .page-btn:not(:disabled):hover {
     background: var(--emerald-deep);
 }
+/* Charity Section */
+.charity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.charity-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform var(--transition);
+}
+
+.charity-card:hover {
+    transform: translateY(-5px);
+}
+
+.charity-icon {
+    font-size: 3rem;
+    color: var(--emerald);
+    margin-bottom: 15px;
+}
+
+.charity-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--card-text);
+    margin-bottom: 20px;
+}
+
+.account-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-number-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px dashed var(--emerald);
+}
+
+.card-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--card-text);
+    font-family: monospace;
+}
+
+.card-owner {
+    font-size: 0.9rem;
+    color: var(--card-muted);
+}
+
+.utility-card {
+    text-align: left;
+}
+
+.utility-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.utility-item:last-child {
+    border-bottom: none;
+}
+
+.utility-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.u-icon {
+    font-size: 1.2rem;
+    width: 25px;
+    text-align: center;
+}
+
+.u-name {
+    font-weight: 600;
+    color: var(--card-text);
+}
+
+.u-account {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--emerald);
+}
+
+.copy-btn, .copy-btn-sm {
+    background: var(--emerald);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-btn {
+    padding: 8px 12px;
+    font-size: 1rem;
+}
+
+.copy-btn-sm {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+}
+
+.copy-btn:hover, .copy-btn-sm:hover {
+    background: var(--emerald-deep);
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card-bg);
+    color: var(--card-text);
+    padding: 12px 24px;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border: 1px solid var(--glass-border);
+    font-weight: 600;
+    transition: bottom 0.4s ease;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+}
+
+.toast.show {
+    bottom: 30px;
+}
 
 /* Events */
 .events-card {
@@ -1609,7 +1766,17 @@ body.dark-mode .team-modal-white .modal-close {
     .news-card .news-body {
         padding: 15px;
     }
-
+    .charity-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-number {
+        font-size: 1rem;
+    }
+    
+    .u-account {
+        font-size: 0.9rem;
+    }
     /* Team Card Peek on mobile */
     .team-grid {
         display: flex;

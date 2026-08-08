@@ -188,7 +188,7 @@
                 <li><a href="#about"><i class="fas fa-info-circle" style="margin-right: 6px;"></i><span data-i18n="nav_about">Biz haqimizda</span></a></li>
                 <li><a href="#team"><i class="fas fa-users" style="margin-right: 6px;"></i><span data-i18n="nav_team">Jamoa</span></a></li>
                 <li><a href="#news"><i class="fas fa-newspaper" style="margin-right: 6px;"></i><span data-i18n="nav_news">Yangiliklar</span></a></li>
-                <li><a href="#events"><i class="fas fa-calendar-alt" style="margin-right: 6px;"></i><span data-i18n="nav_events">Tadbirlar</span></a></li>
+                <li><a href="#charity"><i class="fas fa-hand-holding-heart" style="margin-right: 6px;"></i><span data-i18n="nav_charity">Xayriya</span></a></li>
                 <li><a href="#gallery"><i class="fas fa-images" style="margin-right: 6px;"></i><span data-i18n="nav_gallery">Galereya</span></a></li>
                 <li><a href="#dua"><i class="fas fa-praying-hands" style="margin-right: 6px;"></i><span data-i18n="nav_dua">Duo olish</span></a></li>
                 <li><a href="#contact"><i class="fas fa-envelope" style="margin-right: 6px;"></i><span data-i18n="nav_contact">Aloqa</span></a></li>
@@ -242,6 +242,77 @@
             <button id="news-prev" onclick="prevNewsPage()" class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
             <span id="news-page-info" style="align-self: center; font-weight: 500;">1</span>
             <button id="news-next" onclick="nextNewsPage()" class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Charity Section -->
+    <section class="section" id="charity">
+        <div class="section-header">
+            <h2 data-i18n="charity_title">Xayriya va Ehson</h2>
+            <p style="text-align: center; font-style: italic; color: var(--emerald); margin-top: 10px; font-family: 'Playfair Display', serif;">"Ehsonning mukofoti faqat ehsondir." (ar-Rahmon surasi, 60-oyat)</p>
+        </div>
+        <div class="charity-grid">
+            <!-- Umumiy ehson -->
+            <div class="charity-card glassmorphism">
+                <div class="charity-icon"><i class="fas fa-mosque"></i></div>
+                <h3 data-i18n="charity_general">Masjid ehtiyojlari uchun umumiy ehson</h3>
+                <div class="account-details">
+                    <div class="card-number-box">
+                        <span class="card-number" id="general-card">0000 0000 0000 0000</span>
+                        <button class="copy-btn" onclick="copyText('general-card')" title="Nusxa olish"><i class="far fa-copy"></i></button>
+                    </div>
+                    <p class="card-owner">G'oyib Yoronlar Jome Masjidi</p>
+                </div>
+            </div>
+
+            <!-- Kommunal to'lovlar -->
+            <div class="charity-card glassmorphism utility-card">
+                <h3 data-i18n="charity_utility"><i class="fas fa-file-invoice-dollar"></i> Kommunal to'lovlar uchun</h3>
+                
+                <div class="utility-item">
+                    <div class="utility-info">
+                        <span class="u-icon"><i class="fas fa-bolt" style="color: #fbbf24;"></i></span>
+                        <span class="u-name">Elektr energiyasi</span>
+                    </div>
+                    <div class="u-account">
+                        <span id="util-elec">0000000000</span>
+                        <button class="copy-btn-sm" onclick="copyText('util-elec')" title="Nusxa olish"><i class="far fa-copy"></i></button>
+                    </div>
+                </div>
+
+                <div class="utility-item">
+                    <div class="utility-info">
+                        <span class="u-icon"><i class="fas fa-tint" style="color: #3b82f6;"></i></span>
+                        <span class="u-name">Suv</span>
+                    </div>
+                    <div class="u-account">
+                        <span id="util-water">0000000000</span>
+                        <button class="copy-btn-sm" onclick="copyText('util-water')" title="Nusxa olish"><i class="far fa-copy"></i></button>
+                    </div>
+                </div>
+
+                <div class="utility-item">
+                    <div class="utility-info">
+                        <span class="u-icon"><i class="fas fa-fire" style="color: #ef4444;"></i></span>
+                        <span class="u-name">Gaz</span>
+                    </div>
+                    <div class="u-account">
+                        <span id="util-gas">0000000000</span>
+                        <button class="copy-btn-sm" onclick="copyText('util-gas')" title="Nusxa olish"><i class="far fa-copy"></i></button>
+                    </div>
+                </div>
+
+                <div class="utility-item">
+                    <div class="utility-info">
+                        <span class="u-icon"><i class="fas fa-trash-alt" style="color: #10b981;"></i></span>
+                        <span class="u-name">Chiqindi</span>
+                    </div>
+                    <div class="u-account">
+                        <span id="util-trash">0000000000</span>
+                        <button class="copy-btn-sm" onclick="copyText('util-trash')" title="Nusxa olish"><i class="far fa-copy"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -379,6 +450,8 @@
         <button class="lightbox-btn lightbox-next" onclick="event.stopPropagation(); nextLightboxImage()"><i
                 class="fas fa-chevron-right"></i></button>
     </div>
+
+    <div id="toast" class="toast">Nusxa olindi! <i class="fas fa-check-circle" style="margin-left: 5px; color: #10b981;"></i></div>
 
     <script src="main.js?v=2.1"></script>
 </body>

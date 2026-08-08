@@ -999,3 +999,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Copy Text to Clipboard Function
+window.copyText = function(elementId) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    
+    // Copy the text inside the element
+    const textToCopy = el.innerText || el.textContent;
+    
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        showToast();
+    }).catch(err => {
+        console.error('Nusxa olishda xatolik:', err);
+    });
+}
+
+function showToast() {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    
+    toast.classList.add('show');
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
