@@ -165,21 +165,60 @@ a {
     flex-wrap: wrap;
 }
 
-.lang-switcher select {
+/* Custom Select */
+.custom-select {
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+}
+.custom-select .select-selected {
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid var(--glass-border);
     color: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
     padding: 5px 10px;
     border-radius: 8px;
     cursor: pointer;
-    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
 }
-
-.lang-switcher select option {
-    background: var(--emerald-deep);
+.custom-select .select-selected::after {
+    content: '\f107';
+    font-family: 'FontAwesome';
+    font-weight: 900;
+}
+.custom-select.select-arrow-active .select-selected::after {
+    transform: rotate(180deg);
+}
+.custom-select .select-items {
+    position: absolute;
+    background-color: var(--emerald-deep);
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    margin-top: 4px;
+    box-shadow: var(--shadow);
+    min-width: max-content;
+}
+body.dark-mode .custom-select .select-items {
+    background-color: #1a1a1a;
+}
+.custom-select .select-items div {
     color: var(--white);
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.custom-select .select-items div:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.select-hide {
+    display: none;
 }
 
 .font-scaler {
@@ -1194,7 +1233,48 @@ body.dark-mode .team-modal-white #modal-desc {
 
     /* Top bar */
     .top-bar {
-        padding: 6px 4%;
+        padding: 6px 2%;
+        flex-wrap: nowrap;
+        gap: 6px;
+    }
+    .top-bar-left {
+        gap: 6px;
+        flex-wrap: nowrap;
+    }
+    .font-scaler-label {
+        display: none;
+    }
+    .custom-select .select-selected {
+        padding: 4px 6px;
+        font-size: 0.75rem;
+        gap: 4px;
+    }
+    .font-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 0.75rem;
+    }
+    .theme-switch {
+        width: 44px;
+        height: 22px;
+    }
+    .theme-switch .slider:before {
+        height: 16px;
+        width: 16px;
+    }
+    input:checked + .slider:before {
+        transform: translateX(22px);
+    }
+    .theme-switch-wrapper {
+        margin-left: 2px;
+    }
+    .social-links {
+        gap: 6px;
+    }
+    .social-icon {
+        font-size: 14px;
+        width: 26px;
+        height: 26px;
     }
 
     /* Prayer bar: always horizontal, scroll */

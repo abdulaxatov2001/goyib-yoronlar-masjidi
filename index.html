@@ -46,12 +46,15 @@
         <div class="top-bar">
             <div class="top-bar-left">
                 <div class="lang-switcher">
-                    <select id="lang-select">
-                        <option value="uz_lt">🇺🇿 O'zbekcha</option>
-                        <option value="uz_cy" selected>🇺🇿 Ўзбекча</option>
-                        <option value="ru">🇷🇺 Русский</option>
-                        <option value="en">🇺🇸 English</option>
-                    </select>
+                    <div class="custom-select" id="custom-lang-select">
+                        <div class="select-selected">🇺🇿 Ўзбекча</div>
+                        <div class="select-items select-hide">
+                            <div data-value="uz_lt">🇺🇿 O'zbekcha</div>
+                            <div data-value="uz_cy">🇺🇿 Ўзбекча</div>
+                            <div data-value="ru">🇷🇺 Русский</div>
+                            <div data-value="en">🇺🇸 English</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="font-scaler" title="Yoshi kattalar uchun shrift o'lchamini o'zgartirish">
                     <span class="font-scaler-label"><i class="fas fa-text-height"></i> Matn:</span>

@@ -226,8 +226,8 @@ document.addEventListener("DOMContentLoaded", () => {
     applyFontScale(savedScale);
 
     // --- Tillar mantiqi ---
-    const langSelect = document.getElementById('lang-select');
-
+    const customSelect = document.getElementById('custom-lang-select');
+    
     function setLanguage(lang) {
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
@@ -238,9 +238,34 @@ document.addEventListener("DOMContentLoaded", () => {
         updateClock();
     }
 
-    langSelect.addEventListener('change', (e) => {
-        setLanguage(e.target.value);
-    });
+    if (customSelect) {
+        const selectedEl = customSelect.querySelector('.select-selected');
+        const itemsEl = customSelect.querySelector('.select-items');
+        const options = itemsEl.querySelectorAll('div');
+
+        selectedEl.addEventListener('click', function(e) {
+            e.stopPropagation();
+            itemsEl.classList.toggle('select-hide');
+            customSelect.classList.toggle('select-arrow-active');
+        });
+
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                selectedEl.innerHTML = this.innerHTML;
+                const lang = this.getAttribute('data-value');
+                setLanguage(lang);
+                itemsEl.classList.add('select-hide');
+                customSelect.classList.remove('select-arrow-active');
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!customSelect.contains(e.target)) {
+                itemsEl.classList.add('select-hide');
+                customSelect.classList.remove('select-arrow-active');
+            }
+        });
+    }
 
     // --- Dark Mode Logic ---
     const themeCheckbox = document.getElementById('checkbox-theme');
