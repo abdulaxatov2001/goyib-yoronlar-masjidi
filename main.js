@@ -196,8 +196,6 @@ const translations = {
 let currentPrayerTimes = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Tashriflar statistikasini hisoblash
-    logVisit();
     
     // --- Shrift o'lchamini kattalashtirish (Yoshi kattalar uchun) ---
     const htmlEl = document.documentElement;
@@ -377,6 +375,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 firebase.initializeApp(firebaseConfig);
             }
             db = firebase.database();
+            
+            // Firebase ulanib bo'lgandan keyingina tashrifni yozamiz
+            logVisit();
         }
     } catch(e) {
         console.warn('Firebase ulanmadi:', e.message);
