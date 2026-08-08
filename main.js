@@ -838,6 +838,15 @@ window.openTeamModalDynamic = function(index) {
     document.getElementById('modal-role').textContent = v.role;
     document.getElementById('modal-desc').textContent = v.desc || ''; 
     
+    const phoneEl = document.getElementById('modal-phone');
+    if (v.phone) {
+        phoneEl.innerHTML = `<i class="fas fa-phone-alt" style="margin-right: 5px;"></i> ${v.phone}`;
+        phoneEl.href = `tel:${v.phone.replace(/[^0-9+]/g, '')}`;
+        phoneEl.style.display = 'inline-block';
+    } else {
+        phoneEl.style.display = 'none';
+    } 
+    
     const iconEl = document.getElementById('modal-avatar');
     if (v.imgUrl) {
         iconEl.innerHTML = `<img src="${v.imgUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`;
