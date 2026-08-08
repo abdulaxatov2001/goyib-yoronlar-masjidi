@@ -662,6 +662,81 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// News Pagination Variables
+let allNews = [];
+let currentNewsPage = 1;
+const newsPerPage = 5;
+
+window.prevNewsPage = function() {
+    if (currentNewsPage > 1) {
+        currentNewsPage--;
+        renderNews();
+    }
+}
+
+window.nextNewsPage = function() {
+    if (currentNewsPage * newsPerPage < allNews.length) {
+        currentNewsPage++;
+        renderNews();
+    }
+}
+
+window.openNewsModal = function(index) {
+    const news = allNews[index];
+    if (!news) return;
+    
+    document.getElementById('news-modal-title').innerText = news.title || '';
+    document.getElementById('news-modal-date').innerText = news.date || '';
+    document.getElementById('news-modal-desc').innerText = news.desc || '';
+    
+    const imgContainer = document.getElementById('news-modal-img');
+    if (news.imgUrl) {
+        imgContainer.style.backgroundImage = `url(${news.imgUrl})`;
+        imgContainer.style.display = 'block';
+    } else {
+        imgContainer.style.display = 'none';
+    }
+    
+    document.getElementById('news-modal').classList.add('active');
+}
+
+window.closeNewsModal = function() {
+    document.getElementById('news-modal').classList.remove('active');
+}
+
+function renderNews() {
+    const container = document.getElementById('news-container');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    const start = (currentNewsPage - 1) * newsPerPage;
+    const end = start + newsPerPage;
+    const pageNews = allNews.slice(start, end);
+    
+    pageNews.forEach((v, idx) => {
+        const actualIndex = start + idx;
+        const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-newspaper"></i>`;
+        container.innerHTML += `
+            <div class="news-card glassmorphism" onclick="openNewsModal(${actualIndex})">
+                <div class="news-img" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
+                <div class="news-body">
+                    <span class="news-date">${v.date || ''}</span>
+                    <h3>${v.title}</h3>
+                    <p>${v.desc}</p>
+                </div>
+            </div>
+        `;
+    });
+    
+    const prevBtn = document.getElementById('news-prev');
+    const nextBtn = document.getElementById('news-next');
+    const pageInfo = document.getElementById('news-page-info');
+    
+    if (prevBtn) prevBtn.disabled = currentNewsPage === 1;
+    if (nextBtn) nextBtn.disabled = end >= allNews.length;
+    if (pageInfo) pageInfo.innerText = currentNewsPage;
+}
+
 // Firebase orqali dinamik ma'lumotlarni o'qish
 function loadDynamicContent() {
     if (typeof firebase === 'undefined' || !firebase.apps.length) return;
@@ -671,25 +746,22 @@ function loadDynamicContent() {
     db.ref('news').on('value', snap => {
         const container = document.getElementById('news-container');
         if (!container) return;
-        container.innerHTML = '';
+        
+        allNews = [];
         if (!snap.exists()) {
             container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; margin-top:10px;">Hozircha yangiliklar yo'q...</p>`;
+            document.getElementById('news-pagination').style.display = 'none';
             return;
         }
+        
+        document.getElementById('news-pagination').style.display = 'flex';
         snap.forEach(child => {
-            const v = child.val();
-            const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-newspaper"></i>`;
-            container.innerHTML += `
-                <div class="news-card glassmorphism">
-                    <div class="news-img" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
-                    <div class="news-body">
-                        <span class="news-date">${v.date || ''}</span>
-                        <h3>${v.title}</h3>
-                        <p>${v.desc}</p>
-                    </div>
-                </div>
-            `;
+            allNews.push(child.val());
         });
+        
+        allNews.reverse();
+        currentNewsPage = 1;
+        renderNews();
     });
 
     // Jamoa
