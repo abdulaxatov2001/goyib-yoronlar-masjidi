@@ -56,7 +56,11 @@ const translations = {
         events_text: "Hozircha rejalashtirilgan tadbirlar yo'q. Yangiliklarni kuzatib boring.",
         gallery_title: "Foto Galereya",
         contact_title: "Biz bilan aloqa",
-        contact_text: "Manzil: Namangan viloyati, Pop tumani, To'da qishlog'i. Tel: +998 90 123 45 67"
+        contact_text: "Manzil: Namangan viloyati, Pop tumani, To'da qishlog'i. Tel: +998 90 123 45 67",
+        nav_charity: "Xayriya",
+        charity_title: "Xayriya va Ehson",
+        charity_general: "Masjid ehtiyojlari uchun umumiy ehson",
+        charity_utility: "Kommunal to'lovlar uchun"
     },
     uz_cy: {
         bomdod: "БОМДОД",
@@ -115,7 +119,11 @@ const translations = {
         events_text: "Ҳозирча режалаштирилган тадбирлар йўқ. Янгиликларни кузатиб боринг.",
         gallery_title: "Фото Галерея",
         contact_title: "Биз билан алоқа",
-        contact_text: "Манзил: Наманган вилояти, Поп тумани, Тўда қишлоғи. Тел: +998 90 123 45 67"
+        contact_text: "Манзил: Наманган вилояти, Поп тумани, Тўда қишлоғи. Тел: +998 90 123 45 67",
+        nav_charity: "Хайрия",
+        charity_title: "Хайрия ва Эҳсон",
+        charity_general: "Масжид эҳтиёжлари учун умумий эҳсон",
+        charity_utility: "Коммунал тўловлар учун"
     },
     ru: {
         bomdod: "ФАДЖР",
@@ -174,7 +182,11 @@ const translations = {
         events_text: "На данный момент запланированных мероприятий нет. Следите за новостями.",
         gallery_title: "Фотогалерея",
         contact_title: "Связаться с нами",
-        contact_text: "Адрес: Наманганская область, Папский район, село Туда. Тел: +998 90 123 45 67"
+        contact_text: "Адрес: Наманганская область, Папский район, село Туда. Тел: +998 90 123 45 67",
+        nav_charity: "Пожертвование",
+        charity_title: "Благотворительность и Пожертвование",
+        charity_general: "Общее пожертвование на нужды мечети",
+        charity_utility: "На коммунальные платежи"
     },
     en: {
         bomdod: "FAJR",
@@ -233,7 +245,11 @@ const translations = {
         events_text: "There are no scheduled events at the moment. Please stay tuned.",
         gallery_title: "Photo Gallery",
         contact_title: "Contact Us",
-        contact_text: "Address: Namangan region, Pop district, Tuda village. Phone: +998 90 123 45 67"
+        contact_text: "Address: Namangan region, Pop district, Tuda village. Phone: +998 90 123 45 67",
+        nav_charity: "Donate",
+        charity_title: "Charity and Donation",
+        charity_general: "General donation for mosque needs",
+        charity_utility: "For utility bills"
     }
 };
 
