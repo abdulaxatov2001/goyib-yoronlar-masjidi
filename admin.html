@@ -417,8 +417,8 @@
 
         <div id="step2" style="display:none">
             <label><i class="fas fa-shield-alt" style="margin-right:5px"></i>Tasdiqlash kodi</label>
-            <p style="font-size:0.8rem;color:var(--muted);margin-top:-5px;margin-bottom:10px;">Telegram botga yuborilgan 6 xonali kodni kiriting.</p>
-            <input type="number" id="tgcode" placeholder="Masalan: 123456"
+            <p style="font-size:0.8rem;color:var(--muted);margin-top:-5px;margin-bottom:10px;">Telegram botga yuborilgan 4 xonali kodni kiriting. (2 daqiqa amal qiladi)</p>
+            <input type="number" id="tgcode" placeholder="Masalan: 1234"
                 onkeydown="if(event.key==='Enter') verifyCode()">
             <button class="btn" onclick="verifyCode()"><i class="fas fa-check"
                     style="margin-right:8px"></i>Tasdiqlash va Kirish</button>
@@ -748,10 +748,11 @@
         }
 
         let generatedTgCode = null;
+        let tgCodeTimeout = null;
 
         function doLogin() {
             if (document.getElementById('pwd').value === ADMIN_PASS) {
-                generatedTgCode = Math.floor(100000 + Math.random() * 900000).toString();
+                generatedTgCode = Math.floor(1000 + Math.random() * 9000).toString();
                 const botToken = "8965800722:AAEX8i6RgDvwCMlXZuO-vk0Wi4S69vke9FY";
                 const chatId = "822033965";
                 const tgText = `🔐 Admin panelga kirish uchun tasdiqlash kodi: ${generatedTgCode}\n\nAgar bu siz bo'lmasangiz, e'tibor bermang.`;
@@ -761,6 +762,16 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: chatId, text: tgText })
                 }).catch(console.error);
+
+                if (tgCodeTimeout) clearTimeout(tgCodeTimeout);
+                tgCodeTimeout = setTimeout(() => {
+                    generatedTgCode = null;
+                    alert("Kodning amal qilish muddati (2 daqiqa) tugadi! Iltimos, boshqatdan kiring.");
+                    document.getElementById('step2').style.display = 'none';
+                    document.getElementById('step1').style.display = 'block';
+                    document.getElementById('pwd').value = '';
+                    document.getElementById('tgcode').value = '';
+                }, 120000);
 
                 document.getElementById('step1').style.display = 'none';
                 document.getElementById('step2').style.display = 'block';
@@ -772,7 +783,15 @@
         }
 
         function verifyCode() {
+            if (!generatedTgCode) {
+                document.getElementById('login-err').innerHTML = '<i class="fas fa-exclamation-circle"></i> Kod muddati tugagan!';
+                document.getElementById('login-err').classList.add('show');
+                return;
+            }
+
             if (document.getElementById('tgcode').value === generatedTgCode) {
+                if (tgCodeTimeout) clearTimeout(tgCodeTimeout);
+                generatedTgCode = null;
                 document.getElementById('login-card').style.display = 'none';
                 document.getElementById('admin-card').style.display = 'block';
                 initAdmin();
