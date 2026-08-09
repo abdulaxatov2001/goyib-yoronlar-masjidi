@@ -1461,6 +1461,7 @@ body.dark-mode .team-modal-white .modal-close {
     color: var(--white-muted);
     font-size: 0.95rem;
     line-height: 1.6;
+    white-space: pre-wrap;
 }
 
 /* Lightbox Modal */
