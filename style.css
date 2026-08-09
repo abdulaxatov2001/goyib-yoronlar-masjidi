@@ -1529,7 +1529,9 @@ body.dark-mode .team-modal-white .modal-close {
    ========================================= */
 @media (max-width: 768px) {
     .hero {
-        background: url('hero-mobile.jpg') center/cover no-repeat;
+        background: url('hero-mobile.jpg') center/top no-repeat;
+        background-size: cover;
+        min-height: 80vh; /* Ekranni to'liq egallash o'rniga biroz qisqartiriladi, shunda yonlaridan qirqilmaydi */
     }
 
     /* Top bar */
