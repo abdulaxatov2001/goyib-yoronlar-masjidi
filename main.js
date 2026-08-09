@@ -686,10 +686,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// News Pagination Variables
 let allNews = [];
-let currentNewsPage = 1;
-const newsPerPage = 3;
+const newsPerPage = 6;
 
 let allEvents = [];
 let currentEventsPage = 1;
@@ -710,49 +708,16 @@ window.nextEventsPage = function() {
 }
 
 let allGallery = [];
-let currentGalleryPage = 1;
 const galleryPerPage = 6;
 
-window.prevGalleryPage = function() {
-    if (currentGalleryPage > 1) {
-        currentGalleryPage--;
-        renderGallery();
-    }
-}
-
-window.nextGalleryPage = function() {
-    if (currentGalleryPage * galleryPerPage < allGallery.length) {
-        currentGalleryPage++;
-        renderGallery();
-    }
-}
-
-window.prevNewsPage = function() {
-    if (currentNewsPage > 1) {
-        currentNewsPage--;
-        renderNews();
-    }
-}
-
-window.nextNewsPage = function() {
-    if (currentNewsPage * newsPerPage < allNews.length) {
-        currentNewsPage++;
-        renderNews();
-    }
-}
-
-window.openNewsModal = function(index) {
-    const news = allNews[index];
-    if (!news) return;
-    
-    document.getElementById('news-modal-title').innerText = news.title || '';
-    const displayDate = news.date ? news.date.split(' ')[0] : '';
-    document.getElementById('news-modal-date').innerText = displayDate;
-    document.getElementById('news-modal-desc').innerText = news.desc || '';
+window.openNewsModal = function(title, desc, imgUrl, date) {
+    document.getElementById('news-modal-title').innerText = title || '';
+    document.getElementById('news-modal-date').innerText = date;
+    document.getElementById('news-modal-desc').innerText = desc || '';
     
     const imgContainer = document.getElementById('news-modal-img');
-    if (news.imgUrl) {
-        imgContainer.style.backgroundImage = `url(${news.imgUrl})`;
+    if (imgUrl) {
+        imgContainer.style.backgroundImage = `url(${imgUrl})`;
         imgContainer.style.display = 'block';
     } else {
         imgContainer.style.display = 'none';
@@ -775,33 +740,24 @@ function renderNews() {
     if (!container) return;
     container.innerHTML = '';
     
-    const start = (currentNewsPage - 1) * newsPerPage;
-    const end = start + newsPerPage;
-    const pageNews = allNews.slice(start, end);
+    if (allNews.length === 0) {
+        container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; margin-top:10px;">Hozircha yangiliklar yo'q...</p>`;
+        return;
+    }
     
+    const pageNews = allNews.slice(0, 6);
     pageNews.forEach((v, idx) => {
-        const actualIndex = start + idx;
-        const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-newspaper"></i>`;
-        const displayDate = v.date ? v.date.split(' ')[0] : '';
+        let formattedDate = v.date ? v.date.split(' ')[0] : '';
+        const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-image" style="color:var(--border);font-size:2rem;"></i>`;
         container.innerHTML += `
-            <div class="news-card glassmorphism" onclick="openNewsModal(${actualIndex})">
+            <div class="news-card glassmorphism" onclick="openNewsModal('${(v.title||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${(v.desc||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${v.imgUrl || ''}', '${formattedDate}')">
                 <div class="news-img" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
                 <div class="news-body">
-                    <span class="news-date">${displayDate}</span>
                     <h3>${v.title}</h3>
-                    <p>${v.desc}</p>
                 </div>
             </div>
         `;
     });
-    
-    const prevBtn = document.getElementById('news-prev');
-    const nextBtn = document.getElementById('news-next');
-    const pageInfo = document.getElementById('news-page-info');
-    
-    if (prevBtn) prevBtn.disabled = currentNewsPage === 1;
-    if (nextBtn) nextBtn.disabled = end >= allNews.length;
-    if (pageInfo) pageInfo.innerText = currentNewsPage;
 }
 
 function renderEvents() {
@@ -856,14 +812,10 @@ function renderGallery() {
     
     if (allGallery.length === 0) {
         container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha rasmlar kiritilmagan...</p>`;
-        document.getElementById('gallery-pagination').style.display = 'none';
         return;
     }
     
-    document.getElementById('gallery-pagination').style.display = 'flex';
-    const start = (currentGalleryPage - 1) * galleryPerPage;
-    const end = start + galleryPerPage;
-    const pageGallery = allGallery.slice(start, end);
+    const pageGallery = allGallery.slice(0, 6);
     
     pageGallery.forEach(v => {
         container.innerHTML += `
@@ -872,96 +824,86 @@ function renderGallery() {
             </div>
         `;
     });
-    
-    const prevBtn = document.getElementById('gallery-prev');
-    const nextBtn = document.getElementById('gallery-next');
-    const pageInfo = document.getElementById('gallery-page-info');
-    
-    if (prevBtn) prevBtn.disabled = currentGalleryPage === 1;
-    if (nextBtn) nextBtn.disabled = end >= allGallery.length;
-    if (pageInfo) pageInfo.innerText = currentGalleryPage;
 }
 
-// Firebase orqali dinamik ma'lumotlarni o'qish
+window.openTeamModal = function(type) {
+    const modal = document.getElementById('team-modal');
+    const nameEl = document.getElementById('modal-name');
+    const roleEl = document.getElementById('modal-role');
+    const descEl = document.getElementById('modal-desc');
+    const iconEl = document.getElementById('modal-avatar');
+    
+    iconEl.style.padding = "";
+    iconEl.style.background = "";
+    iconEl.innerHTML = `<i></i>`;
+    const iTag = iconEl.querySelector('i');
+    
+    const currentLang = document.getElementById('lang-select').value;
+    const trans = translations[currentLang];
+
+    if (type === 'imam') {
+        nameEl.textContent = trans.team_imam_name;
+        roleEl.textContent = trans.team_imam_role;
+        descEl.textContent = trans.team_imam_name;
+        iTag.className = 'fas fa-user-tie';
+    } else if (type === 'naib') {
+        nameEl.textContent = trans.team_naib_name;
+        roleEl.textContent = trans.team_naib_role;
+        descEl.textContent = trans.team_naib_name;
+        iTag.className = 'fas fa-user';
+    } else if (type === 'muazzin') {
+        nameEl.textContent = trans.team_muazzin_name;
+        roleEl.textContent = trans.team_muazzin_role;
+        descEl.textContent = trans.team_muazzin_name;
+        iTag.className = 'fas fa-user';
+    } else if (type === 'taftish') {
+        nameEl.textContent = trans.team_taftish_name;
+        roleEl.textContent = trans.team_taftish_role;
+        descEl.textContent = trans.team_taftish_name;
+        iTag.className = 'fas fa-user-shield';
+    }
+    
+    modal.classList.add('active');
+}
+
 function loadDynamicContent() {
     if (typeof firebase === 'undefined' || !firebase.apps.length) return;
     const db = firebase.database();
-    // Tadbirlar
+    
     db.ref('events').on('value', snap => {
         allEvents = [];
         if (snap.exists()) {
             snap.forEach(child => {
                 allEvents.push(child.val());
             });
-            allEvents.reverse(); // Reverse order so newest events are first
+            allEvents.reverse(); 
         }
         currentEventsPage = 1;
         renderEvents();
     });
     
-    // Yangiliklar
     db.ref('news').on('value', snap => {
-        const container = document.getElementById('news-container');
-        if (!container) return;
-        
         allNews = [];
-        if (!snap.exists()) {
-            container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; margin-top:10px;">Hozircha yangiliklar yo'q...</p>`;
-            document.getElementById('news-pagination').style.display = 'none';
-            return;
+        if (snap.exists()) {
+            snap.forEach(child => {
+                allNews.push(child.val());
+            });
+            allNews.reverse();
         }
-        
-        document.getElementById('news-pagination').style.display = 'flex';
-        snap.forEach(child => {
-            allNews.push(child.val());
-        });
-        
-        allNews.reverse();
-        currentNewsPage = 1;
         renderNews();
     });
 
-    // Jamoa
-    db.ref('team').on('value', snap => {
-        const container = document.getElementById('team-container');
-        if (!container) return;
-        container.innerHTML = '';
-        const members = [];
-        if (!snap.exists()) {
-            container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha jamoa a'zolari kiritilmagan...</p>`;
-            return;
-        }
-        snap.forEach(child => { members.push({ key: child.key, ...child.val() }); });
-        
-        window.teamMembers = members;
-        
-        members.forEach((v, index) => {
-            const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">` : `<i class="fas fa-user"></i>`;
-            container.innerHTML += `
-                <div class="team-card glassmorphism" onclick="openTeamModalDynamic(${index})">
-                    <div class="team-avatar" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
-                    <h3>${v.name}</h3>
-                    <p class="team-role">${v.role}</p>
-                    <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
-                </div>
-            `;
-        });
-    });
-
-    // Galereya
     db.ref('gallery').on('value', snap => {
         allGallery = [];
         if (snap.exists()) {
             snap.forEach(child => {
                 allGallery.push(child.val());
             });
-            allGallery.reverse(); // Newest first
+            allGallery.reverse(); 
         }
-        currentGalleryPage = 1;
         renderGallery();
     });
 
-    // Xayriya (Charity)
     db.ref('charity_info').on('value', snap => {
         if (snap.exists()) {
             const data = snap.val();

@@ -237,8 +237,31 @@
         <div class="section-header">
             <h2 data-i18n="team_title">Masjid Jamoasi</h2>
         </div>
-        <div class="team-grid" id="team-container">
-            <!-- Dinamik kiritiladi -->
+        <div class="team-grid">
+            <div class="team-card glassmorphism" onclick="openTeamModal('imam')">
+                <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+                <h3 data-i18n="team_imam_name">Rasuljon domla</h3>
+                <p class="team-role" data-i18n="team_imam_role">Bosh Imom Xatib</p>
+                <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
+            </div>
+            <div class="team-card glassmorphism" onclick="openTeamModal('naib')">
+                <div class="team-avatar"><i class="fas fa-user"></i></div>
+                <h3 data-i18n="team_naib_name">O'tkirjon domla</h3>
+                <p class="team-role" data-i18n="team_naib_role">Noib Imom</p>
+                <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
+            </div>
+            <div class="team-card glassmorphism" onclick="openTeamModal('muazzin')">
+                <div class="team-avatar"><i class="fas fa-user"></i></div>
+                <h3 data-i18n="team_muazzin_name">Bahromjon qori</h3>
+                <p class="team-role" data-i18n="team_muazzin_role">Muazzin</p>
+                <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
+            </div>
+            <div class="team-card glassmorphism" onclick="openTeamModal('taftish')">
+                <div class="team-avatar"><i class="fas fa-user-shield"></i></div>
+                <h3 data-i18n="team_taftish_name">Bahtiyor hoji</h3>
+                <p class="team-role" data-i18n="team_taftish_role">Taftish Raisi</p>
+                <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
+            </div>
         </div>
     </section>
 
@@ -249,11 +272,6 @@
         </div>
         <div class="news-grid" id="news-container">
             <!-- Dinamik kiritiladi -->
-        </div>
-        <div id="news-pagination" style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
-            <button id="news-prev" onclick="prevNewsPage()" class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
-            <span id="news-page-info" style="align-self: center; font-weight: 500;">1</span>
-            <button id="news-next" onclick="nextNewsPage()" class="page-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 
@@ -365,11 +383,6 @@
         </div>
         <div class="gallery-grid" id="gallery-container">
             <!-- Dinamik kiritiladi -->
-        </div>
-        <div id="gallery-pagination" style="display: none; justify-content: center; gap: 15px; margin-top: 20px;">
-            <button id="gallery-prev" onclick="prevGalleryPage()" class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
-            <span id="gallery-page-info" style="align-self: center; font-weight: 500;">1</span>
-            <button id="gallery-next" onclick="nextGalleryPage()" class="page-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 
