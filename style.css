@@ -1529,7 +1529,7 @@ body.dark-mode .team-modal-white .modal-close {
    ========================================= */
 @media (max-width: 768px) {
     .hero {
-        background: url('https://images.unsplash.com/photo-1708165089634-0f163fa46d27?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
+        background: url('https://images.unsplash.com/photo-1693305356807-2b94a61bdd06?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
     }
 
     /* Top bar */
