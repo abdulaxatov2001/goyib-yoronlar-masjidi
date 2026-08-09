@@ -1458,6 +1458,7 @@ body.dark-mode .team-modal-white .modal-close {
 }
 
 .modal-desc {
+    text-align: left;
     color: var(--white-muted);
     font-size: 0.95rem;
     line-height: 1.6;
