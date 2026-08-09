@@ -826,41 +826,26 @@ function renderGallery() {
     });
 }
 
-window.openTeamModal = function(type) {
+// Modal ochish
+window.openTeamModalDynamic = function(index) {
+    if (!window.teamMembers) return;
+    const v = window.teamMembers[index];
+    if (!v) return;
+    
     const modal = document.getElementById('team-modal');
-    const nameEl = document.getElementById('modal-name');
-    const roleEl = document.getElementById('modal-role');
-    const descEl = document.getElementById('modal-desc');
+    document.getElementById('modal-name').textContent = v.name;
+    document.getElementById('modal-role').textContent = v.role;
+    document.getElementById('modal-desc').textContent = v.desc || v.role;
+    
     const iconEl = document.getElementById('modal-avatar');
-    
-    iconEl.style.padding = "";
-    iconEl.style.background = "";
-    iconEl.innerHTML = `<i></i>`;
-    const iTag = iconEl.querySelector('i');
-    
-    const currentLang = document.getElementById('lang-select').value;
-    const trans = translations[currentLang];
-
-    if (type === 'imam') {
-        nameEl.textContent = trans.team_imam_name;
-        roleEl.textContent = trans.team_imam_role;
-        descEl.textContent = trans.team_imam_name;
-        iTag.className = 'fas fa-user-tie';
-    } else if (type === 'naib') {
-        nameEl.textContent = trans.team_naib_name;
-        roleEl.textContent = trans.team_naib_role;
-        descEl.textContent = trans.team_naib_name;
-        iTag.className = 'fas fa-user';
-    } else if (type === 'muazzin') {
-        nameEl.textContent = trans.team_muazzin_name;
-        roleEl.textContent = trans.team_muazzin_role;
-        descEl.textContent = trans.team_muazzin_name;
-        iTag.className = 'fas fa-user';
-    } else if (type === 'taftish') {
-        nameEl.textContent = trans.team_taftish_name;
-        roleEl.textContent = trans.team_taftish_role;
-        descEl.textContent = trans.team_taftish_name;
-        iTag.className = 'fas fa-user-shield';
+    if (v.imgUrl) {
+        iconEl.innerHTML = `<img src="${v.imgUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`;
+        iconEl.style.padding = "0";
+        iconEl.style.background = "transparent";
+    } else {
+        iconEl.innerHTML = `<i class="fas fa-user"></i>`;
+        iconEl.style.padding = "";
+        iconEl.style.background = "";
     }
     
     modal.classList.add('active');
@@ -902,6 +887,33 @@ function loadDynamicContent() {
             allGallery.reverse(); 
         }
         renderGallery();
+    });
+
+    // Jamoa
+    db.ref('team').on('value', snap => {
+        const container = document.getElementById('team-container');
+        if (!container) return;
+        container.innerHTML = '';
+        const members = [];
+        if (!snap.exists()) {
+            container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha jamoa a'zolari kiritilmagan...</p>`;
+            return;
+        }
+        snap.forEach(child => { members.push({ key: child.key, ...child.val() }); });
+        
+        window.teamMembers = members;
+        
+        members.forEach((v, index) => {
+            const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">` : `<i class="fas fa-user"></i>`;
+            container.innerHTML += `
+                <div class="team-card glassmorphism" onclick="openTeamModalDynamic(${index})">
+                    <div class="team-avatar" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
+                    <h3>${v.name}</h3>
+                    <p class="team-role">${v.role}</p>
+                    <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
+                </div>
+            `;
+        });
     });
 
     db.ref('charity_info').on('value', snap => {
