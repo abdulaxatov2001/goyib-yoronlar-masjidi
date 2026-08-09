@@ -664,7 +664,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const navMenu = document.getElementById('nav-menu');
 
     if (hamburger) {
-        hamburger.addEventListener('click', () => {
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('open');
         });
@@ -675,6 +676,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('open');
             });
+        });
+
+        // Menyu tashqarisiga bosganda yopish
+        document.addEventListener('click', (e) => {
+            if (navMenu.classList.contains('open') && !navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('open');
+            }
         });
     }
 
