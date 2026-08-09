@@ -711,7 +711,7 @@ window.nextEventsPage = function() {
 
 let allGallery = [];
 let currentGalleryPage = 1;
-const galleryPerPage = 5;
+const galleryPerPage = 6;
 
 window.prevGalleryPage = function() {
     if (currentGalleryPage > 1) {
@@ -746,7 +746,8 @@ window.openNewsModal = function(index) {
     if (!news) return;
     
     document.getElementById('news-modal-title').innerText = news.title || '';
-    document.getElementById('news-modal-date').innerText = news.date || '';
+    const displayDate = news.date ? news.date.split(' ')[0] : '';
+    document.getElementById('news-modal-date').innerText = displayDate;
     document.getElementById('news-modal-desc').innerText = news.desc || '';
     
     const imgContainer = document.getElementById('news-modal-img');
@@ -781,11 +782,12 @@ function renderNews() {
     pageNews.forEach((v, idx) => {
         const actualIndex = start + idx;
         const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-newspaper"></i>`;
+        const displayDate = v.date ? v.date.split(' ')[0] : '';
         container.innerHTML += `
             <div class="news-card glassmorphism" onclick="openNewsModal(${actualIndex})">
                 <div class="news-img" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
                 <div class="news-body">
-                    <span class="news-date">${v.date || ''}</span>
+                    <span class="news-date">${displayDate}</span>
                     <h3>${v.title}</h3>
                     <p>${v.desc}</p>
                 </div>
@@ -819,10 +821,15 @@ function renderEvents() {
     const pageEvents = allEvents.slice(start, end);
     
     pageEvents.forEach((v, idx) => {
-        let dateStr = v.eventDate ? `<p class="news-date"><i class="far fa-calendar-alt"></i> ${v.eventDate}</p>` : '';
+        let formattedEventDate = v.eventDate;
+        if (v.eventDate && v.eventDate.includes('-')) {
+            const parts = v.eventDate.split('-');
+            if (parts.length === 3) formattedEventDate = `${parts[2]}.${parts[1]}.${parts[0]}`;
+        }
+        let dateStr = formattedEventDate ? `<p class="news-date"><i class="far fa-calendar-alt"></i> ${formattedEventDate}</p>` : '';
         const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-image" style="color:var(--border);font-size:2rem;"></i>`;
         container.innerHTML += `
-            <div class="news-card glassmorphism" onclick="openNewsModal('${(v.title||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${(v.desc||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${v.imgUrl || ''}', '${v.eventDate || ''}')">
+            <div class="news-card glassmorphism" onclick="openNewsModal('${(v.title||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${(v.desc||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${v.imgUrl || ''}', '${formattedEventDate || ''}')">
                 <div class="news-img" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
                 <div class="news-body">
                     ${dateStr}
