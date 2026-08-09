@@ -782,7 +782,6 @@ function renderSponsors() {
             <div class="team-card glassmorphism" onclick="openSponsorModal(${idx + start})">
                 <div class="team-avatar" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
                 <h3>${v.name}</h3>
-                <p class="team-role" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 5px;">${v.desc}</p>
                 <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
             </div>
         `;
@@ -865,6 +864,7 @@ window.openSponsorModal = function(index) {
     }
     
     modal.classList.add('active');
+    history.pushState({ modalOpen: true }, "");
 }
 
 function loadDynamicContent() {
