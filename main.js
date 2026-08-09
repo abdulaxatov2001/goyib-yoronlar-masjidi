@@ -777,14 +777,13 @@ function renderSponsors() {
     const pageSponsors = allSponsors.slice(start, end);
     
     pageSponsors.forEach((v, idx) => {
-        const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-user" style="color:var(--border);font-size:4rem;"></i>`;
+        const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">` : `<i class="fas fa-user"></i>`;
         container.innerHTML += `
-            <div class="team-card glassmorphism" style="cursor: pointer;" onclick="openSponsorModal(${idx + start})">
-                <div class="team-img" style="overflow:hidden; padding:0; background:#f8fafc; display:flex; align-items:center; justify-content:center;">${imgHtml}</div>
-                <div class="team-info">
-                    <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--emerald-dark); margin-bottom: 5px;">${v.name}</h3>
-                    <p style="color: var(--text-color); font-size: 0.95rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${v.desc}</p>
-                </div>
+            <div class="team-card glassmorphism" onclick="openSponsorModal(${idx + start})">
+                <div class="team-avatar" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
+                <h3>${v.name}</h3>
+                <p class="team-role" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 5px;">${v.desc}</p>
+                <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
             </div>
         `;
     });
