@@ -695,7 +695,7 @@ input:checked+.slider:before {
     align-items: center;
     padding: 0 5%;
     /* Butun masjid ko'rinishi uchun center/cover qoldirildi, kerak bo'lsa contain qilinishi mumkin */
-    background: url('https://images.unsplash.com/photo-1579404243938-f8d202ff6f36?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&w=2000') center/cover no-repeat;
+    background: url('hero.jpg') center/cover no-repeat;
 }
 
 .hero-overlay {
