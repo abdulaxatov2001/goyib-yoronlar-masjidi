@@ -1130,6 +1130,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         timestamp: firebase.database.ServerValue.TIMESTAMP
                     });
                     
+                    const botToken = "8965800722:AAEX8i6RgDvwCMlXZuO-vk0Wi4S69vke9FY";
+                    const chatId = "822033965";
+                    const tgText = `🤲 Yangi duo so'rovi:\n\n👤 Ism: ${nameInput || 'Yashirin'}\n📝 Matn: ${messageInput}`;
+                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: chatId, text: tgText })
+                    }).catch(console.error);
+                    
                     duaSuccess.style.display = 'block';
                     duaForm.reset();
                     
