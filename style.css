@@ -1266,7 +1266,7 @@ input:checked+.slider:before {
 .footer {
     text-align: center;
     padding: 28px 5%;
-    background: var(--emerald-dark);
+    background: var(--emerald-deep);
     border-top: 1px solid var(--glass-border);
     font-size: 0.85rem;
     color: var(--white-muted);
@@ -1612,20 +1612,20 @@ body.dark-mode .team-modal-white .modal-close {
         top: 100%;
         left: 0;
         width: 100%;
-        background: rgba(255, 255, 255, 0.1);
+        background: var(--glass-bg);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         padding: 15px;
         gap: 10px;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         border-radius: 0 0 16px 16px;
         z-index: 150;
     }
 
     body.dark-mode .nav-menu {
-        background: rgba(0, 0, 0, 0.2);
+        background: var(--glass-bg);
     }
 
     .nav-menu.open {
@@ -1651,9 +1651,9 @@ body.dark-mode .team-modal-white .modal-close {
         font-size: 0.95rem;
         color: rgba(255, 255, 255, 0.95);
         font-weight: 500;
-        background: rgba(5, 150, 105, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
         letter-spacing: 0.5px;
         transition: transform 0.3s, background 0.3s;
         text-align: center;
@@ -1664,7 +1664,7 @@ body.dark-mode .team-modal-white .modal-close {
     }
 
     .nav-menu a:hover {
-        background: var(--emerald-deep);
+        background: rgba(255, 255, 255, 0.09);
         transform: translateY(-2px);
         color: var(--white);
     }
