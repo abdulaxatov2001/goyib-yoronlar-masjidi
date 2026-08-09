@@ -1129,10 +1129,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         message: messageInput,
                         timestamp: firebase.database.ServerValue.TIMESTAMP
                     });
-                    
+
+                    const subDay = String(now.getDate()).padStart(2, '0');
+                    const subMonth = String(now.getMonth() + 1).padStart(2, '0');
+                    const subYear = now.getFullYear();
+                    const subHours = String(now.getHours()).padStart(2, '0');
+                    const subMins = String(now.getMinutes()).padStart(2, '0');
+                    const submissionTime = `${subDay}.${subMonth}.${subYear} ${subHours}:${subMins}`;
+
+                    const nextFriday = new Date(now);
+                    let daysUntilFriday = (5 - dayOfWeek + 7) % 7;
+                    if (dayOfWeek === 5 && (hours > 13 || (hours === 13 && minutes > 0))) {
+                        daysUntilFriday = 7; 
+                    }
+                    nextFriday.setDate(now.getDate() + daysUntilFriday);
+                    const friDay = String(nextFriday.getDate()).padStart(2, '0');
+                    const friMonth = String(nextFriday.getMonth() + 1).padStart(2, '0');
+                    const hashtag = `#Juma_${friDay}_${friMonth}_${nextFriday.getFullYear()}`;
+
                     const botToken = "8965800722:AAEX8i6RgDvwCMlXZuO-vk0Wi4S69vke9FY";
                     const chatId = "822033965";
-                    const tgText = `🤲 Yangi duo so'rovi:\n\n👤 Ism: ${nameInput || 'Yashirin'}\n📝 Matn: ${messageInput}`;
+                    const tgText = `🤲 Yangi duo so'rovi:\n\n👤 Ism: ${nameInput || 'Yashirin'}\n📝 Matn: ${messageInput}\n\n🕒 Vaqt: ${submissionTime}\n🔖 Xeshteg: ${hashtag}`;
                     fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
