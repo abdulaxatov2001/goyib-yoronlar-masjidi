@@ -1528,6 +1528,9 @@ body.dark-mode .team-modal-white .modal-close {
    RESPONSIVE — Telefon (max 768px)
    ========================================= */
 @media (max-width: 768px) {
+    .hero {
+        background: url('https://images.unsplash.com/photo-1708165089634-0f163fa46d27?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
+    }
 
     /* Top bar */
     .top-bar {
