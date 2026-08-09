@@ -691,6 +691,42 @@ let allNews = [];
 let currentNewsPage = 1;
 const newsPerPage = 5;
 
+let allEvents = [];
+let currentEventsPage = 1;
+const eventsPerPage = 3;
+
+window.prevEventsPage = function() {
+    if (currentEventsPage > 1) {
+        currentEventsPage--;
+        renderEvents();
+    }
+}
+
+window.nextEventsPage = function() {
+    if (currentEventsPage * eventsPerPage < allEvents.length) {
+        currentEventsPage++;
+        renderEvents();
+    }
+}
+
+let allGallery = [];
+let currentGalleryPage = 1;
+const galleryPerPage = 6;
+
+window.prevGalleryPage = function() {
+    if (currentGalleryPage > 1) {
+        currentGalleryPage--;
+        renderGallery();
+    }
+}
+
+window.nextGalleryPage = function() {
+    if (currentGalleryPage * galleryPerPage < allGallery.length) {
+        currentGalleryPage++;
+        renderGallery();
+    }
+}
+
 window.prevNewsPage = function() {
     if (currentNewsPage > 1) {
         currentNewsPage--;
@@ -766,42 +802,61 @@ function renderNews() {
     if (pageInfo) pageInfo.innerText = currentNewsPage;
 }
 
+function renderEvents() {
+    const container = document.getElementById('events-container');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    if (allEvents.length === 0) {
+        container.innerHTML = `<div class="events-card glassmorphism"><div class="events-icon"><i class="fas fa-calendar-alt"></i></div><p data-i18n="events_text">Hozircha rejalashtirilgan tadbirlar yo'q.</p></div>`;
+        document.getElementById('events-pagination').style.display = 'none';
+        return;
+    }
+    
+    document.getElementById('events-pagination').style.display = 'flex';
+    const start = (currentEventsPage - 1) * eventsPerPage;
+    const end = start + eventsPerPage;
+    const pageEvents = allEvents.slice(start, end);
+    
+    pageEvents.forEach((v, idx) => {
+        let dateStr = v.eventDate ? `<p class="news-date"><i class="far fa-calendar-alt"></i> ${v.eventDate}</p>` : '';
+        const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-image" style="color:var(--border);font-size:2rem;"></i>`;
+        container.innerHTML += `
+            <div class="news-card glassmorphism" onclick="openNewsModal('${(v.title||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${(v.desc||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${v.imgUrl || ''}', '${v.eventDate || ''}')">
+                <div class="news-img" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
+                <div class="news-body">
+                    ${dateStr}
+                    <h3>${v.title}</h3>
+                    <p>${v.desc}</p>
+                </div>
+            </div>
+        `;
+    });
+    
+    const prevBtn = document.getElementById('events-prev');
+    const nextBtn = document.getElementById('events-next');
+    const pageInfo = document.getElementById('events-page-info');
+    
+    if (prevBtn) prevBtn.disabled = currentEventsPage === 1;
+    if (nextBtn) nextBtn.disabled = end >= allEvents.length;
+    if (pageInfo) pageInfo.innerText = currentEventsPage;
+}
+
 // Firebase orqali dinamik ma'lumotlarni o'qish
 function loadDynamicContent() {
     if (typeof firebase === 'undefined' || !firebase.apps.length) return;
     const db = firebase.database();
     // Tadbirlar
     db.ref('events').on('value', snap => {
-        const container = document.getElementById('events-container');
-        if (!container) return;
-        container.innerHTML = '';
-        if (!snap.exists()) {
-            container.innerHTML = `<div class="events-card glassmorphism"><div class="events-icon"><i class="fas fa-calendar-alt"></i></div><p data-i18n="events_text">Hozircha rejalashtirilgan tadbirlar yo'q.</p></div>`;
-            return;
+        allEvents = [];
+        if (snap.exists()) {
+            snap.forEach(child => {
+                allEvents.push(child.val());
+            });
+            allEvents.reverse(); // Reverse order so newest events are first
         }
-        
-        // Reverse order so newest events are first
-        let eventsArray = [];
-        snap.forEach(child => {
-            eventsArray.push(child.val());
-        });
-        eventsArray.reverse();
-        
-        eventsArray.forEach(v => {
-            let dateStr = v.eventDate ? `<p class="news-date"><i class="far fa-calendar-alt"></i> ${v.eventDate}</p>` : '';
-            container.innerHTML += `
-                <div class="news-card glassmorphism" onclick="openNewsModal('${(v.title||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${(v.desc||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${v.imgUrl || ''}', '${v.eventDate || ''}')">
-                    <div class="news-img" style="background-image:url('${v.imgUrl || ''}')">
-                        ${!v.imgUrl ? '<i class="fas fa-image" style="color:var(--border);font-size:2rem;"></i>' : ''}
-                    </div>
-                    <div class="news-content">
-                        <h3>${v.title}</h3>
-                        ${dateStr}
-                        <p class="news-excerpt">${v.desc}</p>
-                    </div>
-                </div>
-            `;
-        });
+        currentEventsPage = 1;
+        renderEvents();
     });
     
     // Yangiliklar
@@ -853,23 +908,65 @@ function loadDynamicContent() {
         });
     });
 
+    function renderGallery() {
+    const container = document.getElementById('gallery-container');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    if (allGallery.length === 0) {
+        container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha rasmlar kiritilmagan...</p>`;
+        document.getElementById('gallery-pagination').style.display = 'none';
+        return;
+    }
+    
+    document.getElementById('gallery-pagination').style.display = 'flex';
+    const start = (currentGalleryPage - 1) * galleryPerPage;
+    const end = start + galleryPerPage;
+    const pageGallery = allGallery.slice(start, end);
+    
+    pageGallery.forEach(v => {
+        container.innerHTML += `
+            <div class="gallery-item glassmorphism" style="overflow:hidden; padding:0; cursor:pointer;" onclick="openLightbox('${v.url}')">
+                <img src="${v.url}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </div>
+        `;
+    });
+    
+    const prevBtn = document.getElementById('gallery-prev');
+    const nextBtn = document.getElementById('gallery-next');
+    const pageInfo = document.getElementById('gallery-page-info');
+    
+    if (prevBtn) prevBtn.disabled = currentGalleryPage === 1;
+    if (nextBtn) nextBtn.disabled = end >= allGallery.length;
+    if (pageInfo) pageInfo.innerText = currentGalleryPage;
+}
+
     // Galereya
     db.ref('gallery').on('value', snap => {
-        const container = document.getElementById('gallery-container');
-        if (!container) return;
-        container.innerHTML = '';
-        if (!snap.exists()) {
-            container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha rasmlar kiritilmagan...</p>`;
-            return;
+        allGallery = [];
+        if (snap.exists()) {
+            snap.forEach(child => {
+                allGallery.push(child.val());
+            });
+            allGallery.reverse(); // Newest first
         }
-        snap.forEach(child => {
-            const v = child.val();
-            container.innerHTML += `
-                <div class="gallery-item glassmorphism" style="overflow:hidden; padding:0; cursor:pointer;" onclick="openLightbox('${v.url}')">
-                    <img src="${v.url}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                </div>
-            `;
-        });
+        currentGalleryPage = 1;
+        renderGallery();
+    });
+
+    // Xayriya (Charity)
+    db.ref('charity_info').on('value', snap => {
+        if (snap.exists()) {
+            const data = snap.val();
+            if(data.general_card) document.getElementById('general-card').innerText = data.general_card;
+            if(data.general_owner) document.querySelector('.card-owner').innerText = data.general_owner;
+            if(data.general_phone) document.getElementById('general-phone').innerText = data.general_phone;
+            if(data.util_elec) document.getElementById('util-elec').innerText = data.util_elec;
+            if(data.util_water) document.getElementById('util-water').innerText = data.util_water;
+            if(data.util_gas) document.getElementById('util-gas').innerText = data.util_gas;
+            if(data.util_trash) document.getElementById('util-trash').innerText = data.util_trash;
+            if(data.util_wifi) document.getElementById('util-wifi').innerText = data.util_wifi;
+        }
     });
 }
 

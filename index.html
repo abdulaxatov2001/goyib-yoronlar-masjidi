@@ -274,6 +274,7 @@
                         <button class="copy-btn" onclick="copyText('general-card')" title="Nusxa olish"><i class="far fa-copy"></i></button>
                     </div>
                     <p class="card-owner">G'oyib Yoronlar Jome Masjidi</p>
+                    <p class="card-phone" id="general-phone"></p>
                 </div>
             </div>
 
@@ -324,6 +325,17 @@
                         <button class="copy-btn-sm" onclick="copyText('util-trash')" title="Nusxa olish"><i class="far fa-copy"></i></button>
                     </div>
                 </div>
+
+                <div class="utility-item">
+                    <div class="utility-info">
+                        <span class="u-icon"><i class="fas fa-wifi" style="color: #06b6d4;"></i></span>
+                        <span class="u-name">Wi-Fi</span>
+                    </div>
+                    <div class="u-account">
+                        <span id="util-wifi">0000000000</span>
+                        <button class="copy-btn-sm" onclick="copyText('util-wifi')" title="Nusxa olish"><i class="far fa-copy"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -339,6 +351,11 @@
                 <p data-i18n="events_text">Hozircha rejalashtirilgan tadbirlar yo'q. Yangiliklarni kuzatib boring.</p>
             </div>
         </div>
+        <div id="events-pagination" style="display: none; justify-content: center; gap: 15px; margin-top: 20px;">
+            <button id="events-prev" onclick="prevEventsPage()" class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+            <span id="events-page-info" style="align-self: center; font-weight: 500;">1</span>
+            <button id="events-next" onclick="nextEventsPage()" class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
     </section>
 
     <!-- Gallery Section -->
@@ -348,6 +365,11 @@
         </div>
         <div class="gallery-grid" id="gallery-container">
             <!-- Dinamik kiritiladi -->
+        </div>
+        <div id="gallery-pagination" style="display: none; justify-content: center; gap: 15px; margin-top: 20px;">
+            <button id="gallery-prev" onclick="prevGalleryPage()" class="page-btn" disabled><i class="fas fa-chevron-left"></i></button>
+            <span id="gallery-page-info" style="align-self: center; font-weight: 500;">1</span>
+            <button id="gallery-next" onclick="nextGalleryPage()" class="page-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 
