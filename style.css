@@ -695,7 +695,7 @@ input:checked+.slider:before {
     align-items: center;
     padding: 0 5%;
     /* Butun masjid ko'rinishi uchun center/cover qoldirildi, kerak bo'lsa contain qilinishi mumkin */
-    background: url('hero-final.jpg') center/cover no-repeat;
+    background: url('hero-desktop.jpg') center/cover no-repeat;
 }
 
 .hero-overlay {
@@ -1528,6 +1528,9 @@ body.dark-mode .team-modal-white .modal-close {
    RESPONSIVE — Telefon (max 768px)
    ========================================= */
 @media (max-width: 768px) {
+    .hero {
+        background: url('hero-mobile.jpg') center/cover no-repeat;
+    }
 
     /* Top bar */
     .top-bar {
