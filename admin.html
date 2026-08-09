@@ -434,6 +434,7 @@
             <div class="tab active" onclick="switchTab('tab-stats')">Statistika</div>
             <div class="tab" onclick="switchTab('tab-prayer')">Vaqtlar</div>
             <div class="tab" onclick="switchTab('tab-news')">Yangiliklar</div>
+            <div class="tab" onclick="switchTab('tab-events')">Tadbirlar</div>
             <div class="tab" onclick="switchTab('tab-team')">Jamoa</div>
             <div class="tab" onclick="switchTab('tab-gallery')">Galereya</div>
             <div class="tab" onclick="switchTab('tab-dua')">Duo So'rovlari</div>
@@ -526,6 +527,22 @@
             <div id="news-list"></div>
         </div>
 
+        <!-- TADBIRLAR -->
+        <div id="tab-events" class="tab-content">
+            <label>Sarlavha</label>
+            <input type="text" id="event-title" placeholder="Tadbir sarlavhasi...">
+            <label>Matn</label>
+            <textarea id="event-desc" placeholder="Batafsil ma'lumot..."></textarea>
+            <label>Sana (ixtiyoriy)</label>
+            <input type="date" id="event-date">
+            <label>Rasm yuklash</label>
+            <input type="file" id="event-img" accept="image/*" style="padding:10px">
+            <button class="btn" id="btn-save-event" onclick="addEvent()"><i class="fas fa-plus"
+                    style="margin-right:8px"></i>Tadbir Qo'shish</button>
+            <div class="msg success" id="event-ok"></div>
+            <div id="events-list"></div>
+        </div>
+
         <!-- JAMOA -->
         <div id="tab-team" class="tab-content">
             <label>Ism-Sharif</label>
@@ -571,8 +588,10 @@
         let db = null;
         const IMGBB_API_KEY = '0b33f824585f0a48f47c96d673cd0907'; // <-- ImgBB API kalitini shu yerga yozasiz
         let fbReady = false;
+
         let editingNewsKey = null;
         let editingTeamKey = null;
+        let editingEventKey = null;
         let oldImgUrl = null;
 
         window.addEventListener('load', () => {
@@ -590,16 +609,21 @@
             }
         });
 
+        function initAdmin() {
+            loadStats();
+            loadPrayers();
+            loadList("news");
+            loadList("events");
+            loadList("team");
+            loadGallery();
+            loadDuas();
+        }
+
         function doLogin() {
             if (document.getElementById('pwd').value === ADMIN_PASS) {
                 document.getElementById('login-card').style.display = 'none';
                 document.getElementById('admin-card').style.display = 'block';
-                loadPrayers();
-                loadList('news');
-                loadList('team');
-                loadGallery();
-                loadStats(); // Statistikani yuklash
-                loadDuas();
+                initAdmin();
             } else {
                 document.getElementById('login-err').classList.add('show');
             }
@@ -772,6 +796,46 @@
             btn.disabled = false;
         }
 
+        async function addEvent() {
+            const btn = document.getElementById('btn-save-event');
+            const title = document.getElementById('event-title').value.trim();
+            const desc = document.getElementById('event-desc').value.trim();
+            const eventDate = document.getElementById('event-date').value;
+            const file = document.getElementById('event-img').files[0];
+
+            if (!title) return alert("Sarlavhani kiriting!");
+
+            btn.innerHTML = `<span class="spinner"></span> Saqlanmoqda...`;
+            btn.disabled = true;
+
+            try {
+                let imgUrl = await uploadImage(file);
+                if (editingEventKey) {
+                    await db.ref('events').child(editingEventKey).update({
+                        title, desc, eventDate,
+                        imgUrl: imgUrl || oldImgUrl || ''
+                    });
+                    editingEventKey = null;
+                } else {
+                    await db.ref('events').push({
+                        title, desc, eventDate,
+                        imgUrl: imgUrl || '',
+                        date: new Date().toISOString()
+                    });
+                }
+                const msg = document.getElementById('event-ok');
+                msg.classList.add('show');
+                setTimeout(() => msg.classList.remove('show'), 3000);
+                document.getElementById('event-title').value = '';
+                document.getElementById('event-desc').value = '';
+                document.getElementById('event-date').value = '';
+                document.getElementById('event-img').value = '';
+                loadList('events');
+            } catch (e) { alert(e.message); }
+            btn.innerHTML = `<i class="fas fa-plus" style="margin-right:8px"></i>Tadbir Qo'shish`;
+            btn.disabled = false;
+        }
+
         async function addTeam() {
             const btn = document.getElementById('btn-save-team');
             const name = document.getElementById('team-name').value;
@@ -814,12 +878,12 @@
                 container.innerHTML = '';
                 snap.forEach(child => {
                     const v = child.val();
-                    const title = type === 'news' ? v.title : v.name;
-                    const subtitle = type === 'news' ? v.date : v.role;
+                    const title = (type === 'news' || type === 'events') ? v.title : v.name;
+                    const subtitle = (type === 'news' || type === 'events') ? v.date : v.role;
                     const img = v.imgUrl ? `<img src="${v.imgUrl}" class="list-item-img">` : `<div class="list-item-img" style="background:#333;display:flex;align-items:center;justify-content:center"><i class="fas fa-image"></i></div>`;
                     
                     let editBtnHtml = '';
-                    if (type === 'news' || type === 'team') {
+                    if (type === 'news' || type === 'team' || type === 'events') {
                         editBtnHtml = `<button class="btn-edit" onclick="editItem('${type}', '${child.key}')"><i class="fas fa-edit"></i></button>`;
                     }
 
@@ -855,6 +919,15 @@
                     document.getElementById('news-desc').value = v.desc;
                     document.getElementById('btn-save-news').innerHTML = `<i class="fas fa-save" style="margin-right:8px"></i>Yangilash`;
                     switchTab('tab-news');
+                    window.scrollTo(0, 0);
+                } else if (type === 'events') {
+                    editingEventKey = key;
+                    oldImgUrl = v.imgUrl || null;
+                    document.getElementById('event-title').value = v.title;
+                    document.getElementById('event-desc').value = v.desc;
+                    if(v.eventDate) document.getElementById('event-date').value = v.eventDate;
+                    document.getElementById('btn-save-event').innerHTML = `<i class="fas fa-save" style="margin-right:8px"></i>Yangilash`;
+                    switchTab('tab-events');
                     window.scrollTo(0, 0);
                 } else if (type === 'team') {
                     editingTeamKey = key;

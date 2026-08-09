@@ -770,6 +770,39 @@ function renderNews() {
 function loadDynamicContent() {
     if (typeof firebase === 'undefined' || !firebase.apps.length) return;
     const db = firebase.database();
+    // Tadbirlar
+    db.ref('events').on('value', snap => {
+        const container = document.getElementById('events-container');
+        if (!container) return;
+        container.innerHTML = '';
+        if (!snap.exists()) {
+            container.innerHTML = `<div class="events-card glassmorphism"><div class="events-icon"><i class="fas fa-calendar-alt"></i></div><p data-i18n="events_text">Hozircha rejalashtirilgan tadbirlar yo'q.</p></div>`;
+            return;
+        }
+        
+        // Reverse order so newest events are first
+        let eventsArray = [];
+        snap.forEach(child => {
+            eventsArray.push(child.val());
+        });
+        eventsArray.reverse();
+        
+        eventsArray.forEach(v => {
+            let dateStr = v.eventDate ? `<p class="news-date"><i class="far fa-calendar-alt"></i> ${v.eventDate}</p>` : '';
+            container.innerHTML += `
+                <div class="news-card glassmorphism" onclick="openNewsModal('${(v.title||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${(v.desc||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${v.imgUrl || ''}', '${v.eventDate || ''}')">
+                    <div class="news-img" style="background-image:url('${v.imgUrl || ''}')">
+                        ${!v.imgUrl ? '<i class="fas fa-image" style="color:var(--border);font-size:2rem;"></i>' : ''}
+                    </div>
+                    <div class="news-content">
+                        <h3>${v.title}</h3>
+                        ${dateStr}
+                        <p class="news-excerpt">${v.desc}</p>
+                    </div>
+                </div>
+            `;
+        });
+    });
     
     // Yangiliklar
     db.ref('news').on('value', snap => {
