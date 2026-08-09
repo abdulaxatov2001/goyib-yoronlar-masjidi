@@ -689,7 +689,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // News Pagination Variables
 let allNews = [];
 let currentNewsPage = 1;
-const newsPerPage = 5;
+const newsPerPage = 3;
 
 let allEvents = [];
 let currentEventsPage = 1;
@@ -711,7 +711,7 @@ window.nextEventsPage = function() {
 
 let allGallery = [];
 let currentGalleryPage = 1;
-const galleryPerPage = 6;
+const galleryPerPage = 5;
 
 window.prevGalleryPage = function() {
     if (currentGalleryPage > 1) {
@@ -842,6 +842,39 @@ function renderEvents() {
     if (pageInfo) pageInfo.innerText = currentEventsPage;
 }
 
+function renderGallery() {
+    const container = document.getElementById('gallery-container');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    if (allGallery.length === 0) {
+        container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha rasmlar kiritilmagan...</p>`;
+        document.getElementById('gallery-pagination').style.display = 'none';
+        return;
+    }
+    
+    document.getElementById('gallery-pagination').style.display = 'flex';
+    const start = (currentGalleryPage - 1) * galleryPerPage;
+    const end = start + galleryPerPage;
+    const pageGallery = allGallery.slice(start, end);
+    
+    pageGallery.forEach(v => {
+        container.innerHTML += `
+            <div class="gallery-item glassmorphism" style="overflow:hidden; padding:0; cursor:pointer;" onclick="openLightbox('${v.url}')">
+                <img src="${v.url}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </div>
+        `;
+    });
+    
+    const prevBtn = document.getElementById('gallery-prev');
+    const nextBtn = document.getElementById('gallery-next');
+    const pageInfo = document.getElementById('gallery-page-info');
+    
+    if (prevBtn) prevBtn.disabled = currentGalleryPage === 1;
+    if (nextBtn) nextBtn.disabled = end >= allGallery.length;
+    if (pageInfo) pageInfo.innerText = currentGalleryPage;
+}
+
 // Firebase orqali dinamik ma'lumotlarni o'qish
 function loadDynamicContent() {
     if (typeof firebase === 'undefined' || !firebase.apps.length) return;
@@ -907,39 +940,6 @@ function loadDynamicContent() {
             `;
         });
     });
-
-    function renderGallery() {
-    const container = document.getElementById('gallery-container');
-    if (!container) return;
-    container.innerHTML = '';
-    
-    if (allGallery.length === 0) {
-        container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha rasmlar kiritilmagan...</p>`;
-        document.getElementById('gallery-pagination').style.display = 'none';
-        return;
-    }
-    
-    document.getElementById('gallery-pagination').style.display = 'flex';
-    const start = (currentGalleryPage - 1) * galleryPerPage;
-    const end = start + galleryPerPage;
-    const pageGallery = allGallery.slice(start, end);
-    
-    pageGallery.forEach(v => {
-        container.innerHTML += `
-            <div class="gallery-item glassmorphism" style="overflow:hidden; padding:0; cursor:pointer;" onclick="openLightbox('${v.url}')">
-                <img src="${v.url}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            </div>
-        `;
-    });
-    
-    const prevBtn = document.getElementById('gallery-prev');
-    const nextBtn = document.getElementById('gallery-next');
-    const pageInfo = document.getElementById('gallery-page-info');
-    
-    if (prevBtn) prevBtn.disabled = currentGalleryPage === 1;
-    if (nextBtn) nextBtn.disabled = end >= allGallery.length;
-    if (pageInfo) pageInfo.innerText = currentGalleryPage;
-}
 
     // Galereya
     db.ref('gallery').on('value', snap => {
