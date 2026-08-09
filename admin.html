@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>Admin Panel | G'oyib Yoronlar Masjidi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -406,12 +407,24 @@
             <p>G'oyib Yoronlar Jome Masjidi</p>
         </div>
         <div class="fb-warn" id="fb-status"></div>
-        <label><i class="fas fa-lock" style="margin-right:5px"></i>Parol</label>
-        <input type="password" id="pwd" placeholder="Masjid admin paroli..."
-            onkeydown="if(event.key==='Enter') doLogin()">
-        <button class="btn" id="login-btn" onclick="doLogin()"><i class="fas fa-sign-in-alt"
-                style="margin-right:8px"></i>Kirish</button>
-        <div class="msg error" id="login-err"><i class="fas fa-exclamation-circle"></i> Noto'g'ri parol!</div>
+        <div id="step1">
+            <label><i class="fas fa-lock" style="margin-right:5px"></i>Parol</label>
+            <input type="password" id="pwd" placeholder="Masjid admin paroli..."
+                onkeydown="if(event.key==='Enter') doLogin()">
+            <button class="btn" id="login-btn" onclick="doLogin()"><i class="fas fa-sign-in-alt"
+                    style="margin-right:8px"></i>Davom etish</button>
+        </div>
+
+        <div id="step2" style="display:none">
+            <label><i class="fas fa-shield-alt" style="margin-right:5px"></i>Tasdiqlash kodi</label>
+            <p style="font-size:0.8rem;color:var(--muted);margin-top:-5px;margin-bottom:10px;">Telegram botga yuborilgan 6 xonali kodni kiriting.</p>
+            <input type="number" id="tgcode" placeholder="Masalan: 123456"
+                onkeydown="if(event.key==='Enter') verifyCode()">
+            <button class="btn" onclick="verifyCode()"><i class="fas fa-check"
+                    style="margin-right:8px"></i>Tasdiqlash va Kirish</button>
+        </div>
+
+        <div class="msg error" id="login-err"><i class="fas fa-exclamation-circle"></i> Noto'g'ri parol yoki kod!</div>
         <div style="text-align:center;margin-top:20px"><a href="index.html"
                 style="color:var(--muted);font-size:0.82rem;text-decoration:none">← Saytga qaytish</a></div>
     </div>
@@ -734,12 +747,37 @@
             loadDuas();
         }
 
+        let generatedTgCode = null;
+
         function doLogin() {
             if (document.getElementById('pwd').value === ADMIN_PASS) {
+                generatedTgCode = Math.floor(100000 + Math.random() * 900000).toString();
+                const botToken = "8965800722:AAEX8i6RgDvwCMlXZuO-vk0Wi4S69vke9FY";
+                const chatId = "822033965";
+                const tgText = `🔐 Admin panelga kirish uchun tasdiqlash kodi: ${generatedTgCode}\n\nAgar bu siz bo'lmasangiz, e'tibor bermang.`;
+                
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chatId, text: tgText })
+                }).catch(console.error);
+
+                document.getElementById('step1').style.display = 'none';
+                document.getElementById('step2').style.display = 'block';
+                document.getElementById('login-err').classList.remove('show');
+            } else {
+                document.getElementById('login-err').innerHTML = '<i class="fas fa-exclamation-circle"></i> Noto\'g\'ri parol!';
+                document.getElementById('login-err').classList.add('show');
+            }
+        }
+
+        function verifyCode() {
+            if (document.getElementById('tgcode').value === generatedTgCode) {
                 document.getElementById('login-card').style.display = 'none';
                 document.getElementById('admin-card').style.display = 'block';
                 initAdmin();
             } else {
+                document.getElementById('login-err').innerHTML = '<i class="fas fa-exclamation-circle"></i> Noto\'g\'ri kod!';
                 document.getElementById('login-err').classList.add('show');
             }
         }
