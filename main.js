@@ -779,11 +779,11 @@ function renderSponsors() {
     pageSponsors.forEach((v, idx) => {
         const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-user" style="color:var(--border);font-size:4rem;"></i>`;
         container.innerHTML += `
-            <div class="team-card glassmorphism" style="cursor: default;">
+            <div class="team-card glassmorphism" style="cursor: pointer;" onclick="openSponsorModal(${idx + start})">
                 <div class="team-img" style="overflow:hidden; padding:0; background:#f8fafc; display:flex; align-items:center; justify-content:center;">${imgHtml}</div>
                 <div class="team-info">
                     <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--emerald-dark); margin-bottom: 5px;">${v.name}</h3>
-                    <p style="color: var(--text-color); font-size: 0.95rem; line-height: 1.5;">${v.desc}</p>
+                    <p style="color: var(--text-color); font-size: 0.95rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${v.desc}</p>
                 </div>
             </div>
         `;
@@ -829,6 +829,30 @@ window.openTeamModalDynamic = function(index) {
     document.getElementById('modal-name').textContent = v.name;
     document.getElementById('modal-role').textContent = v.role;
     document.getElementById('modal-desc').textContent = v.desc || v.role;
+    
+    const iconEl = document.getElementById('modal-avatar');
+    if (v.imgUrl) {
+        iconEl.innerHTML = `<img src="${v.imgUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`;
+        iconEl.style.padding = "0";
+        iconEl.style.background = "transparent";
+    } else {
+        iconEl.innerHTML = `<i class="fas fa-user"></i>`;
+        iconEl.style.padding = "";
+        iconEl.style.background = "";
+    }
+    
+    modal.classList.add('active');
+}
+
+window.openSponsorModal = function(index) {
+    if (!allSponsors) return;
+    const v = allSponsors[index];
+    if (!v) return;
+    
+    const modal = document.getElementById('team-modal');
+    document.getElementById('modal-name').textContent = v.name;
+    document.getElementById('modal-role').textContent = '';
+    document.getElementById('modal-desc').textContent = v.desc || '';
     
     const iconEl = document.getElementById('modal-avatar');
     if (v.imgUrl) {
