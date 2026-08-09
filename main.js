@@ -10,7 +10,7 @@ const translations = {
         nav_about: "Biz haqimizda",
         nav_team: "Jamoa",
         nav_news: "Yangiliklar",
-        nav_events: "Tadbirlar",
+        nav_sponsors: "Faxriylar",
         nav_gallery: "Galereya",
         nav_dua: "Duo olish",
         nav_contact: "Aloqa",
@@ -52,8 +52,8 @@ const translations = {
         team_taftish_name: "Bahtiyor hoji",
         team_taftish_role: "Taftish Raisi",
         team_taftish_desc: "Bahtiyor hoji aka masjidning moliyaviy va tashkiliy ishlarini nazorat qiladilar. Xayriya mablag'lari va masjid iqtisodiyotini boshqarishda muhim rol o'ynadilar.",
-        events_title: "Kelgusi Tadbirlar",
-        events_text: "Hozircha rejalashtirilgan tadbirlar yo'q. Yangiliklarni kuzatib boring.",
+        sponsors_title: "Faxriylar va Homiylar",
+        sponsors_text: "Hozircha ma'lumot kiritilmagan.",
         gallery_title: "Foto Galereya",
         contact_title: "Biz bilan aloqa",
         contact_text: "Manzil: Namangan viloyati, Pop tumani, To'da qishlog'i. Tel: +998 90 123 45 67",
@@ -75,7 +75,7 @@ const translations = {
         nav_about: "Биз ҳақимизда",
         nav_team: "Жамоа",
         nav_news: "Янгиликлар",
-        nav_events: "Тадбирлар",
+        nav_sponsors: "Фахрийлар",
         nav_gallery: "Галерея",
         nav_dua: "Дуо олиш",
         nav_contact: "Алоқа",
@@ -117,8 +117,8 @@ const translations = {
         team_taftish_name: "Бахтиёр ҳожи",
         team_taftish_role: "Тафтиш Раиси",
         team_taftish_desc: "Бахтиёр ҳожи ака масжиднинг молиявий ва ташкилий ишларини назорат қиладилар. Хайрия маблағлари ва масжид иқтисодиётини бошқаришда муҳим рол ўйнайдилар.",
-        events_title: "Келгуси Тадбирлар",
-        events_text: "Ҳозирча режалаштирилган тадбирлар йўқ. Янгиликларни кузатиб боринг.",
+        sponsors_title: "Фахрийлар ва Ҳомийлар",
+        sponsors_text: "Ҳозирча маълумот киритилмаган.",
         gallery_title: "Фото Галерея",
         contact_title: "Биз билан алоқа",
         contact_text: "Манзил: Наманган вилояти, Поп тумани, Тўда қишлоғи. Тел: +998 90 123 45 67",
@@ -140,7 +140,7 @@ const translations = {
         nav_about: "О нас",
         nav_team: "Команда",
         nav_news: "Новости",
-        nav_events: "Мероприятия",
+        nav_sponsors: "Ветераны",
         nav_gallery: "Галерея",
         nav_dua: "Молитва",
         nav_contact: "Контакты",
@@ -182,8 +182,8 @@ const translations = {
         team_taftish_name: "Бахтиёр хаджи",
         team_taftish_role: "Председатель ревизии",
         team_taftish_desc: "Бахтиёр хаджи контролирует финансовые и организационные дела мечети. Играет важную роль в управлении благотворительными средствами и экономикой мечети.",
-        events_title: "Предстоящие мероприятия",
-        events_text: "На данный момент запланированных мероприятий нет. Следите за новостями.",
+        sponsors_title: "Почетные лица и Спонсоры",
+        sponsors_text: "Данных пока нет.",
         gallery_title: "Фотогалерея",
         contact_title: "Связаться с нами",
         contact_text: "Адрес: Наманганская область, Папский район, село Туда. Тел: +998 90 123 45 67",
@@ -205,7 +205,7 @@ const translations = {
         nav_about: "About Us",
         nav_team: "Team",
         nav_news: "News",
-        nav_events: "Events",
+        nav_sponsors: "Sponsors",
         nav_gallery: "Gallery",
         nav_dua: "Prayer Request",
         nav_contact: "Contact",
@@ -247,8 +247,8 @@ const translations = {
         team_taftish_name: "Bahtiyor hoji",
         team_taftish_role: "Audit Committee Chair",
         team_taftish_desc: "Bahtiyor hoji aka oversees the financial and organizational affairs of the mosque. He plays an important role in managing charitable funds and the mosque's economy.",
-        events_title: "Upcoming Events",
-        events_text: "There are no scheduled events at the moment. Please stay tuned.",
+        sponsors_title: "Honorable Members and Sponsors",
+        sponsors_text: "No information available yet.",
         gallery_title: "Photo Gallery",
         contact_title: "Contact Us",
         contact_text: "Address: Namangan region, Pop district, Tuda village. Phone: +998 90 123 45 67",
@@ -689,21 +689,21 @@ document.addEventListener("DOMContentLoaded", () => {
 let allNews = [];
 const newsPerPage = 6;
 
-let allEvents = [];
-let currentEventsPage = 1;
-const eventsPerPage = 3;
+let allSponsors = [];
+let currentSponsorsPage = 1;
+const sponsorsPerPage = 3;
 
-window.prevEventsPage = function() {
-    if (currentEventsPage > 1) {
-        currentEventsPage--;
-        renderEvents();
+window.prevSponsorsPage = function() {
+    if (currentSponsorsPage > 1) {
+        currentSponsorsPage--;
+        renderSponsors();
     }
 }
 
-window.nextEventsPage = function() {
-    if (currentEventsPage * eventsPerPage < allEvents.length) {
-        currentEventsPage++;
-        renderEvents();
+window.nextSponsorsPage = function() {
+    if (currentSponsorsPage * sponsorsPerPage < allSponsors.length) {
+        currentSponsorsPage++;
+        renderSponsors();
     }
 }
 
@@ -760,49 +760,42 @@ function renderNews() {
     });
 }
 
-function renderEvents() {
-    const container = document.getElementById('events-container');
+function renderSponsors() {
+    const container = document.getElementById('sponsors-container');
     if (!container) return;
     container.innerHTML = '';
     
-    if (allEvents.length === 0) {
-        container.innerHTML = `<div class="events-card glassmorphism"><div class="events-icon"><i class="fas fa-calendar-alt"></i></div><p data-i18n="events_text">Hozircha rejalashtirilgan tadbirlar yo'q.</p></div>`;
-        document.getElementById('events-pagination').style.display = 'none';
+    if (allSponsors.length === 0) {
+        container.innerHTML = `<div class="team-card glassmorphism" style="grid-column: 1/-1; text-align: center;"><div class="events-icon" style="margin-top: 20px;"><i class="fas fa-medal"></i></div><p data-i18n="sponsors_text" style="padding: 20px; font-weight: 500;">Hozircha ma'lumot kiritilmagan.</p></div>`;
+        document.getElementById('sponsors-pagination').style.display = 'none';
         return;
     }
     
-    document.getElementById('events-pagination').style.display = 'flex';
-    const start = (currentEventsPage - 1) * eventsPerPage;
-    const end = start + eventsPerPage;
-    const pageEvents = allEvents.slice(start, end);
+    document.getElementById('sponsors-pagination').style.display = 'flex';
+    const start = (currentSponsorsPage - 1) * sponsorsPerPage;
+    const end = start + sponsorsPerPage;
+    const pageSponsors = allSponsors.slice(start, end);
     
-    pageEvents.forEach((v, idx) => {
-        let formattedEventDate = v.eventDate;
-        if (v.eventDate && v.eventDate.includes('-')) {
-            const parts = v.eventDate.split('-');
-            if (parts.length === 3) formattedEventDate = `${parts[2]}.${parts[1]}.${parts[0]}`;
-        }
-        let dateStr = formattedEventDate ? `<p class="news-date"><i class="far fa-calendar-alt"></i> ${formattedEventDate}</p>` : '';
-        const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-image" style="color:var(--border);font-size:2rem;"></i>`;
+    pageSponsors.forEach((v, idx) => {
+        const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-user" style="color:var(--border);font-size:4rem;"></i>`;
         container.innerHTML += `
-            <div class="news-card glassmorphism" onclick="openNewsModal('${(v.title||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${(v.desc||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${v.imgUrl || ''}', '${formattedEventDate || ''}')">
-                <div class="news-img" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
-                <div class="news-body">
-                    ${dateStr}
-                    <h3>${v.title}</h3>
-                    <p>${v.desc}</p>
+            <div class="team-card glassmorphism" style="cursor: default;">
+                <div class="team-img" style="overflow:hidden; padding:0; background:#f8fafc; display:flex; align-items:center; justify-content:center;">${imgHtml}</div>
+                <div class="team-info">
+                    <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--emerald-dark); margin-bottom: 5px;">${v.name}</h3>
+                    <p style="color: var(--text-color); font-size: 0.95rem; line-height: 1.5;">${v.desc}</p>
                 </div>
             </div>
         `;
     });
     
-    const prevBtn = document.getElementById('events-prev');
-    const nextBtn = document.getElementById('events-next');
-    const pageInfo = document.getElementById('events-page-info');
+    const prevBtn = document.getElementById('sponsors-prev');
+    const nextBtn = document.getElementById('sponsors-next');
+    const pageInfo = document.getElementById('sponsors-page-info');
     
-    if (prevBtn) prevBtn.disabled = currentEventsPage === 1;
-    if (nextBtn) nextBtn.disabled = end >= allEvents.length;
-    if (pageInfo) pageInfo.innerText = currentEventsPage;
+    if (prevBtn) prevBtn.disabled = currentSponsorsPage === 1;
+    if (nextBtn) nextBtn.disabled = end >= allSponsors.length;
+    if (pageInfo) pageInfo.innerText = currentSponsorsPage;
 }
 
 function renderGallery() {
@@ -855,16 +848,16 @@ function loadDynamicContent() {
     if (typeof firebase === 'undefined' || !firebase.apps.length) return;
     const db = firebase.database();
     
-    db.ref('events').on('value', snap => {
-        allEvents = [];
+    db.ref('sponsors').on('value', snap => {
+        allSponsors = [];
         if (snap.exists()) {
             snap.forEach(child => {
-                allEvents.push(child.val());
+                allSponsors.push(child.val());
             });
-            allEvents.reverse(); 
+            allSponsors.reverse(); 
         }
-        currentEventsPage = 1;
-        renderEvents();
+        currentSponsorsPage = 1;
+        renderSponsors();
     });
     
     db.ref('news').on('value', snap => {
