@@ -1173,7 +1173,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const hashtag = `#Juma_${friDay}_${friMonth}_${nextFriday.getFullYear()}`;
 
                     const botToken = "8965800722:AAEX8i6RgDvwCMlXZuO-vk0Wi4S69vke9FY";
-                    const chatIds = ["822033965", "290803300"];
+                    const chatIds = ["822033965", "290803300", "8246384946"];
                     const tgText = `🤲 Yangi duo so'rovi:\n\n👤 Ism: ${nameInput || 'Yashirin'}\n📝 Matn: ${messageInput}\n\n🕒 Vaqt: ${submissionTime}\n🔖 Xeshteg: ${hashtag}`;
                     
                     chatIds.forEach(chatId => {
