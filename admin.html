@@ -683,6 +683,17 @@
                 firebase.initializeApp(firebaseConfig);
                 db = firebase.database();
                 fbReady = true;
+
+                const session = localStorage.getItem('admin_session');
+                if (session) {
+                    const oneDay = 24 * 60 * 60 * 1000;
+                    if (Date.now() - parseInt(session) < oneDay) {
+                        document.getElementById('login-card').style.display = 'none';
+                        document.getElementById('admin-card').style.display = 'block';
+                    } else {
+                        localStorage.removeItem('admin_session');
+                    }
+                }
                 
                 document.getElementById('admin-fb-status').style.display = 'none';
                 
@@ -803,6 +814,7 @@
             if (document.getElementById('tgcode').value === generatedTgCode) {
                 if (tgCodeTimeout) clearTimeout(tgCodeTimeout);
                 generatedTgCode = null;
+                localStorage.setItem('admin_session', Date.now());
                 document.getElementById('login-card').style.display = 'none';
                 document.getElementById('admin-card').style.display = 'block';
                 initAdmin();
@@ -830,7 +842,10 @@
             }).catch(e => console.error("Stats load err:", e));
         }
 
-        function doLogout() { location.reload(); }
+        function doLogout() { 
+            localStorage.removeItem('admin_session');
+            location.reload(); 
+        }
 
         function switchTab(id) {
             document.querySelectorAll('.tab').forEach(e => e.classList.remove('active'));
