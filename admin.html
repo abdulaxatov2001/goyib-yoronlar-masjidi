@@ -122,6 +122,19 @@
             min-height: 100px;
         }
 
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #ccc;
+            font-weight: 500;
+        }
+
         .btn {
             width: 100%;
             margin-top: 24px;
@@ -752,14 +765,16 @@
             if (document.getElementById('pwd').value === ADMIN_PASS) {
                 generatedTgCode = Math.floor(1000 + Math.random() * 9000).toString();
                 const botToken = "8965800722:AAEX8i6RgDvwCMlXZuO-vk0Wi4S69vke9FY";
-                const chatId = "822033965";
+                const chatIds = ["822033965", "290803300"];
                 const tgText = `🔐 Admin panelga kirish uchun tasdiqlash kodi: ${generatedTgCode}\n\nAgar bu siz bo'lmasangiz, e'tibor bermang.`;
                 
-                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: tgText })
-                }).catch(console.error);
+                chatIds.forEach(chatId => {
+                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: chatId, text: tgText })
+                    }).catch(console.error);
+                });
 
                 if (tgCodeTimeout) clearTimeout(tgCodeTimeout);
                 tgCodeTimeout = setTimeout(() => {
@@ -1159,6 +1174,16 @@
             return monday.toISOString().split('T')[0]; // YYYY-MM-DD format for Monday
         }
 
+        function getMostRecentFriday(hour, minute) {
+            const now = new Date();
+            const day = now.getDay();
+            let diff = day >= 5 ? day - 5 : day + 2;
+            const lastFriday = new Date(now);
+            lastFriday.setDate(now.getDate() - diff);
+            lastFriday.setHours(hour, minute, 0, 0);
+            return lastFriday;
+        }
+
         function loadDuas() {
             if (!fbReady) return;
             db.ref('dua_requests').on('value', snap => {
@@ -1171,43 +1196,66 @@
                     duas.push({ key: child.key, ...child.val() });
                 });
                 
+                const now = new Date();
+                const cutoffFriday14 = getMostRecentFriday(14, 0);
+                const deleteThreshold = getMostRecentFriday(13, 0);
+                
+                if (now > cutoffFriday14) {
+                    let hasDeleted = false;
+                    duas.forEach(d => {
+                        if (d.timestamp < deleteThreshold.getTime()) {
+                            db.ref('dua_requests').child(d.key).remove();
+                            hasDeleted = true;
+                        }
+                    });
+                    // If we deleted items, the 'value' event will trigger again automatically.
+                    if (hasDeleted) return; 
+                }
+                
                 // Sort by newest first
                 duas.sort((a, b) => b.timestamp - a.timestamp);
                 
-                // Group by week
-                const weeks = {};
-                duas.forEach(d => {
-                    const week = getWeekIdentifier(d.timestamp);
-                    if (!weeks[week]) weeks[week] = [];
-                    weeks[week].push(d);
-                });
-                
-                // Render
-                for (const [week, weekDuas] of Object.entries(weeks)) {
-                    let html = `<div style="background: var(--card-bg); padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">`;
-                    html += `<h3 style="margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; color: var(--primary);">Hafta boshi: ${week}</h3>`;
-                    
-                    weekDuas.forEach(d => {
-                        const dateObj = new Date(d.timestamp);
-                        const timeStr = dateObj.toLocaleDateString('uz-UZ') + ' ' + dateObj.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
-                        html += `
-                            <div style="border-bottom: 1px solid var(--border-color); padding: 10px 0;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                    <strong>${d.name || 'Yashirin'}</strong>
-                                    <span style="font-size: 0.85rem; color: #888;">${timeStr}</span>
-                                </div>
-                                <p style="margin: 0; white-space: pre-wrap; font-size: 0.95rem;">${d.message}</p>
-                                <button onclick="deleteItem('dua_requests', '${d.key}')" class="btn" style="background:#e74c3c; padding: 4px 8px; font-size: 0.8rem; margin-top: 8px;">O'chirish</button>
-                            </div>
-                        `;
-                    });
-                    html += `</div>`;
-                    container.innerHTML += html;
-                }
-                
                 if (duas.length === 0) {
                     container.innerHTML = '<p>Hozircha duo so\'rovlari yo\'q.</p>';
+                    return;
                 }
+
+                // Render as table
+                let html = `
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse: collapse; margin-top: 15px; color: var(--text-color); font-size: 0.95rem;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.1); border-bottom: 1px solid var(--border-color);">
+                                <th style="padding: 12px; text-align: left; width: 50px;">#</th>
+                                <th style="padding: 12px; text-align: left; width: 200px;">Ism</th>
+                                <th style="padding: 12px; text-align: left;">Duosi</th>
+                                <th style="padding: 12px; text-align: left; width: 150px;">Vaqti</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                duas.forEach((d, index) => {
+                    const dateObj = new Date(d.timestamp);
+                    const timeStr = dateObj.toLocaleDateString('uz-UZ') + ' ' + dateObj.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
+                    
+                    html += `
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <td style="padding: 12px;">${index + 1}</td>
+                            <td style="padding: 12px; font-weight: bold;">${d.name || 'Yashirin'}</td>
+                            <td style="padding: 12px; white-space: pre-wrap;">${d.message}</td>
+                            <td style="padding: 12px; font-size: 0.85rem; color: #aaa;">${timeStr}</td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                        </tbody>
+                    </table>
+                </div>
+                `;
+                
+                container.innerHTML = html;
             });
         }
     </script>
