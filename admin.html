@@ -421,8 +421,8 @@
         </div>
         <div class="fb-warn" id="fb-status"></div>
         <div id="step1">
-            <label><i class="fas fa-lock" style="margin-right:5px"></i>Parol</label>
-            <input type="password" id="pwd" placeholder="Masjid admin paroli..."
+            <label><i class="fas fa-user" style="margin-right:5px"></i>Username</label>
+            <input type="text" id="username" placeholder="Admin username..."
                 onkeydown="if(event.key==='Enter') doLogin()">
             <button class="btn" id="login-btn" onclick="doLogin()"><i class="fas fa-sign-in-alt"
                     style="margin-right:8px"></i>Davom etish</button>
@@ -437,7 +437,7 @@
                     style="margin-right:8px"></i>Tasdiqlash va Kirish</button>
         </div>
 
-        <div class="msg error" id="login-err"><i class="fas fa-exclamation-circle"></i> Noto'g'ri parol yoki kod!</div>
+        <div class="msg error" id="login-err"><i class="fas fa-exclamation-circle"></i> Noto'g'ri username yoki kod!</div>
         <div style="text-align:center;margin-top:20px"><a href="index.html"
                 style="color:var(--muted);font-size:0.82rem;text-decoration:none">← Saytga qaytish</a></div>
     </div>
@@ -663,7 +663,11 @@
             return `${day}.${month}.${year}`;
         }
 
-        const ADMIN_PASS = '1';
+        const ADMIN_USERS = {
+            'admin1': '822033965',
+            'admin2': '290803300',
+            'admin3': '8246384946'
+        };
         let db = null;
         const IMGBB_API_KEY = '0b33f824585f0a48f47c96d673cd0907'; // <-- ImgBB API kalitini shu yerga yozasiz
         let fbReady = false;
@@ -772,19 +776,19 @@
         let tgCodeTimeout = null;
 
         function doLogin() {
-            if (document.getElementById('pwd').value === ADMIN_PASS) {
+            const usernameInput = document.getElementById('username').value.trim();
+            const chatId = ADMIN_USERS[usernameInput];
+
+            if (chatId) {
                 generatedTgCode = Math.floor(1000 + Math.random() * 9000).toString();
                 const botToken = "8965800722:AAEX8i6RgDvwCMlXZuO-vk0Wi4S69vke9FY";
-                const chatIds = ["822033965", "290803300", "8246384946"];
                 const tgText = `🔐 Admin panelga kirish uchun tasdiqlash kodi: ${generatedTgCode}\n\nAgar bu siz bo'lmasangiz, e'tibor bermang.`;
                 
-                chatIds.forEach(chatId => {
-                    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: chatId, text: tgText })
-                    }).catch(console.error);
-                });
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chatId, text: tgText })
+                }).catch(console.error);
 
                 if (tgCodeTimeout) clearTimeout(tgCodeTimeout);
                 tgCodeTimeout = setTimeout(() => {
@@ -792,7 +796,7 @@
                     alert("Kodning amal qilish muddati (2 daqiqa) tugadi! Iltimos, boshqatdan kiring.");
                     document.getElementById('step2').style.display = 'none';
                     document.getElementById('step1').style.display = 'block';
-                    document.getElementById('pwd').value = '';
+                    document.getElementById('username').value = '';
                     document.getElementById('tgcode').value = '';
                 }, 120000);
 
@@ -800,7 +804,7 @@
                 document.getElementById('step2').style.display = 'block';
                 document.getElementById('login-err').classList.remove('show');
             } else {
-                document.getElementById('login-err').innerHTML = '<i class="fas fa-exclamation-circle"></i> Noto\'g\'ri parol!';
+                document.getElementById('login-err').innerHTML = '<i class="fas fa-exclamation-circle"></i> Noto\'g\'ri username!';
                 document.getElementById('login-err').classList.add('show');
             }
         }
