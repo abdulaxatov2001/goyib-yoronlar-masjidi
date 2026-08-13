@@ -24,6 +24,8 @@
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://goyibyoronlar.uz/">
+    <!-- Google Fonts preload -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,11 +35,33 @@
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css?v=2.1">
+    <link rel="stylesheet" href="style.css?v=2.2">
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script src="firebase-config.js"></script>
+    <!-- Schema.org structured data (Mosque) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MosqueOrMasjid",
+        "name": "G'oyib Yoronlar Jome Masjidi",
+        "description": "G'oyib Yoronlar jome masjidi — Namangan viloyati Pop tumani To'da qishlog'ida joylashgan ma'naviy markaz.",
+        "url": "https://goyibyoronlar.uz/",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "To'da qishlog'i",
+            "addressRegion": "Namangan viloyati, Pop tumani",
+            "addressCountry": "UZ"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 40.9847,
+            "longitude": 71.0956
+        },
+        "openingHours": "Mo-Su 05:00-22:00"
+    }
+    </script>
 </head>
 
 <body>
@@ -339,7 +363,7 @@
     <!-- Sponsors Section -->
     <section class="section" id="sponsors">
         <div class="section-header">
-            <h2 data-i18n="sponsors_title">Faxriylar va Homiylar</h2>
+            <h2 data-i18n="sponsors_title">Faxriylar va homiylar</h2>
         </div>
         <div class="team-grid" id="sponsors-container">
             <div class="events-card glassmorphism">
@@ -357,29 +381,28 @@
     <!-- Gallery Section -->
     <section class="section section-alt" id="gallery">
         <div class="section-header">
-            <h2 data-i18n="gallery_title">Foto Galereya</h2>
+            <h2 data-i18n="gallery_title">Foto galereya</h2>
         </div>
         <div class="gallery-grid" id="gallery-container">
             <!-- Dinamik kiritiladi -->
         </div>
     </section>
 
-    <!-- Duo Olish Section -->
     <section class="section" id="dua">
         <div class="section-header">
             <h2 data-i18n="dua_title">Jamoatdan duo olish</h2>
-            <p style="color: var(--text); opacity: 0.9; max-width: 600px; margin: 10px auto; font-size: 0.95rem; line-height: 1.5;" data-i18n="dua_warning_note">
+            <p style="color: var(--card-muted); max-width: 600px; margin: 10px auto; font-size: 0.95rem; line-height: 1.5;" data-i18n="dua_warning_note">
                 Eslatma: Juma kuni soat 12:40 dan 13:00 gacha duo yuborish vaqtincha to'xtatiladi. 13:00 dan so'ng yuborilgan duolar keyingi Juma namoziga qoladi.
             </p>
         </div>
         <div class="dua-wrapper" style="max-width: 600px; margin: 0 auto;">
-            <div class="events-card glassmorphism" style="padding: 2rem; display: flex; flex-direction: column; gap: 15px;">
+            <div class="events-card glassmorphism dua-form-container" style="padding: 2rem; display: flex; flex-direction: column; gap: 15px;">
                 <p id="dua-warning" style="color: #e74c3c; font-weight: bold; margin-bottom: 10px; text-align: center; display: none;" data-i18n="dua_blocked">
                     Hozir Juma namozi vaqti (12:40 - 13:00). Duolar qabul qilinmaydi.
                 </p>
                 <form id="dua-form" style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
-                    <input type="text" id="dua-name" placeholder="Ismingiz (ixtiyoriy)" data-i18n-placeholder="dua_name_ph" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #ccc; background: #fff; color: #333; font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--emerald)'" onblur="this.style.borderColor='#ccc'">
-                    <textarea id="dua-message" placeholder="Duo mazmuni (Masalan: Bemorman, jamoatdan shifo so'rab duo qilishlarini iltimos qilaman)" data-i18n-placeholder="dua_msg_ph" required rows="4" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #ccc; background: #fff; color: #333; font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s; resize: vertical;" onfocus="this.style.borderColor='var(--emerald)'" onblur="this.style.borderColor='#ccc'"></textarea>
+                    <input type="text" id="dua-name" placeholder="Ismingiz (ixtiyoriy)" data-i18n-placeholder="dua_name_ph" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--card-text); font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--emerald)'" onblur="this.style.borderColor='var(--card-border)'">
+                    <textarea id="dua-message" placeholder="Duo mazmuni (Masalan: Bemorman, jamoatdan shifo so'rab duo qilishlarini iltimos qilaman)" data-i18n-placeholder="dua_msg_ph" required rows="4" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--card-text); font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s; resize: vertical;" onfocus="this.style.borderColor='var(--emerald)'" onblur="this.style.borderColor='var(--card-border)'"></textarea>
                     <button type="submit" id="dua-submit-btn" style="padding: 14px; border-radius: 8px; border: none; background: var(--emerald); color: #fff; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'" data-i18n="dua_submit">Yuborish</button>
                 </form>
                 <p id="dua-success" style="color: #27ae60; font-weight: bold; margin-top: 10px; text-align: center; display: none; line-height: 1.4;" data-i18n="dua_success">
@@ -484,7 +507,7 @@
 
     <div id="toast" class="toast">Nusxa olindi! <i class="fas fa-check-circle" style="margin-left: 5px; color: #10b981;"></i></div>
 
-    <script src="main.js?v=2.1"></script>
+    <script src="main.js?v=2.2"></script>
 </body>
 
 </html>

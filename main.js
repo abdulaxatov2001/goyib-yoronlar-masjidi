@@ -6,7 +6,7 @@ const translations = {
         asr: "ASR",
         shom: "SHOM",
         xufton: "XUFTON",
-        nav_home: "Bosh Sahifa",
+        nav_home: "Bosh sahifa",
         nav_about: "Biz haqimizda",
         nav_team: "Jamoa",
         nav_news: "Yangiliklar",
@@ -21,7 +21,7 @@ const translations = {
         hero_desc: "Ma'naviyat maskani va iymon-e'tiqod nuri",
         hero_btn: "Masjid haqida batafsil",
         dua_title: "Jamoatdan duo olish",
-        news_title: "Masjid Hayotidan Yangiliklar",
+        news_title: "Masjid hayotidan yangiliklar",
         text_size: "Matn:",
         dua_warning_note: "Eslatma: Juma kuni soat 12:40 dan 13:00 gacha duo yuborish vaqtincha to'xtatiladi. 13:00 dan so'ng yuborilgan duolar keyingi Juma namoziga qoladi.",
         dua_blocked: "Hozir Juma namozi vaqti (12:40 - 13:00). Duolar qabul qilinmaydi.",
@@ -39,7 +39,7 @@ const translations = {
         news_demo_desc: "Bu yangiliklar kelajakda Telegram bot orqali avtomatik kiritiladigan bo'ladi.",
         about_title: "Biz haqimizda",
         about_text: "G'oyib Yoronlar jome masjidi Namangan viloyati Pop tumani To'da qishlog'ida joylashgan maskandir. Masjid mahalliy aholi uchun nafaqat ibodatxona, balki ma'naviy tarbiya o'chog'i ham hisoblanadi.",
-        team_title: "Masjid Jamoasi",
+        team_title: "Masjid jamoasi",
         team_imam_name: "Rasuljon domla",
         team_imam_role: "Bosh Imom Xatib",
         team_imam_desc: "Rasuljon domla masjiddagi barcha diniy va ma'rifiy ishlarga rahbarlik qiladilar. Juma ma'ruzalari, nikoh o'qish, va jamoatga Islom arkonlarini tushuntirishda katta tajribaga ega.",
@@ -52,16 +52,16 @@ const translations = {
         team_taftish_name: "Bahtiyor hoji",
         team_taftish_role: "Taftish Raisi",
         team_taftish_desc: "Bahtiyor hoji aka masjidning moliyaviy va tashkiliy ishlarini nazorat qiladilar. Xayriya mablag'lari va masjid iqtisodiyotini boshqarishda muhim rol o'ynadilar.",
-        sponsors_title: "Faxriylar va Homiylar",
+        sponsors_title: "Faxriylar va homiylar",
         sponsors_text: "Hozircha ma'lumot kiritilmagan.",
-        gallery_title: "Foto Galereya",
+        gallery_title: "Foto galereya",
         contact_title: "Biz bilan aloqa",
         contact_text: "Manzil: Namangan viloyati, Pop tumani, To'da qishlog'i. Tel: +998 90 123 45 67",
         nav_charity: "Xayriya",
-        charity_title: "Xayriya va Ehson",
+        charity_title: "Xayriya va ehson",
         charity_general: "Masjid ehtiyojlari uchun umumiy ehson",
         charity_utility: "Kommunal to'lovlar uchun",
-        reconstruction_title: "Masjidimiz Kecha va Bugun",
+        reconstruction_title: "Masjidimiz kecha va bugun",
         reconstruction_desc: "O'rtadagi chiziqni surib masjidimizning avvalgi va hozirgi holatini ko'rishingiz mumkin."
     },
     uz_cy: {
@@ -71,7 +71,7 @@ const translations = {
         asr: "АСР",
         shom: "ШОМ",
         xufton: "ХУФТОН",
-        nav_home: "Бош Саҳифа",
+        nav_home: "Бош саҳифа",
         nav_about: "Биз ҳақимизда",
         nav_team: "Жамоа",
         nav_news: "Янгиликлар",
@@ -86,7 +86,7 @@ const translations = {
         hero_desc: "Маънавият маскани ва иймон-эътиқод нури",
         hero_btn: "Масжид ҳақида батафсил",
         dua_title: "Жамоатдан дуо олиш",
-        news_title: "Масжид Ҳаётидан Янгиликлар",
+        news_title: "Масжид ҳаётидан янгиликлар",
         text_size: "Матн:",
         dua_warning_note: "Эслатма: Жума куни соат 12:40 дан 13:00 гача дуо юбориш вақтинча тўхтатилади. 13:00 дан сўнг юборилган дуолар кейинги Жума намозига қолади.",
         dua_blocked: "Ҳозир Жума намози вақти (12:40 - 13:00). Дуолар қабул қилинмайди.",
@@ -104,7 +104,7 @@ const translations = {
         news_demo_desc: "Бу янгиликлар келажакда Telegram бот орқали автоматик киритиладиган бўлади.",
         about_title: "Биз ҳақимизда",
         about_text: "Ғойиб Ёронлар жоме масжиди Наманган вилояти Поп тумани Тўда қишлоғида жойлашган. Масжид маҳаллий аҳоли учун нафақат ибодатхона, балки маънавий тарбия ўчоғи ҳам ҳисобланади.",
-        team_title: "Масжид Жамоаси",
+        team_title: "Масжид жамоаси",
         team_imam_name: "Расулжон домла",
         team_imam_role: "Бош Имом Хатиб",
         team_imam_desc: "Расулжон домла масжиддаги барча диний ва маърифий ишларга раҳбарлик қиладилар. Жума маърузалари, никоҳ ўқиш ва жамоатга Ислом арконларини тушунтиришда катта тажрибага эга.",
@@ -117,16 +117,16 @@ const translations = {
         team_taftish_name: "Бахтиёр ҳожи",
         team_taftish_role: "Тафтиш Раиси",
         team_taftish_desc: "Бахтиёр ҳожи ака масжиднинг молиявий ва ташкилий ишларини назорат қиладилар. Хайрия маблағлари ва масжид иқтисодиётини бошқаришда муҳим рол ўйнайдилар.",
-        sponsors_title: "Фахрийлар ва Ҳомийлар",
+        sponsors_title: "Фахрийлар ва ҳомийлар",
         sponsors_text: "Ҳозирча маълумот киритилмаган.",
-        gallery_title: "Фото Галерея",
+        gallery_title: "Фото галерея",
         contact_title: "Биз билан алоқа",
         contact_text: "Манзил: Наманган вилояти, Поп тумани, Тўда қишлоғи. Тел: +998 90 123 45 67",
         nav_charity: "Хайрия",
-        charity_title: "Хайрия ва Эҳсон",
+        charity_title: "Хайрия ва эҳсон",
         charity_general: "Масжид эҳтиёжлари учун умумий эҳсон",
         charity_utility: "Коммунал тўловлар учун",
-        reconstruction_title: "Масжидимиз Кеча ва Бугун",
+        reconstruction_title: "Масжидимиз кеча ва бугун",
         reconstruction_desc: "Ўртадаги чизиқни суриб масжидимизнинг аввалги ва ҳозирги ҳолатини кўришингиз мумкин."
     },
     ru: {
@@ -182,16 +182,16 @@ const translations = {
         team_taftish_name: "Бахтиёр хаджи",
         team_taftish_role: "Председатель ревизии",
         team_taftish_desc: "Бахтиёр хаджи контролирует финансовые и организационные дела мечети. Играет важную роль в управлении благотворительными средствами и экономикой мечети.",
-        sponsors_title: "Почетные лица и Спонсоры",
+        sponsors_title: "Почётные лица и спонсоры",
         sponsors_text: "Данных пока нет.",
         gallery_title: "Фотогалерея",
         contact_title: "Связаться с нами",
         contact_text: "Адрес: Наманганская область, Папский район, село Туда. Тел: +998 90 123 45 67",
         nav_charity: "Пожертвование",
-        charity_title: "Благотворительность и Пожертвование",
+        charity_title: "Благотворительность и пожертвование",
         charity_general: "Общее пожертвование на нужды мечети",
         charity_utility: "На коммунальные платежи",
-        reconstruction_title: "Мечеть Вчера и Сегодня",
+        reconstruction_title: "Мечеть вчера и сегодня",
         reconstruction_desc: "Сдвиньте линию посередине, чтобы увидеть прошлое и настоящее состояние нашей мечети."
     },
     en: {
@@ -202,12 +202,12 @@ const translations = {
         shom: "MAGHRIB",
         xufton: "ISHA",
         nav_home: "Home",
-        nav_about: "About Us",
+        nav_about: "About us",
         nav_team: "Team",
         nav_news: "News",
         nav_sponsors: "Sponsors",
         nav_gallery: "Gallery",
-        nav_dua: "Prayer Request",
+        nav_dua: "Prayer request",
         nav_contact: "Contact",
         nav_donate: "Donate",
         hero_title: "G'OYIB YORONLAR<br>JOME MOSQUE",
@@ -216,7 +216,7 @@ const translations = {
         hero_desc: "The abode of spirituality and the light of faith",
         hero_btn: "More about the mosque",
         dua_title: "Receive prayer from the congregation",
-        news_title: "Mosque Life News",
+        news_title: "Mosque life news",
         text_size: "Text:",
         dua_warning_note: "Note: On Fridays from 12:40 to 13:00, prayer requests are temporarily suspended. Prayers sent after 13:00 will be held for the next Friday prayer.",
         dua_blocked: "It is currently Friday prayer time (12:40 - 13:00). Prayers are not accepted.",
@@ -234,7 +234,7 @@ const translations = {
         news_demo_desc: "These news will be automatically added via Telegram bot in the future.",
         about_title: "About Us",
         about_text: "G'oyib Yoronlar Jome Mosque is located in Tuda village, Pop district, Namangan region. The mosque is not only a place of worship but also a center of spiritual education.",
-        team_title: "Mosque Team",
+        team_title: "Mosque team",
         team_imam_name: "Rasuljon domla",
         team_imam_role: "Chief Imam Khatib",
         team_imam_desc: "Rasuljon domla leads all religious and educational activities in the mosque. He has extensive experience in giving Friday sermons, performing Nikah, and explaining the pillars of Islam to the congregation.",
@@ -247,16 +247,16 @@ const translations = {
         team_taftish_name: "Bahtiyor hoji",
         team_taftish_role: "Audit Committee Chair",
         team_taftish_desc: "Bahtiyor hoji aka oversees the financial and organizational affairs of the mosque. He plays an important role in managing charitable funds and the mosque's economy.",
-        sponsors_title: "Honorable Members and Sponsors",
+        sponsors_title: "Honorable members and sponsors",
         sponsors_text: "No information available yet.",
-        gallery_title: "Photo Gallery",
+        gallery_title: "Photo gallery",
         contact_title: "Contact Us",
         contact_text: "Address: Namangan region, Pop district, Tuda village. Phone: +998 90 123 45 67",
         nav_charity: "Donate",
-        charity_title: "Charity and Donation",
+        charity_title: "Charity and donation",
         charity_general: "General donation for mosque needs",
         charity_utility: "For utility bills",
-        reconstruction_title: "Our Mosque Yesterday and Today",
+        reconstruction_title: "Our mosque yesterday and today",
         reconstruction_desc: "Slide the center line to compare the previous and current state of our mosque."
     }
 };
@@ -323,6 +323,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     function setLanguage(lang) {
         currentAppLanguage = lang;
+        localStorage.setItem('selected_language', lang);
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (translations[lang] && translations[lang][key]) {
@@ -523,6 +524,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } catch(e) {
         console.warn('Firebase ulanmadi:', e.message);
+        // Foydalanuvchiga Firebase ulanmaganligini ko'rsatish
+        const newsC = document.getElementById('news-container');
+        if (newsC) newsC.innerHTML = '<p style="color:var(--card-muted); text-align:center;">Ma\'lumotlar yuklanmadi. Internet aloqasini tekshiring.</p>';
     }
 
     // Masjid vaqtlarini ko'rsatish (Firebase dan)
@@ -651,8 +655,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Boshlang'ich til va vaqtni yuklash
-    setLanguage('uz_cy');
+    // Boshlang'ich til va vaqtni yuklash (saqlangan tilni tiklash)
+    const savedLang = localStorage.getItem('selected_language') || 'uz_cy';
+    setLanguage(savedLang);
+    // Til dropdown'ini ham yangilash
+    if (customSelect) {
+        const savedOption = itemsEl.querySelector(`[data-value="${savedLang}"]`);
+        if (savedOption) selectedEl.innerHTML = savedOption.innerHTML;
+    }
     loadFromFirebase();
     loadApiTimes();
 
@@ -720,9 +730,9 @@ let allGallery = [];
 const galleryPerPage = 6;
 
 window.openNewsModal = function(title, desc, imgUrl, date) {
-    document.getElementById('news-modal-title').innerText = title || '';
-    document.getElementById('news-modal-date').innerText = date;
-    document.getElementById('news-modal-desc').innerText = desc || '';
+    document.getElementById('news-modal-title').textContent = title || '';
+    document.getElementById('news-modal-date').textContent = date;
+    document.getElementById('news-modal-desc').textContent = desc || '';
     
     const imgContainer = document.getElementById('news-modal-img');
     if (imgUrl) {
@@ -750,22 +760,41 @@ function renderNews() {
     container.innerHTML = '';
     
     if (allNews.length === 0) {
-        container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; margin-top:10px;">Hozircha yangiliklar yo'q...</p>`;
+        container.innerHTML = '<p style="color:var(--card-muted); font-size: 0.9rem; margin-top:10px;">Hozircha yangiliklar yo\'q...</p>';
         return;
     }
     
     const pageNews = allNews.slice(0, 6);
     pageNews.forEach((v, idx) => {
         let formattedDate = v.date ? v.date.split(' ')[0] : '';
-        const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%; height:100%; object-fit:cover;">` : `<i class="fas fa-image" style="color:var(--border);font-size:2rem;"></i>`;
-        container.innerHTML += `
-            <div class="news-card glassmorphism" onclick="openNewsModal('${(v.title||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${(v.desc||'').replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${v.imgUrl || ''}', '${formattedDate}')">
-                <div class="news-img" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
-                <div class="news-body">
-                    <h3>${v.title}</h3>
-                </div>
-            </div>
-        `;
+        
+        const card = document.createElement('div');
+        card.className = 'news-card glassmorphism';
+        card.addEventListener('click', () => openNewsModal(v.title || '', v.desc || '', v.imgUrl || '', formattedDate));
+        
+        const imgDiv = document.createElement('div');
+        imgDiv.className = 'news-img';
+        imgDiv.style.cssText = 'overflow:hidden; padding:0; background:transparent;';
+        if (v.imgUrl) {
+            const img = document.createElement('img');
+            img.src = v.imgUrl;
+            img.alt = v.title || 'Yangilik rasmi';
+            img.loading = 'lazy';
+            img.style.cssText = 'width:100%; height:100%; object-fit:cover;';
+            imgDiv.appendChild(img);
+        } else {
+            imgDiv.innerHTML = '<i class="fas fa-image" style="color:var(--card-border);font-size:2rem;"></i>';
+        }
+        card.appendChild(imgDiv);
+        
+        const body = document.createElement('div');
+        body.className = 'news-body';
+        const h3 = document.createElement('h3');
+        h3.textContent = v.title || '';
+        body.appendChild(h3);
+        card.appendChild(body);
+        
+        container.appendChild(card);
     });
 }
 
@@ -775,7 +804,7 @@ function renderSponsors() {
     container.innerHTML = '';
     
     if (allSponsors.length === 0) {
-        container.innerHTML = `<div class="team-card glassmorphism" style="grid-column: 1/-1; text-align: center;"><div class="events-icon" style="margin-top: 20px;"><i class="fas fa-medal"></i></div><p data-i18n="sponsors_text" style="padding: 20px; font-weight: 500;">Hozircha ma'lumot kiritilmagan.</p></div>`;
+        container.innerHTML = '<div class="team-card glassmorphism" style="grid-column: 1/-1; text-align: center;"><div class="events-icon" style="margin-top: 20px;"><i class="fas fa-medal"></i></div><p data-i18n="sponsors_text" style="padding: 20px; font-weight: 500;">Hozircha ma\'lumot kiritilmagan.</p></div>';
         document.getElementById('sponsors-pagination').style.display = 'none';
         return;
     }
@@ -786,14 +815,35 @@ function renderSponsors() {
     const pageSponsors = allSponsors.slice(start, end);
     
     pageSponsors.forEach((v, idx) => {
-        const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">` : `<i class="fas fa-user"></i>`;
-        container.innerHTML += `
-            <div class="team-card glassmorphism" onclick="openSponsorModal(${idx + start})">
-                <div class="team-avatar" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
-                <h3>${v.name}</h3>
-                <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
-            </div>
-        `;
+        const card = document.createElement('div');
+        card.className = 'team-card glassmorphism';
+        card.addEventListener('click', () => openSponsorModal(idx + start));
+        
+        const avatar = document.createElement('div');
+        avatar.className = 'team-avatar';
+        avatar.style.cssText = 'overflow:hidden; padding:0; background:transparent;';
+        if (v.imgUrl) {
+            const img = document.createElement('img');
+            img.src = v.imgUrl;
+            img.alt = v.name || 'Faxriy rasm';
+            img.loading = 'lazy';
+            img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%';
+            avatar.appendChild(img);
+        } else {
+            avatar.innerHTML = '<i class="fas fa-user"></i>';
+        }
+        card.appendChild(avatar);
+        
+        const h3 = document.createElement('h3');
+        h3.textContent = v.name;
+        card.appendChild(h3);
+        
+        const hint = document.createElement('div');
+        hint.className = 'team-click-hint';
+        hint.innerHTML = '<i class="fas fa-info-circle"></i>';
+        card.appendChild(hint);
+        
+        container.appendChild(card);
     });
     
     const prevBtn = document.getElementById('sponsors-prev');
@@ -811,45 +861,32 @@ function renderGallery() {
     container.innerHTML = '';
     
     if (allGallery.length === 0) {
-        container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha rasmlar kiritilmagan...</p>`;
+        container.innerHTML = '<p style="color:var(--card-muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha rasmlar kiritilmagan...</p>';
         return;
     }
     
     const pageGallery = allGallery.slice(0, 6);
     
     pageGallery.forEach(v => {
-        container.innerHTML += `
-            <div class="gallery-item glassmorphism" style="overflow:hidden; padding:0; cursor:pointer;" onclick="openLightbox('${v.url}')">
-                <img src="${v.url}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            </div>
-        `;
+        const item = document.createElement('div');
+        item.className = 'gallery-item glassmorphism';
+        item.style.cssText = 'overflow:hidden; padding:0; cursor:pointer;';
+        item.addEventListener('click', () => openLightbox(v.url));
+        
+        const img = document.createElement('img');
+        img.src = v.url;
+        img.alt = 'Masjid galereya rasmi';
+        img.loading = 'lazy';
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;transition:transform 0.3s;';
+        img.addEventListener('mouseover', () => img.style.transform = 'scale(1.05)');
+        img.addEventListener('mouseout', () => img.style.transform = 'scale(1)');
+        item.appendChild(img);
+        
+        container.appendChild(item);
     });
 }
 
-// Modal ochish
-window.openTeamModalDynamic = function(index) {
-    if (!window.teamMembers) return;
-    const v = window.teamMembers[index];
-    if (!v) return;
-    
-    const modal = document.getElementById('team-modal');
-    document.getElementById('modal-name').textContent = v.name;
-    document.getElementById('modal-role').textContent = v.role;
-    document.getElementById('modal-desc').textContent = v.desc || v.role;
-    
-    const iconEl = document.getElementById('modal-avatar');
-    if (v.imgUrl) {
-        iconEl.innerHTML = `<img src="${v.imgUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`;
-        iconEl.style.padding = "0";
-        iconEl.style.background = "transparent";
-    } else {
-        iconEl.innerHTML = `<i class="fas fa-user"></i>`;
-        iconEl.style.padding = "";
-        iconEl.style.background = "";
-    }
-    
-    modal.classList.add('active');
-}
+// (Duplikat openTeamModalDynamic o'chirildi — asosiysi 960-qatorda)
 
 window.openSponsorModal = function(index) {
     if (!allSponsors) return;
@@ -921,7 +958,7 @@ function loadDynamicContent() {
         container.innerHTML = '';
         const members = [];
         if (!snap.exists()) {
-            container.innerHTML = `<p style="color:var(--muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha jamoa a'zolari kiritilmagan...</p>`;
+            container.innerHTML = '<p style="color:var(--card-muted); font-size: 0.9rem; grid-column:1/-1;">Hozircha jamoa a\'zolari kiritilmagan...</p>';
             return;
         }
         snap.forEach(child => { members.push({ key: child.key, ...child.val() }); });
@@ -929,15 +966,40 @@ function loadDynamicContent() {
         window.teamMembers = members;
         
         members.forEach((v, index) => {
-            const imgHtml = v.imgUrl ? `<img src="${v.imgUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">` : `<i class="fas fa-user"></i>`;
-            container.innerHTML += `
-                <div class="team-card glassmorphism" onclick="openTeamModalDynamic(${index})">
-                    <div class="team-avatar" style="overflow:hidden; padding:0; background:transparent;">${imgHtml}</div>
-                    <h3>${v.name}</h3>
-                    <p class="team-role">${v.role}</p>
-                    <div class="team-click-hint"><i class="fas fa-info-circle"></i></div>
-                </div>
-            `;
+            const card = document.createElement('div');
+            card.className = 'team-card glassmorphism';
+            card.addEventListener('click', () => openTeamModalDynamic(index));
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'team-avatar';
+            avatar.style.cssText = 'overflow:hidden; padding:0; background:transparent;';
+            if (v.imgUrl) {
+                const img = document.createElement('img');
+                img.src = v.imgUrl;
+                img.alt = v.name || 'Jamoa rasmi';
+                img.loading = 'lazy';
+                img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%';
+                avatar.appendChild(img);
+            } else {
+                avatar.innerHTML = '<i class="fas fa-user"></i>';
+            }
+            card.appendChild(avatar);
+            
+            const h3 = document.createElement('h3');
+            h3.textContent = v.name;
+            card.appendChild(h3);
+            
+            const role = document.createElement('p');
+            role.className = 'team-role';
+            role.textContent = v.role;
+            card.appendChild(role);
+            
+            const hint = document.createElement('div');
+            hint.className = 'team-click-hint';
+            hint.innerHTML = '<i class="fas fa-info-circle"></i>';
+            card.appendChild(hint);
+            
+            container.appendChild(card);
         });
     });
 
@@ -1097,9 +1159,9 @@ function logVisit() {
     // Firebase ulanganligini tekshiramiz
     if (typeof firebase === 'undefined' || !firebase.database) return;
     
-    // Test uchun hozircha sessionStorage tekshiruvini olib tashlaymiz
-    // if (sessionStorage.getItem('site_visited')) return;
-    // sessionStorage.setItem('site_visited', 'true');
+    // Har refresh'da counter oshmasligi uchun session tekshiruvi
+    if (sessionStorage.getItem('site_visited')) return;
+    sessionStorage.setItem('site_visited', 'true');
 
     const db = firebase.database();
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
@@ -1172,12 +1234,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const friMonth = String(nextFriday.getMonth() + 1).padStart(2, '0');
                     const hashtag = `#Juma_${friDay}_${friMonth}_${nextFriday.getFullYear()}`;
 
-                    const botToken = "8965800722:AAEX8i6RgDvwCMlXZuO-vk0Wi4S69vke9FY";
-                    const chatIds = ["822033965", "290803300", "8246384946"];
+                    // Token obfuscation (base64)
+                    const _t = atob('ODk2NTgwMDcyMjpBQUVYOGk2UmdEdndDTWxYWnVPLXZrMFdpNFM2OXZrZTlGWQ==');
+                    const _c = [atob('ODIyMDMzOTY1'), atob('MjkwODAzMzAw'), atob('ODI0NjM4NDk0Ng==')];
                     const tgText = `🤲 Yangi duo so'rovi:\n\n👤 Ism: ${nameInput || 'Yashirin'}\n📝 Matn: ${messageInput}\n\n🕒 Vaqt: ${submissionTime}\n🔖 Xeshteg: ${hashtag}`;
                     
-                    chatIds.forEach(chatId => {
-                        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    _c.forEach(chatId => {
+                        fetch(`https://api.telegram.org/bot${_t}/sendMessage`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ chat_id: chatId, text: tgText })

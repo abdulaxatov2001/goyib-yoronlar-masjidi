@@ -7,8 +7,10 @@
     --emerald: #2D7A4A;
     --emerald-deep: #1f5233;
     --emerald-dark: #12301e;
-    --emerald-light: #4A90E2;
-    /* Obzor/Ko'k rang sifatida ishlatsa bo'ladi */
+    --accent-blue: #4A90E2;
+    /* Obzor/Ko'k rang sifatida ishlatiladi */
+    --emerald-light: #3a9d5e;
+    /* Yashil rangning ochroq varianti */
 
     /* Tilla urg'u ranglar */
     --mint: #D4AF37;
@@ -54,7 +56,49 @@ body.dark-mode .section-alt {
 }
 
 body.dark-mode .section-header h2 {
-    color: var(--mint-light);
+    color: var(--mint);
+}
+
+body.dark-mode .about-card,
+body.dark-mode .events-card {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+}
+
+body.dark-mode .charity-card {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+}
+
+body.dark-mode .card-number-box {
+    background: rgba(45, 122, 74, 0.15);
+    border-color: var(--emerald);
+}
+
+body.dark-mode .utility-item {
+    border-bottom-color: var(--card-border);
+}
+
+/* Duo formasi dark mode */
+body.dark-mode .dua-form-container {
+    background: var(--card-bg) !important;
+    border-color: var(--card-border) !important;
+}
+
+body.dark-mode .dua-form-container input,
+body.dark-mode .dua-form-container textarea {
+    background: #2a2a2a !important;
+    color: var(--card-text) !important;
+    border-color: var(--card-border) !important;
+}
+
+body.dark-mode .dua-form-container input::placeholder,
+body.dark-mode .dua-form-container textarea::placeholder {
+    color: var(--card-muted) !important;
+}
+
+body.dark-mode .dua-form-container label {
+    color: var(--card-text) !important;
 }
 
 body.dark-mode .hero-overlay {
@@ -116,12 +160,12 @@ html.font-scale-xl .hero-content {
 
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    font-weight: 400;
-    text-align: left;
     background: var(--page-bg);
     color: var(--card-text);
-    line-height: 1.7;
     overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
@@ -781,6 +825,8 @@ input:checked+.slider:before {
     display: inline-block;
     position: relative;
     font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
 .section-header h2::after {

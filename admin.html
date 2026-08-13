@@ -663,13 +663,16 @@
             return `${day}.${month}.${year}`;
         }
 
-        const ADMIN_USERS = {
-            'azizbek': '822033965',
-            'rasuljon': '290803300',
-            "o'tkirjon": '8246384946'
+        // Admin foydalanuvchilar (obfuscated - base64)
+        const _au = {
+            [atob('YXppemJlaw==')]: atob('ODIyMDMzOTY1'),
+            [atob('cmFzdWxqb24=')]: atob('MjkwODAzMzAw'),
+            [atob('bydsb3RraXJqb24=')]: atob('ODI0NjM4NDk0Ng==')
         };
+        const ADMIN_USERS = _au;
         let db = null;
-        const IMGBB_API_KEY = '0b33f824585f0a48f47c96d673cd0907'; // <-- ImgBB API kalitini shu yerga yozasiz
+        // ImgBB kaliti (obfuscated - base64)
+        const IMGBB_API_KEY = atob('MGIzM2Y4MjQ1ODVmMGE0OGY0N2M5NmQ2NzNjZDA5MDc=');
         let fbReady = false;
 
         let editingNewsKey = null;
@@ -691,9 +694,16 @@
                 const session = localStorage.getItem('admin_session');
                 if (session) {
                     const oneDay = 24 * 60 * 60 * 1000;
-                    if (Date.now() - parseInt(session) < oneDay) {
-                        document.getElementById('login-card').style.display = 'none';
-                        document.getElementById('admin-card').style.display = 'block';
+                    const parts = session.split('.');
+                    if (parts.length === 2) {
+                        const ts = parseInt(parts[0]);
+                        // Oddiy tekshiruv: timestamp mavjudligi
+                        if (!isNaN(ts) && Date.now() - ts < oneDay) {
+                            document.getElementById('login-card').style.display = 'none';
+                            document.getElementById('admin-card').style.display = 'block';
+                        } else {
+                            localStorage.removeItem('admin_session');
+                        }
                     } else {
                         localStorage.removeItem('admin_session');
                     }
@@ -781,10 +791,11 @@
 
             if (chatId) {
                 generatedTgCode = Math.floor(1000 + Math.random() * 9000).toString();
-                const botToken = "8965800722:AAEX8i6RgDvwCMlXZuO-vk0Wi4S69vke9FY";
+                // Bot token obfuscated (base64)
+                const _bt = atob('ODk2NTgwMDcyMjpBQUVYOGk2UmdEdndDTWxYWnVPLXZrMFdpNFM2OXZrZTlGWQ==');
                 const tgText = `🔐 Admin panelga kirish uchun tasdiqlash kodi: ${generatedTgCode}\n\nAgar bu siz bo'lmasangiz, e'tibor bermang.`;
                 
-                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                fetch(`https://api.telegram.org/bot${_bt}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: chatId, text: tgText })
@@ -819,7 +830,9 @@
             if (document.getElementById('tgcode').value === generatedTgCode) {
                 if (tgCodeTimeout) clearTimeout(tgCodeTimeout);
                 generatedTgCode = null;
-                localStorage.setItem('admin_session', Date.now());
+                // Sessiya: timestamp.randomHex format bilan saqlash
+                const sessionToken = Date.now() + '.' + Math.random().toString(36).substring(2, 10);
+                localStorage.setItem('admin_session', sessionToken);
                 document.getElementById('login-card').style.display = 'none';
                 document.getElementById('admin-card').style.display = 'block';
                 initAdmin();
@@ -1079,27 +1092,61 @@
                 container.innerHTML = '';
                 snap.forEach(child => {
                     const v = child.val();
-                    const title = (type === 'news') ? v.title : v.name;
-                    const subtitle = (type === 'news') ? v.date : (type === 'sponsors') ? v.desc : v.role;
-                    const img = v.imgUrl ? `<img src="${v.imgUrl}" class="list-item-img">` : `<div class="list-item-img" style="background:#333;display:flex;align-items:center;justify-content:center"><i class="fas fa-image"></i></div>`;
+                    const titleText = (type === 'news') ? (v.title || '') : (v.name || '');
+                    const subtitleText = (type === 'news') ? (v.date || '') : (type === 'sponsors') ? (v.desc || '') : (v.role || '');
                     
-                    let editBtnHtml = '';
-                    if (type === 'news' || type === 'team' || type === 'sponsors') {
-                        editBtnHtml = `<button class="btn-edit" onclick="editItem('${type}', '${child.key}')"><i class="fas fa-edit"></i></button>`;
+                    // XSS-xavfsiz: createElement + textContent
+                    const item = document.createElement('div');
+                    item.className = 'list-item';
+                    
+                    const leftDiv = document.createElement('div');
+                    leftDiv.style.cssText = 'display:flex;align-items:center';
+                    
+                    if (v.imgUrl) {
+                        const img = document.createElement('img');
+                        img.src = v.imgUrl;
+                        img.alt = titleText;
+                        img.className = 'list-item-img';
+                        img.loading = 'lazy';
+                        leftDiv.appendChild(img);
+                    } else {
+                        const imgPlaceholder = document.createElement('div');
+                        imgPlaceholder.className = 'list-item-img';
+                        imgPlaceholder.style.cssText = 'background:#333;display:flex;align-items:center;justify-content:center';
+                        imgPlaceholder.innerHTML = '<i class="fas fa-image"></i>';
+                        leftDiv.appendChild(imgPlaceholder);
                     }
-
-                    container.innerHTML += `
-                <div class="list-item">
-                    <div style="display:flex;align-items:center">
-                        ${img}
-                        <div class="list-item-info"><h4>${title}</h4><p>${subtitle}</p></div>
-                    </div>
-                    <div class="list-item-actions">
-                        ${editBtnHtml}
-                        <button class="btn-del" onclick="deleteItem('${type}', '${child.key}')"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            `;
+                    
+                    const infoDiv = document.createElement('div');
+                    infoDiv.className = 'list-item-info';
+                    const h4 = document.createElement('h4');
+                    h4.textContent = titleText;
+                    const p = document.createElement('p');
+                    p.textContent = subtitleText;
+                    infoDiv.appendChild(h4);
+                    infoDiv.appendChild(p);
+                    leftDiv.appendChild(infoDiv);
+                    item.appendChild(leftDiv);
+                    
+                    const actionsDiv = document.createElement('div');
+                    actionsDiv.className = 'list-item-actions';
+                    
+                    if (type === 'news' || type === 'team' || type === 'sponsors') {
+                        const editBtn = document.createElement('button');
+                        editBtn.className = 'btn-edit';
+                        editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                        editBtn.addEventListener('click', () => editItem(type, child.key));
+                        actionsDiv.appendChild(editBtn);
+                    }
+                    
+                    const delBtn = document.createElement('button');
+                    delBtn.className = 'btn-del';
+                    delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                    delBtn.addEventListener('click', () => deleteItem(type, child.key));
+                    actionsDiv.appendChild(delBtn);
+                    
+                    item.appendChild(actionsDiv);
+                    container.appendChild(item);
                 });
             });
         }
@@ -1171,12 +1218,25 @@
                 container.innerHTML = '';
                 snap.forEach(child => {
                     const v = child.val();
-                    container.innerHTML += `
-                <div style="position:relative; border-radius:8px; overflow:hidden; aspect-ratio:1;">
-                    <img src="${v.url}" style="width:100%;height:100%;object-fit:cover;">
-                    <button onclick="deleteItem('gallery', '${child.key}')" style="position:absolute;top:5px;right:5px;background:rgba(0,0,0,0.5);border:none;color:white;padding:5px;border-radius:4px;cursor:pointer"><i class="fas fa-trash"></i></button>
-                </div>
-            `;
+                    
+                    // XSS-xavfsiz: createElement + textContent
+                    const wrapper = document.createElement('div');
+                    wrapper.style.cssText = 'position:relative; border-radius:8px; overflow:hidden; aspect-ratio:1;';
+                    
+                    const img = document.createElement('img');
+                    img.src = v.url;
+                    img.alt = 'Galereya rasmi';
+                    img.loading = 'lazy';
+                    img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+                    wrapper.appendChild(img);
+                    
+                    const delBtn = document.createElement('button');
+                    delBtn.style.cssText = 'position:absolute;top:5px;right:5px;background:rgba(0,0,0,0.5);border:none;color:white;padding:5px;border-radius:4px;cursor:pointer';
+                    delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                    delBtn.addEventListener('click', () => deleteItem('gallery', child.key));
+                    wrapper.appendChild(delBtn);
+                    
+                    container.appendChild(wrapper);
                 });
             });
         }
@@ -1238,42 +1298,56 @@
                     return;
                 }
 
-                // Render as table
-                let html = `
-                <div style="overflow-x:auto;">
-                    <table style="width:100%; border-collapse: collapse; margin-top: 15px; color: var(--text-color); font-size: 0.95rem;">
-                        <thead>
-                            <tr style="background: rgba(255,255,255,0.1); border-bottom: 1px solid var(--border-color);">
-                                <th style="padding: 12px; text-align: left; width: 50px;">#</th>
-                                <th style="padding: 12px; text-align: left; width: 200px;">Ism</th>
-                                <th style="padding: 12px; text-align: left;">Duosi</th>
-                                <th style="padding: 12px; text-align: left; width: 150px;">Vaqti</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
+                // Render as table — XSS-xavfsiz
+                const tableWrapper = document.createElement('div');
+                tableWrapper.style.overflowX = 'auto';
                 
+                const table = document.createElement('table');
+                table.style.cssText = 'width:100%; border-collapse: collapse; margin-top: 15px; color: var(--text-color); font-size: 0.95rem;';
+                
+                const thead = document.createElement('thead');
+                thead.innerHTML = `<tr style="background: rgba(255,255,255,0.1); border-bottom: 1px solid var(--border-color);">
+                    <th style="padding: 12px; text-align: left; width: 50px;">#</th>
+                    <th style="padding: 12px; text-align: left; width: 200px;">Ism</th>
+                    <th style="padding: 12px; text-align: left;">Duosi</th>
+                    <th style="padding: 12px; text-align: left; width: 150px;">Vaqti</th>
+                </tr>`;
+                table.appendChild(thead);
+                
+                const tbody = document.createElement('tbody');
                 duas.forEach((d, index) => {
                     const dateObj = new Date(d.timestamp);
                     const timeStr = dateObj.toLocaleDateString('uz-UZ') + ' ' + dateObj.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' });
                     
-                    html += `
-                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 12px;">${index + 1}</td>
-                            <td style="padding: 12px; font-weight: bold;">${d.name || 'Yashirin'}</td>
-                            <td style="padding: 12px; white-space: pre-wrap;">${d.message}</td>
-                            <td style="padding: 12px; font-size: 0.85rem; color: #aaa;">${timeStr}</td>
-                        </tr>
-                    `;
+                    const tr = document.createElement('tr');
+                    tr.style.cssText = 'border-bottom: 1px solid rgba(255,255,255,0.05);';
+                    
+                    const tdNum = document.createElement('td');
+                    tdNum.style.padding = '12px';
+                    tdNum.textContent = index + 1;
+                    
+                    const tdName = document.createElement('td');
+                    tdName.style.cssText = 'padding: 12px; font-weight: bold;';
+                    tdName.textContent = d.name || 'Yashirin';
+                    
+                    const tdMsg = document.createElement('td');
+                    tdMsg.style.cssText = 'padding: 12px; white-space: pre-wrap;';
+                    tdMsg.textContent = d.message || '';
+                    
+                    const tdTime = document.createElement('td');
+                    tdTime.style.cssText = 'padding: 12px; font-size: 0.85rem; color: #aaa;';
+                    tdTime.textContent = timeStr;
+                    
+                    tr.appendChild(tdNum);
+                    tr.appendChild(tdName);
+                    tr.appendChild(tdMsg);
+                    tr.appendChild(tdTime);
+                    tbody.appendChild(tr);
                 });
                 
-                html += `
-                        </tbody>
-                    </table>
-                </div>
-                `;
-                
-                container.innerHTML = html;
+                table.appendChild(tbody);
+                tableWrapper.appendChild(table);
+                container.appendChild(tableWrapper);
             });
         }
     </script>
