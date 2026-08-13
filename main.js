@@ -658,10 +658,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Boshlang'ich til va vaqtni yuklash (saqlangan tilni tiklash)
     const savedLang = localStorage.getItem('selected_language') || 'uz_cy';
     setLanguage(savedLang);
-    // Til dropdown'ini ham yangilash
+    // Til dropdown ko'rinishini ham tanlangan tilga moslashtirish
     if (customSelect) {
-        const savedOption = itemsEl.querySelector(`[data-value="${savedLang}"]`);
-        if (savedOption) selectedEl.innerHTML = savedOption.innerHTML;
+        const _selectedEl = customSelect.querySelector('.select-selected');
+        const _itemsEl = customSelect.querySelector('.select-items');
+        if (_selectedEl && _itemsEl) {
+            const savedOption = _itemsEl.querySelector(`[data-value="${savedLang}"]`);
+            if (savedOption) _selectedEl.innerHTML = savedOption.innerHTML;
+        }
     }
     loadFromFirebase();
     loadApiTimes();
