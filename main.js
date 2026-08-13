@@ -902,6 +902,12 @@ window.openSponsorModal = function(index) {
     document.getElementById('modal-role').textContent = '';
     document.getElementById('modal-desc').textContent = v.desc || '';
     
+    // Faxriylar uchun telefon va Telegram ko'rsatilmaydi — yashiriladi
+    const phoneEl = document.getElementById('modal-phone');
+    const tgEl = document.getElementById('modal-tg');
+    if (phoneEl) { phoneEl.style.display = 'none'; phoneEl.textContent = ''; phoneEl.href = '#'; }
+    if (tgEl) { tgEl.style.display = 'none'; tgEl.textContent = ''; tgEl.href = '#'; }
+    
     const iconEl = document.getElementById('modal-avatar');
     if (v.imgUrl) {
         iconEl.innerHTML = `<img src="${v.imgUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`;
